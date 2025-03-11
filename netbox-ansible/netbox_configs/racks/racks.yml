@@ -1,0 +1,38 @@
+---
+racks:
+  - data:
+      name: US-MO-STL-60-DC1-R1
+      description: ATCDC1 Network Rack
+      site: us-mo-stl-60
+      location: us-mo-stl-60-dc1
+      status: active
+      rack_role: network-rack
+      rack_type: apc-netshelter-sx-server-rack
+    state: present
+  - data:
+      name: US-MN-MSP-01-MDF-R1
+      description: MSP Branch 01 MDF Network Rack
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      status: active
+      rack_role: network-rack
+      rack_type: apc-netshelter-sx-server-rack
+    state: present
+  - data:
+      name: US-MN-MSP-01-IDF-01-R1
+      description: MSP Branch 01 IDF-01 Network Rack
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-01
+      status: active
+      rack_role: network-rack
+      rack_type: apc-netshelter-sx-server-rack
+    state: present
+  - data:
+      name: US-MN-MSP-01-IDF-02-R1
+      description: MSP Branch 01 IDF-02 Network Rack
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-02
+      status: active
+      rack_role: network-rack
+      rack_type: apc-netshelter-sx-server-rack
+    state: present

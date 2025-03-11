@@ -1,0 +1,8 @@
+---
+site_groups:
+  - name: Data Centers
+    description: Data Centers
+    state: present
+  - name: Branches
+    description: Branch Offices
+    state: present

@@ -1,0 +1,38 @@
+---
+device_roles:
+  - name: core switch
+    slug: core-switch
+    description: Core Switch
+    color: 145a32
+    vm_role: false
+    state: present
+  - name: access switch
+    slug: access-switch
+    description: Access Switch
+    color: f39c12
+    vm_role: false
+    state: present
+  - name: edge router
+    slug: edge-router
+    description: Edge Router
+    color: 4169e1
+    vm_role: false
+    state: present
+  - name: wan router
+    slug: wan-router
+    description: WAN Router
+    color: 0f52ba
+    vm_role: false
+    state: present
+  - name: cable management
+    slug: cable-management
+    description: Cable Management
+    color: 7fffd4
+    vm_role: false
+    state: present
+  - name: structured cabling
+    slug: structured-cabling
+    description: Structured Cabling
+    color: 00ffff
+    vm_role: false
+    state: present

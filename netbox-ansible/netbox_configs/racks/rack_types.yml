@@ -1,0 +1,21 @@
+rack_types:
+  - data:
+      manufacturer:
+        name: APC
+        slug: apc
+      model: "APC NetShelter SX Server Rack"
+      slug: apc-netshelter-sx-server-rack
+      form_factor: "4-post-cabinet"
+      width: 19
+      u_height: 42
+      starting_unit: 1
+      height: 78
+      outer_width: 32
+      outer_depth: 42
+      outer_unit: in
+      mounting_depth: 91
+      weight: 356
+      max_weight: 2250
+      weight_unit: lb
+      desc_units: false
+    state: present

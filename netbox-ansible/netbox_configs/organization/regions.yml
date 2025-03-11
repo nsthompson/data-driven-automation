@@ -1,0 +1,13 @@
+---
+regions:
+  - name: US
+    description: United States of America
+    state: present
+  - name: US-MN
+    description: Minnesota
+    parent_region: US
+    state: present
+  - name: US-MO
+    description: Missouri
+    parent_region: US
+    state: present

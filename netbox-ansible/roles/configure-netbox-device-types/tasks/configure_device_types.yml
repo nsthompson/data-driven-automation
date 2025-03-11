@@ -1,0 +1,78 @@
+---
+- name: Configuring Device Type {{ device.manufacturer + ' ' + device.model }}
+  netbox.netbox.netbox_device_type:
+    data:
+      model: "{{ device.model }}"
+      part_number: "{{ device.part_number | default(omit) }}"
+      slug: "{{ device.slug | default(omit) }}"
+      manufacturer: "{{ device.manufacturer | default(omit) }}"
+      description: "{{ device.description | default(omit) }}"
+      comments: "{{ device.comments | default(omit) }}"
+      airflow: "{{ device.airflow | default(omit) }}"
+      default_platform: "{{ device.default_platform | default(omit) }}"
+      is_full_depth: "{{ device.is_full_depth | default(omit) }}"
+      subdevice_role: "{{ device.subdevice_role | default(omit) }}"
+      u_height: "{{ device.u_height | default(omit) }}"
+      weight: "{{ device.weight | default(omit) }}"
+      weight_unit: "{{ device.weight_unit | default(omit) }}"
+      custom_fields: "{{ device.custom_fields | default(omit) }}"
+      tags: "{{ device.tags | default(omit) }}"
+    state: "{{ device.state }}"
+
+- name: Configuring Interface Templates for {{ device.manufacturer + ' ' + device.model }}
+  netbox.netbox.netbox_device_interface_template:
+    data:
+      device_type: "{{ device.slug }}"
+      name: "{{ interface.name }}"
+      type: "{{ interface.type | default(omit) }}"
+      mgmt_only: "{{ interface.mgmt_only | default(omit) }}"
+      poe_mode: "{{ interface.poe_mode | default(omit) }}"
+      poe_type: "{{ interface.poe_type | default(omit) }}"
+    state: "{{ interface.state }}"
+  when: device.interfaces is defined
+  loop: "{{ device.interfaces }}"
+  loop_control:
+    loop_var: interface
+
+- name: Configuring Console Port Templates for {{ device.manufacturer + ' ' + device.model }}
+  netbox.netbox.netbox_console_port_template:
+    data:
+      device_type: "{{ device.slug }}"
+      name: "{{ port.name }}"
+      type: "{{ port.type | default(omit) }}"
+    state: "{{ port.state }}"
+  when: device.console_ports is defined
+  loop: "{{ device.console_ports }}"
+  loop_control:
+    loop_var: port
+
+- name: Configuring Rear Port Templates for {{ device.manufacturer + ' ' + device.model }}
+  netbox.netbox.netbox_rear_port_template:
+    data:
+      device_type: "{{ device.slug }}"
+      name: "{{ port.name }}"
+      type: "{{ port.type | default(omit) }}"
+      positions: "{{ port.positions | default(omit) }}"
+      description: "{{ port.description | default(omit) }}"
+      label: "{{ port.label | default(omit) }}"
+    state: "{{ port.state }}"
+  when: device.rear_ports is defined
+  loop: "{{ device.rear_ports }}"
+  loop_control:
+    loop_var: port
+
+- name: Configuring Front Port Templates for {{ device.manufacturer + ' ' + device.model }}
+  netbox.netbox.netbox_front_port_template:
+    data:
+      device_type: "{{ device.slug }}"
+      name: "{{ port.name }}"
+      type: "{{ port.type | default(omit) }}"
+      description: "{{ port.description | default(omit) }}"
+      label: "{{ port.label | default(omit) }}"
+      rear_port_template: "{{ port.rear_port_template }}"
+      rear_port_template_position: "{{ port.rear_port_template_position | default(omit) }}"
+    state: "{{ port.state }}"
+  when: device.front_ports is defined
+  loop: "{{ device.front_ports }}"
+  loop_control:
+    loop_var: port

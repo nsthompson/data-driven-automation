@@ -1,0 +1,16 @@
+- name: Configure Netbox Circuit Providers
+  netbox.netbox.netbox_provider:
+    data:
+      name: "{{ provider.data.name }}"
+      description: "{{ provider.data.description | default(omit) }}"
+      asn: "{{ provider.data.asn | default(omit) }}"
+      admin_contact: "{{ provider.data.admin_contact | default(omit) }}"
+      noc_contact: "{{ provider.data.noc_contact | default(omit) }}"
+      portal_url: "{{ provider.data.portal_url | default(omit) }}"
+      comments: "{{ provider.data.comments | default(omit) }}"
+      custom_fields: "{{ provider.data.custom_fields | default(omit) }}"
+      tags: "{{ provider.data.tags | default(omit) }}"
+    state: "{{ provider.state }}"
+  loop: "{{ providers }}"
+  loop_control:
+    loop_var: provider

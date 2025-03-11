@@ -1,0 +1,23 @@
+---
+#
+# Ansible Role to Configure Netbox Sites
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox Regions
+  ansible.builtin.include_tasks: configure_regions.yml
+  when: regions is defined
+
+- name: Configure Netbox Site Groups
+  ansible.builtin.include_tasks: configure_site_groups.yml
+  when: site_groups is defined
+
+- name: Configure Netbox Sites and Locations
+  ansible.builtin.include_tasks: configure_sites_locations.yml
+  loop: "{{ sites }}"
+  loop_control:
+    loop_var: site

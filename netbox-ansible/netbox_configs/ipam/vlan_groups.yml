@@ -1,0 +1,8 @@
+---
+vlan_groups:
+  - data:
+      name: US-MN-MSP-01-VLANS
+      description: US-MN-MSP-01 Branch Office VLANs
+      scope_type: dcim.site
+      scope: us-mn-msp-01
+    state: present

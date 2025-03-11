@@ -1,0 +1,14 @@
+---
+- name: Configure Netbox Circuit Types
+  netbox.netbox.netbox_circuit_type:
+    data:
+      name: "{{ circuit.data.name }}"
+      slug: "{{ circuit.data.slug | default(omit) }}"
+      description: "{{ circuit.data.description | default(omit) }}"
+      color: "{{ circuit.data.color | default(omit) }}"
+      custom_fields: "{{ circuit.data.custom_fields | default(omit) }}"
+      tags: "{{ circuit.data.tags | default(omit) }}"
+    state: "{{ circuit.state }}"
+  loop: "{{ circuit_types }}"
+  loop_control:
+    loop_var: circuit

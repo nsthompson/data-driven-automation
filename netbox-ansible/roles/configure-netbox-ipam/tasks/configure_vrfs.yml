@@ -1,0 +1,17 @@
+- name: Configure Netbox VRFs
+  netbox.netbox.netbox_vrf:
+    data:
+      name: "{{ vrf.data.name }}"
+      description: "{{ vrf.data.description | default(omit) }}"
+      enforce_unique: "{{ vrf.data.enforce_unique | default(omit) }}"
+      export_targets: "{{ vrf.data.export_targets | default(omit) }}"
+      import_targets: "{{ vrf.data.import_targets | default(omit) }}"
+      rd: "{{ vrf.data.rd | default(omit) }}"
+      tenant: "{{ vrf.data.tenant | default(omit) }}"
+      comments: "{{ vrf.data.comments | default(omit) }}"
+      custom_fields: "{{ vrf.data.custom_fields | default(omit) }}"
+      tags: "{{ vrf.data.tags | default(omit) }}"
+    state: "{{ vrf.state }}"
+  loop: "{{ vrfs }}"
+  loop_control:
+    loop_var: vrf

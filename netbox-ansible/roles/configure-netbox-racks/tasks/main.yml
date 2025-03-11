@@ -1,0 +1,27 @@
+---
+#
+# Ansible Role to Configure Netbox Racks
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+# - name: Configure Netbox Rack Roles
+#   ansible.builtin.include_tasks: configure_rack_roles.yml
+#   when: rack_roles is defined
+
+# - name: Configure Netbox Rack Types
+#   ansible.builtin.include_tasks: configure_rack_types.yml
+#   when: rack_types is defined
+#   loop: "{{ rack_types }}"
+#   loop_control:
+#     loop_var: rack
+
+- name: Configure Netbox Racks
+  ansible.builtin.include_tasks: configure_racks.yml
+  when: racks is defined
+  loop: "{{ racks }}"
+  loop_control:
+    loop_var: rack

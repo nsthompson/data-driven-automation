@@ -1,0 +1,323 @@
+manufacturers:
+  - name: Cisco
+    description: Cisco Systems
+    state: present
+  - name: APC
+    description: Schneider Electric APC
+    state: present
+  - name: Leviton
+    description: Leviton Manufacturing Company
+    state: present
+device_types:
+  - manufacturer: Cisco
+    model: IOL
+    default_platform: ios
+    slug: cisco-iol
+    part_number: vrnetlab/cisco_iol:17.12.01
+    u_height: 1
+    is_full_depth: false
+    description: IOL Layer 3 Container Lab Image
+    state: present
+    console_ports:
+      - name: Con 0
+        type: rj-45
+        state: present
+    interfaces:
+      - name: Ethernet0/0
+        type: 1000base-t
+        mgmt_only: true
+        state: present
+      - name: Ethernet0/1
+        type: 1000base-t
+        state: present
+      - name: Ethernet0/2
+        type: 1000base-t
+        state: present
+      - name: Ethernet0/3
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/0
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/1
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/2
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/3
+        type: 1000base-t
+        state: present
+  - manufacturer: Cisco
+    model: IOL-L2
+    default_platform: ios
+    slug: cisco-iol-l2
+    part_number: vrnetlab/cisco_iol:l2-17.12.01
+    u_height: 1
+    is_full_depth: false
+    description: IOL Layer 2 Container Lab Image
+    state: present
+    console_ports:
+      - name: Con 0
+        type: rj-45
+        state: present
+    interfaces:
+      - name: Ethernet0/0
+        type: 1000base-t
+        mgmt_only: true
+        state: present
+      - name: Ethernet0/1
+        type: 1000base-t
+        state: present
+      - name: Ethernet0/2
+        type: 1000base-t
+        state: present
+      - name: Ethernet0/3
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/0
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/1
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/2
+        type: 1000base-t
+        state: present
+      - name: Ethernet1/3
+        type: 1000base-t
+        state: present
+  - manufacturer: Leviton
+    model: QUICKPORT 24-Port 1-RU Patch Panel
+    slug: leviton-quickport-24p-1ru-patch-panel
+    part_number: 6910G-U24
+    u_height: 1
+    is_full_depth: false
+    description: Leviton Cat 6A Flat QUICKPORT 24-Port 1-RU Patch Panel
+    state: present
+    rear_ports:
+      - name: RP1
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP2
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP3
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP4
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP5
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP6
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP7
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP8
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP9
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP10
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP11
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP12
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP13
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP14
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP15
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP16
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP17
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP18
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP19
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP20
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP21
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP22
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP23
+        type: 8p8c
+        positions: 1
+        state: present
+      - name: RP24
+        type: 8p8c
+        positions: 1
+        state: present
+    front_ports:
+      - name: FP1
+        type: 8p8c
+        rear_port_template: RP1
+        report_port_template_position: 1
+        state: present
+      - name: FP2
+        type: 8p8c
+        rear_port_template: RP2
+        report_port_template_position: 1
+        state: present
+      - name: FP3
+        type: 8p8c
+        rear_port_template: RP3
+        report_port_template_position: 1
+        state: present
+      - name: FP4
+        type: 8p8c
+        rear_port_template: RP4
+        report_port_template_position: 1
+        state: present
+      - name: FP5
+        type: 8p8c
+        rear_port_template: RP5
+        report_port_template_position: 1
+        state: present
+      - name: FP6
+        type: 8p8c
+        rear_port_template: RP6
+        report_port_template_position: 1
+        state: present
+      - name: FP7
+        type: 8p8c
+        rear_port_template: RP7
+        report_port_template_position: 1
+        state: present
+      - name: FP8
+        type: 8p8c
+        rear_port_template: RP8
+        report_port_template_position: 1
+        state: present
+      - name: FP9
+        type: 8p8c
+        rear_port_template: RP9
+        report_port_template_position: 1
+        state: present
+      - name: FP10
+        type: 8p8c
+        rear_port_template: RP10
+        report_port_template_position: 1
+        state: present
+      - name: FP11
+        type: 8p8c
+        rear_port_template: RP11
+        report_port_template_position: 1
+        state: present
+      - name: FP12
+        type: 8p8c
+        rear_port_template: RP12
+        report_port_template_position: 1
+        state: present
+      - name: FP13
+        type: 8p8c
+        rear_port_template: RP13
+        report_port_template_position: 1
+        state: present
+      - name: FP14
+        type: 8p8c
+        rear_port_template: RP14
+        report_port_template_position: 1
+        state: present
+      - name: FP15
+        type: 8p8c
+        rear_port_template: RP15
+        report_port_template_position: 1
+        state: present
+      - name: FP16
+        type: 8p8c
+        rear_port_template: RP16
+        report_port_template_position: 1
+        state: present
+      - name: FP17
+        type: 8p8c
+        rear_port_template: RP17
+        report_port_template_position: 1
+        state: present
+      - name: FP18
+        type: 8p8c
+        rear_port_template: RP18
+        report_port_template_position: 1
+        state: present
+      - name: FP19
+        type: 8p8c
+        rear_port_template: RP19
+        report_port_template_position: 1
+        state: present
+      - name: FP20
+        type: 8p8c
+        rear_port_template: RP20
+        report_port_template_position: 1
+        state: present
+      - name: FP21
+        type: 8p8c
+        rear_port_template: RP21
+        report_port_template_position: 1
+        state: present
+      - name: FP22
+        type: 8p8c
+        rear_port_template: RP22
+        report_port_template_position: 1
+        state: present
+      - name: FP23
+        type: 8p8c
+        rear_port_template: RP23
+        report_port_template_position: 1
+        state: present
+      - name: FP24
+        type: 8p8c
+        rear_port_template: RP24
+        report_port_template_position: 1
+        state: present
+  - manufacturer: Leviton
+    model: Horizontal Cable Management 2RU Front Only
+    slug: leviton-horizontal-2ru-cable-mgmt
+    part_number: 492RU-210-HFO
+    u_height: 2
+    is_full_depth: false
+    description: Leviton Horizontal Cable Management 2RU 3x3 Front Only
+    state: present

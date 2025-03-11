@@ -1,0 +1,6 @@
+---
+- name: Generate topology file
+  ansible.builtin.template:
+    src: templates/clab.j2
+    dest: ./{{ topology_name }}.clab.yml
+    mode: '0644'

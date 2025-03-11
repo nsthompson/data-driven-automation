@@ -1,0 +1,13 @@
+- name: Configure Regions
+  netbox.netbox.netbox_region:
+    data:
+      name: "{{ region.name }}"
+      slug: "{{ region.name | lower }}"
+      description: "{{ region.description | default(omit) }}"
+      parent_region: "{{ region.parent_region | default(omit) }}"
+      custom_fields: "{{ region.custom_fields | default(omit) }}"
+      tags: "{{ region.tags | default(omit) }}"
+    state: "{{ region.state }}"
+  loop: "{{ regions }}"
+  loop_control:
+    loop_var: region

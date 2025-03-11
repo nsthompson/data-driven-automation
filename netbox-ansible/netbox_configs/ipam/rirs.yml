@@ -1,0 +1,7 @@
+---
+rirs:
+  - data:
+      name: RFC1918
+      description: RFC1918 Addresses
+      is_private: true
+    state: present

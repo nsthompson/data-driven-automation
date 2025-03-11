@@ -1,0 +1,7 @@
+circuit_types:
+  - data:
+      name: Corporate WAN
+      slug: corporate-wan
+      description: WAN Circuit
+      color: b87333
+    state: present

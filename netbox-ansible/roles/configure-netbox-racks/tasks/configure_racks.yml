@@ -1,0 +1,46 @@
+---
+- name: Configuring Rack {{ rack.data.name }}
+  netbox.netbox.netbox_rack:
+    data:
+      name: "{{ rack.data.name }}"
+      description: "{{ rack.data.description | default(omit) }}"
+      site: "{{ rack.data.site | default(omit) }}"
+      location: "{{ rack.data.location | default(omit) }}"
+      status: "{{ rack.data.status | default(omit) }}"
+      rack_role: "{{ rack.data.rack_role | default(omit) }}"
+    state: "{{ rack.state }}"
+
+# netbox.netbox.netbox_rack does not support setting the rack_type to the slug of a custom rack type
+
+- name: Checking for rack type with name {{ rack.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/dcim/racks/?name={{ rack.data.name }}"
+    method: GET
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+    return_content: yes
+  register: response
+
+- name: Fail if multiple racks with same name
+  fail:
+    msg: "Multiple rack-types found with name {{ rack.data.name }}"
+  when: response.json.count > 1
+
+- name: Set rack_id if exists
+  set_fact:
+    rack_id: "{{ response.json.results[0].id }}"
+  when: response.json.count == 1
+
+- name: Updating rack {{ rack.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/dcim/racks/{{ rack_id }}/"
+    method: PATCH
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      rack_type:
+        slug: "{{ rack.data.rack_type }}"
+    status_code: 200
+  when: response.json.count == 1 and rack.state == "present"

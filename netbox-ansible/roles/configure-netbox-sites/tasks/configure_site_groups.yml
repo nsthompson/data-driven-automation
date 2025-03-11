@@ -1,0 +1,13 @@
+---
+- name: Configure Site Groups
+  netbox.netbox.netbox_site_group:
+    data:
+      name: "{{ group.name }}"
+      description: "{{ group.description | default(omit) }}"
+      parent_site_group: "{{ group.parent_site_group | default(omit) }}"
+      custom_fields: "{{ group.custom_fields | default(omit) }}"
+      tags: "{{ group.tags | default(omit) }}"
+    state: "{{ group.state }}"
+  loop: "{{ site_groups }}"
+  loop_control:
+    loop_var: group

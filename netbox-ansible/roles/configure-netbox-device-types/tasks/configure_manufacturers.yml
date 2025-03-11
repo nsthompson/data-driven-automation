@@ -1,0 +1,10 @@
+---
+- name: Configuring Manufacturer {{ mfg.name }}
+  netbox.netbox.netbox_manufacturer:
+    data:
+      name: "{{ mfg.name }}"
+      slug: "{{ mfg.slug | default(omit) }}"
+      description: "{{ mfg.description | default(omit) }}"
+      custom_fields: "{{ mfg.custom_fields | default(omit) }}"
+      tags: "{{ mfg.tags | default(omit) }}"
+    state: "{{ mfg.state }}"

@@ -1,0 +1,40 @@
+---
+name: {{ topology_name }}
+
+mgmt:
+  network: {{ mgmt.network }}
+  ipv4-subnet: {{ mgmt.ipv4_subnet }}
+
+topology:
+  nodes:
+{% for site in devices_by_site.keys() %}
+    # {{ site }}
+{% for node in devices_by_site[site].keys() %}
+    {{ node }}:
+{% if devices_by_site[site][node].model == "IOL" %}
+      kind: cisco_iol
+{% elif devices_by_site[site][node].model == "IOL-L2" %}
+      kind: cisco_iol
+      type: L2
+{% else %}
+      kind: {{ devices_by_site[site][node].model }}
+{% endif %}
+      image: {{ devices_by_site[site][node].image }}
+      mgmt-ipv4: {{ devices_by_site[site][node].mgmt_ipv4[:-3] }}
+{% endfor %}
+{% endfor %}
+  links:
+{% set endpoint_tuples = [] %}
+{% for site in devices_by_site.keys() %}
+{% for node in devices_by_site[site].keys() %}
+{% for interface in devices_by_site[site][node]['interfaces'].keys() %}
+{# Append interface pairs to endpoint_tuples #}
+{% set endpoint_tuples = endpoint_tuples.append(((node + ':' + interface), (devices_by_site[site][node]['interfaces'][interface].neighbor + ':' + devices_by_site[site][node]['interfaces'][interface].neighbor_interface))) %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{# Sort the endpoints and keep unique pairs to remove duplicates #}
+{% set unique_endpoints = endpoint_tuples | map('sort') | unique | list %}
+{% for endpoints in unique_endpoints %}
+   - endpoints: ["{{ endpoints[0] }}", "{{ endpoints[1] }}"]
+{% endfor %}

@@ -1,0 +1,20 @@
+---
+circuits:
+  - data:
+      id: 12345abcde
+      type: corporate-wan
+      provider: wwt
+      description: "Circuit from US-MN-MSP-01 to US-MO-STL-60"
+      status: active
+    terminations:
+      a:
+        description: US-MN-MSP-01 Termination
+        connected: false
+        site: us-mn-msp-01
+        state: present
+      z:
+        description: US-MO-STL-60 Termination
+        connected: false
+        site: us-mo-stl-60
+        state: present
+    state: present

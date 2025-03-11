@@ -1,0 +1,12 @@
+---
+rack_roles:
+  - name: network rack
+    slug: network-rack
+    description: Network Rack
+    color: 145a32
+    state: present
+  - name: server rack
+    slug: server-rack
+    description: Server Rack
+    color: f39c12
+    state: present

@@ -1,0 +1,7 @@
+---
+vrfs:
+  - data:
+      name: clab-mgmt
+      description: Containerlab Management VRF
+      enforce_unique: true
+    state: present

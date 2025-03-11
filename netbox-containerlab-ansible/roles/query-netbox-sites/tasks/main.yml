@@ -1,0 +1,20 @@
+---
+#
+# Ansible Role to Query Netbox API for Device Information
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Construct Site Filters by Role
+  ansible.builtin.include_tasks: construct_site_filters_by_role.yml
+  when: sites is defined
+  loop: "{{ sites }}"
+  loop_control:
+    loop_var: site
+
+- name: Query Netbox Devices by Site
+  ansible.builtin.include_tasks: query_devices.yml
+  when: site_filters is defined

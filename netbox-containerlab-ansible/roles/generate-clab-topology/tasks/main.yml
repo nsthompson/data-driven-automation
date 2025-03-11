@@ -1,0 +1,13 @@
+---
+#
+# Ansible Role to Generate a Containerlab Topology File
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Generate Containerlab topology file
+  ansible.builtin.include_tasks: generate_topology_file.yml
+  when: devices_by_site is defined and topology_name is defined

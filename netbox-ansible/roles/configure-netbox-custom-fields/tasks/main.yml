@@ -1,0 +1,13 @@
+---
+#
+# Ansible Role to Configure Netbox Custom Fields
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Custom Fields
+  ansible.builtin.include_tasks: configure_custom_fields.yml
+  when: custom_fields is defined

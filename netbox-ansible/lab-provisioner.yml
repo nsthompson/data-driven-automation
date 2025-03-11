@@ -1,0 +1,38 @@
+---
+- name: Playbook to configure Netbox Cloud Lab Instance
+  connection: local
+  hosts: localhost
+  vars:
+    netbox_url: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
+    netbox_token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
+
+  module_defaults:
+    group/netbox.netbox.netbox:
+      netbox_url: "{{ netbox_url }}"
+      netbox_token: "{{ netbox_token }}"
+
+  pre_tasks:
+    - name: Include vars from netbox_configs directory
+      ansible.builtin.include_vars:
+        dir: netbox_configs
+        extensions: ["yml"]
+
+    - name: Check for Netbox URL
+      ansible.builtin.fail:
+        msg: "netbox_url is undefined"
+      when: not netbox_url is defined
+
+    - name: Check for Netbox Token
+      ansible.builtin.fail:
+        msg: "netbox_token is undefined"
+      when: not netbox_token is defined
+
+  roles:
+    # - {role: configure-netbox-sites, when: sites is defined}
+    # - {role: configure-netbox-device-types}
+    # - {role: configure-netbox-custom-fields}
+    # # - {role: configure-netbox-racks, when: racks is defined}
+    # - {role: configure-netbox-ipam}
+    - {role: configure-netbox-devices}
+    # # - {role: configure-netbox-circuits}
+    # # - {role: configure-netbox-cables}

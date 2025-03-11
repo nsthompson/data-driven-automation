@@ -1,0 +1,7 @@
+- name: Construct role filter for {{ site.name }}
+  ansible.builtin.set_fact:
+    role_filters: "{{ site.roles | map('regex_replace', '^(.*)$', ' role=\\1') | join(' ') }}"
+
+- name: Construct apifilter for {{ site.name }}
+  ansible.builtin.set_fact:
+    site_filters: "{{ (site_filters | default([])) + ['site=' + site.name + role_filters] }}"

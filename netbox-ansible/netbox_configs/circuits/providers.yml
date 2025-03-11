@@ -1,0 +1,6 @@
+---
+providers:
+  - data:
+      name: WWT
+      description: WWT Private Provider
+    state: present

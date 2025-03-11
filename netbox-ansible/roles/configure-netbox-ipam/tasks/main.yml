@@ -1,0 +1,37 @@
+---
+#
+# Ansible Role to Configure Netbox IPAM
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox RIRs
+  ansible.builtin.include_tasks: configure_rirs.yml
+  when: rirs is defined
+
+- name: Configure Netbox Aggregates
+  ansible.builtin.include_tasks: configure_aggregates.yml
+  when: aggregates is defined
+
+- name: Configure Netbox ASNs
+  ansible.builtin.include_tasks: configure_asns.yml
+  when: asns is defined
+
+- name: Configure Netbox VRFs
+  ansible.builtin.include_tasks: configure_vrfs.yml
+  when: vrfs is defined
+
+- name: Configure Netbox VLAN Groups
+  ansible.builtin.include_tasks: configure_vlan_groups.yml
+  when: vlan_groups is defined
+
+- name: Configure Netbox VLANs
+  ansible.builtin.include_tasks: configure_vlans.yml
+  when: vlans is defined
+
+- name: Configure Netbox Prefixes
+  ansible.builtin.include_tasks: configure_prefixes.yml
+  when: prefixes is defined

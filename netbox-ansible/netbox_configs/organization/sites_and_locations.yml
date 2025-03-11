@@ -1,0 +1,32 @@
+---
+sites:
+  - name: US-MO-STL-60
+    description: WWT ATC - 60 Weldon Pkwy
+    site_group: Data Centers
+    status: active
+    region: US-MO
+    state: present
+    locations:
+      - name: US-MO-STL-60-DC1
+        description: WWT ATC DC1
+        status: active
+        state: present
+  - name: US-MN-MSP-01
+    description: Minneapolis Branch 01
+    site_group: Branches
+    status: active
+    region: US-MN
+    state: present
+    locations:
+      - name: US-MN-MSP-01-MDF
+        description: Minneapolis Branch MDF
+        status: active
+        state: present
+      - name: US-MN-MSP-01-IDF-01
+        description: Minneapolis Branch IDF 01
+        status: active
+        state: present
+      - name: US-MN-MSP-01-IDF-02
+        description: Minneapolis Branch IDF 02
+        status: active
+        state: present

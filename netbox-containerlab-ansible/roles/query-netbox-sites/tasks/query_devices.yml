@@ -1,0 +1,88 @@
+- name: Query for devices
+  ansible.builtin.set_fact:
+    site_devices:
+      "{{ (site_devices | default([])) +
+        query('netbox.netbox.nb_lookup',
+        'devices',
+        api_filter=site_filter,
+        api_endpoint=netbox_url,
+        token=netbox_token)
+      }}"
+  loop: "{{ site_filters }}"
+  loop_control:
+    loop_var: site_filter
+
+- name: Add site keys to dictionary
+  ansible.builtin.set_fact:
+    devices_by_site: >-
+      {{ devices_by_site | default({}) | combine(
+        {
+          site_device.value.site.name : {}
+        }
+      ) }}
+  when: devices_by_site is not defined or site_device.value.site.name not in devices_by_site.keys()
+  loop: "{{ site_devices }}"
+  loop_control:
+    loop_var: site_device
+
+- name: Construct api_filter for unique Device-Type models
+  ansible.builtin.set_fact:
+    model_filter: "{{ site_devices | community.general.json_query('[*].value.device_type.model') | unique | map('regex_replace', '^(.*)$', 'model=\\1') | join(' ') }}"
+
+- name: Map image definition to Device-Type models
+  ansible.builtin.set_fact:
+    model_images: "{{
+      query('netbox.netbox.nb_lookup',
+        'device-types',
+        api_filter=model_filter,
+        api_endpoint=netbox_url,
+        token=netbox_token) | community.general.json_query('[*].{model: value.model, image: value.part_number}')
+      }}"
+
+- name: Create device_models dictionary
+  ansible.builtin.set_fact:
+    device_models: "{{ device_models | default({}) | combine(dict(model_keys | zip(model_images))) | ansible.utils.remove_keys(target='model') }}"
+  vars:
+    model_keys: "{{ model_images | map(attribute='model') | list }}"
+
+- name: Construct api_filter for interfaces lookup
+  ansible.builtin.set_fact:
+    interface_filter: "status=active connected=true \
+      {{ site_devices | community.general.json_query('[*].value.name') | unique | map('regex_replace', '^(.*)$', 'device=\\1') | join(' ') }}"
+
+- name: Create device interface dictionary
+  ansible.builtin.set_fact:
+    interface_result: >-
+      {{ interface_result | default({}) | combine(
+        {
+          (interface | community.general.json_query('value.device.name')): {
+            (interface | community.general.json_query('value.name')): {
+              "neighbor": (interface | community.general.json_query('value.connected_endpoints[0].device.display')),
+              "neighbor_interface": (interface | community.general.json_query('value.connected_endpoints[0].name'))
+            }
+          }
+        }
+      , recursive=True) }}
+  loop: "{{ query('netbox.netbox.nb_lookup', 'interfaces', api_filter=interface_filter, api_endpoint=netbox_url, token=netbox_token) }}"
+  loop_control:
+    loop_var: interface
+
+- name: Add devices to dictionary
+  ansible.builtin.set_fact:
+    devices_by_site: >-
+      {{ devices_by_site | combine(
+        {
+          site_device.value.site.name : {
+            site_device.value.name: {
+              'model': site_device.value.device_type.model,
+              'image': device_models[site_device.value.device_type.model].image,
+              'mgmt_ipv4': site_device.value.oob_ip.address,
+              'interfaces': interface_result[site_device.value.name]
+              }
+          }
+        }
+      , recursive=true) }}
+  when: site_device.value.site.name in devices_by_site.keys()
+  loop: "{{ site_devices }}"
+  loop_control:
+    loop_var: site_device

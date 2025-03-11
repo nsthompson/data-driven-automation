@@ -1,0 +1,15 @@
+---
+- name: Configuring Device Roles
+  netbox.netbox.netbox_device_role:
+    data:
+      name: "{{ role.name }}"
+      slug: "{{ role.slug | default(omit) }}"
+      description: "{{ role.description | default(omit) }}"
+      color: "{{ role.color | default(omit) }}"
+      vm_role: "{{ role.vm_role | default(omit) }}"
+      custom_fields: "{{ role.custom_fields | default(omit) }}"
+      tags: "{{ role.tags | default(omit) }}"
+    state: "{{ role.state }}"
+  loop: "{{ device_roles }}"
+  loop_control:
+    loop_var: role

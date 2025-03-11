@@ -1,0 +1,15 @@
+---
+#
+# Ansible Role to Configure Base Device Settings
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Device Hostname
+  cisco.ios.ios_hostname:
+    config:
+      hostname: "{{ hostvars[inventory_hostname].inventory_hostname }}"
+  when: hostvars[inventory_hostname].inventory_hostname is defined

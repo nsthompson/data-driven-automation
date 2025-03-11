@@ -1,0 +1,27 @@
+---
+#
+# Ansible Role to Configure Netbox Device and Rack Types
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox Device Manufacturers
+  ansible.builtin.include_tasks: configure_manufacturers.yml
+  when: manufacturers is defined
+  loop: "{{ manufacturers }}"
+  loop_control:
+    loop_var: mfg
+
+- name: Configure Netbox Device Platforms
+  ansible.builtin.include_tasks: configure_platforms.yml
+  when: platforms is defined
+
+- name: Configure Netbox Device Types
+  ansible.builtin.include_tasks: configure_device_types.yml
+  when: device_types is defined
+  loop: "{{ device_types }}"
+  loop_control:
+    loop_var: device

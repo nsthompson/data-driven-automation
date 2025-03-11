@@ -1,0 +1,32 @@
+---
+- name: Playbook to generate a Containerlab Topology for the given sites and device-roles
+  connection: local
+  hosts: localhost
+  vars:
+    netbox_api: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
+    netbox_token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
+
+  module_defaults:
+    group/netbox.netbox.netbox:
+      netbox_url: "{{ netbox_api }}"
+      netbox_token: "{{ netbox_token }}"
+
+  pre_tasks:
+    - name: Include vars from vars directory
+      ansible.builtin.include_vars:
+        dir: vars
+        extensions: ["yml"]
+
+    - name: Check for Netbox URL
+      ansible.builtin.fail:
+        msg: "netbox_url is undefined"
+      when: not netbox_url is defined
+
+    - name: Check for Netbox Token
+      ansible.builtin.fail:
+        msg: "netbox_token is undefined"
+      when: not netbox_token is defined
+
+  roles:
+    - {name: query-netbox-sites, when: sites is defined}
+    - {name: generate-clab-topology, when: devices_by_site is defined}

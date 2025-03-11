@@ -1,0 +1,788 @@
+cables:
+# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-MDF
+  - data:
+      termination_a_type: dcim.interface
+      termination_a:
+        device: US-MN-MSP-01-EDGE-01
+        name: Ethernet0/1
+      termination_b_type: circuits.circuittermination
+      termination_b:
+        circuit: 12345abcde
+        term_side: A
+      type: cat6a
+      color: ff5f15
+      status: connected
+      label: US-MN-MSP-01-EDGE-01 to US-MO-STL-60-WAN-01
+    state: present
+# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-IDF-01
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP1
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP1
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP2
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP2
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP3
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP3
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP4
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP4
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP5
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP5
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP6
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP6
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP7
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP7
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP8
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP8
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP9
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP9
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP10
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP10
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP11
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP11
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP12
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP12
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP13
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP13
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP14
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP14
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP15
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP15
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP16
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP16
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP17
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP17
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP18
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP18
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP19
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP19
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP20
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP20
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP21
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP21
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP22
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP22
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP23
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP23
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: RP24
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: RP24
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
+    state: present
+# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-IDF-02
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP1
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP1
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP2
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP2
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP3
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP3
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP4
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP4
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP5
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP5
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP6
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP6
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP7
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP7
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP8
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP8
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP9
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP9
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP10
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP10
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP11
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP11
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP12
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP12
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP13
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP13
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP14
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP14
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP15
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP15
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP16
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP16
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP17
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP17
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP18
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP18
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP19
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP19
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP20
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP20
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP21
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP21
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP22
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP22
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP23
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP23
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+  - data:
+      termination_a_type: dcim.rearport
+      termination_a:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: RP24
+      termination_b_type: dcim.rearport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: RP24
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
+    state: present
+# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-MDF-R1
+  - data:
+      termination_a_type: dcim.interface
+      termination_a:
+        device: US-MN-MSP-01-CORE-01
+        name: Ethernet0/1
+      termination_b_type: dcim.interface
+      termination_b:
+        device: US-MN-MSP-01-EDGE-01
+        name: Ethernet0/2
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-CORE-01 to US-MN-MSP-01-EDGE-01
+      length: 3
+      length_unit: ft
+    state: present
+  - data:
+      termination_a_type: dcim.interface
+      termination_a:
+        device: US-MN-MSP-01-CORE-01
+        name: Ethernet1/2
+      termination_b_type: dcim.frontport
+      termination_b:
+        device: US-MN-MSP-01-MDF-R1-PP1
+        name: FP1
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-CORE-01 to US-MN-MSP-01-MDF-R1-PP1
+      length: 3
+      length_unit: ft
+    state: present
+  - data:
+      termination_a_type: dcim.interface
+      termination_a:
+        device: US-MN-MSP-01-CORE-01
+        name: Ethernet1/3
+      termination_b_type: dcim.frontport
+      termination_b:
+        device: US-MN-MSP-01-MDF-R1-PP2
+        name: FP1
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-CORE-01 to US-MN-MSP-01-MDF-R1-PP2
+      length: 3
+      length_unit: ft
+    state: present
+# US-MN-MSP-01-IDF-01-R1 to US-MN-MSP-01-IDF-01-R1
+  - data:
+      termination_a_type: dcim.interface
+      termination_a:
+        device: US-MN-MSP-01-SW-01
+        name: Ethernet1/3
+      termination_b_type: dcim.frontport
+      termination_b:
+        device: US-MN-MSP-01-IDF-01-R1-PP1
+        name: FP1
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-SW-01 to US-MN-MSP-01-IDF-01-R1-PP1
+      length: 3
+      length_unit: ft
+    state: present
+# US-MN-MSP-01-IDF-01-R1 to US-MN-MSP-01-IDF-01-R1
+  - data:
+      termination_a_type: dcim.interface
+      termination_a:
+        device: US-MN-MSP-01-SW-02
+        name: Ethernet1/3
+      termination_b_type: dcim.frontport
+      termination_b:
+        device: US-MN-MSP-01-IDF-02-R1-PP1
+        name: FP1
+      type: cat6a
+      color: 2300FF
+      status: connected
+      label: US-MN-MSP-01-SW-02 to US-MN-MSP-02-IDF-01-R1-PP1
+      length: 3
+      length_unit: ft
+    state: present
+# US-MO-STL-60-DC1-R1 to US-MO-STL-60-DC1
+  - data:
+      termination_a_type: dcim.interface
+      termination_a:
+        device: US-MO-STL-60-WAN-01
+        name: Ethernet0/1
+      termination_b_type: circuits.circuittermination
+      termination_b:
+        circuit: 12345abcde
+        term_side: Z
+      type: cat6a
+      color: ff5f15
+      status: connected
+      label: US-MO-STL-60-WAN-01 to US-MN-MSP-01-EDGE-01
+    state: present

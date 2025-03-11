@@ -1,0 +1,30 @@
+---
+vlans:
+  - data:
+      id: 5
+      name: US-MN-MSP-01 Mgmt VLAN
+      site: us-mn-msp-01
+      status: active
+      vlan_group: us-mn-msp-01-vlans
+    state: present
+  - data:
+      id: 10
+      name: US-MN-MSP-01 User VLAN
+      site: us-mn-msp-01
+      status: active
+      vlan_group: us-mn-msp-01-vlans
+    state: present
+  - data:
+      id: 20
+      name: US-MN-MSP-01 Voice VLAN
+      site: us-mn-msp-01
+      status: active
+      vlan_group: us-mn-msp-01-vlans
+    state: present
+  - data:
+      id: 30
+      name: US-MN-MSP-01 IOT VLAN
+      site: us-mn-msp-01
+      status: active
+      vlan_group: us-mn-msp-01-vlans
+    state: present

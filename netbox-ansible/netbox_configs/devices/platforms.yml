@@ -1,0 +1,6 @@
+platforms:
+  - data:
+      name: ios
+      description: Cisco IOS
+      manufacturer: cisco
+    state: present

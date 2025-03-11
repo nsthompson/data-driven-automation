@@ -1,0 +1,13 @@
+- name: Configure ASNs
+  netbox.netbox.netbox_asn:
+    data:
+      asn: "{{ asn.data.asn }}"
+      rir: "{{ asn.data.rir | default(omit) }}"
+      description: "{{ asn.data.description | default(omit) }}"
+      tenant: "{{ asn.data.tenant | default(omit) }}"
+      custom_fields: "{{ asn.data.custom_fields | default(omit) }}"
+      tags: "{{ asn.data.tags | default(omit) }}"
+    state: "{{ asn.state }}"
+  loop: "{{ asns }}"
+  loop_control:
+    loop_var: asn

@@ -1,0 +1,21 @@
+---
+aggregates:
+  - data:
+      prefix: "10.0.0.0/8"
+      rir: rfc1918
+      date_added: "2025-02-26"
+      description: Private RFC1918 Address Space
+    state: present
+  - data:
+      prefix: "172.16.0.0/12"
+      rir: rfc1918
+      date_added: "2025-02-26"
+      description: Private RFC1918 Address Space
+    state: present
+  - data:
+      prefix: "192.168.0.0/16"
+      rir: rfc1918
+      date_added: "2025-02-26"
+      description: Private RFC1918 Address Space
+    state: present
+

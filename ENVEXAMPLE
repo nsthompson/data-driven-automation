@@ -1,0 +1,2 @@
+export NETBOX_API= # Your Netbox Instance URL
+export NETBOX_TOKEN= # Your Netbox API Token

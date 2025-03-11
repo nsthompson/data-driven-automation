@@ -1,0 +1,662 @@
+devices:
+  # US-MO-STL-60-DC1-R1
+  - data:
+      name: US-MO-STL-60-WAN-01
+      device_role: wan-router
+      description: US-MO-STL-60 WAN Router
+      device_type: cisco-iol
+      platform: ios
+      site: us-mo-stl-60
+      location: us-mo-stl-60-dc1
+      rack: US-MO-STL-60-DC1-R1
+      face: front
+      position: 42
+      oob_ip: 10.115.115.10
+      status: active
+    state: present
+    interfaces:
+      - name: Ethernet0/0
+        device: us-mo-stl-60-wan-01
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: us-mo-stl-60-wan-01
+        description: "US-MN-MSP-01-EDGE-01 : Eth0/1"
+        mtu: 1500
+        enabled: true
+      - name: Ethernet0/2
+        device: us-mo-stl-60-wan-01
+        enabled: false
+      - name: Ethernet0/3
+        device: us-mo-stl-60-wan-01
+        enabled: false
+      - name: Ethernet1/0
+        device: us-mo-stl-60-wan-01
+        enabled: false
+      - name: Ethernet1/1
+        device: us-mo-stl-60-wan-01
+        enabled: false
+      - name: Ethernet1/2
+        device: us-mo-stl-60-wan-01
+        enabled: false
+      - name: Ethernet1/3
+        device: us-mo-stl-60-wan-01
+        enabled: false
+      - name: Vlan1
+        device: us-mo-stl-60-wan-01
+        type: virtual
+        description: Default VLAN
+        enabled: false
+    ip_addresses:
+      - address: 10.115.115.10/24
+        assigned_object:
+          name: Ethernet0/0
+          device: US-MO-STL-60-WAN-01
+        description: "US-MO-STL-60-WAN-01 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: 10.195.255.1/30
+        assigned_object:
+          name: Ethernet0/1
+          device: US-MO-STL-60-WAN-01
+        description: "US-MO-STL-60-WAN-01 : Eth0/1"
+        status: active
+        state: present
+  # US-MN-MSP-01-MDF-R1
+  - data:
+      name: US-MN-MSP-01-MDF-R1-PP1
+      device_role: structured-cabling
+      description: Patch Panel to US-MN-MSP-01-IDF-01-R1
+      device_type: leviton-quickport-24p-1ru-patch-panel
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      rack: US-MN-MSP-01-MDF-R1
+      face: front
+      position: 42
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-MDF-R1-CM1
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      rack: US-MN-MSP-01-MDF-R1
+      face: front
+      position: 40
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-MDF-R1-PP2
+      device_role: structured-cabling
+      description: Patch Panel to US-MN-MSP-01-IDF-02-R1
+      device_type: leviton-quickport-24p-1ru-patch-panel
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      rack: US-MN-MSP-01-MDF-R1
+      face: front
+      position: 39
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-MDF-R1-CM2
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      rack: US-MN-MSP-01-MDF-R1
+      face: front
+      position: 37
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-CORE-01
+      device_role: core-switch
+      description: US-MN-MSP-01 Core Switch
+      device_type: cisco-iol
+      platform: ios
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      rack: US-MN-MSP-01-MDF-R1
+      face: front
+      position: 36
+      oob_ip: 10.115.115.11
+      status: active
+    interfaces:
+      - name: Ethernet0/0
+        device: us-mn-msp-01-core-01
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: us-mn-msp-01-core-01
+        description: "US-MN-MSP-01-EDGE-01 : Eth0/2"
+        mtu: 1500
+        enabled: true
+      - name: Ethernet0/2
+        device: us-mn-msp-01-core-01
+        enabled: false
+      - name: Ethernet0/3
+        device: us-mn-msp-01-core-01
+        enabled: false
+      - name: Ethernet1/0
+        device: us-mn-msp-01-core-01
+        enabled: false
+      - name: Ethernet1/1
+        device: us-mn-msp-01-core-01
+        enabled: false
+      - name: Ethernet1/2
+        device: us-mn-msp-01-core-01
+        description: "US-MN-MSP-01-SW-01 : Eth1/3"
+        mode: tagged
+        tagged_vlans:
+          - name: US-MN-MSP-01 Mgmt VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 User VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 IOT VLAN
+            site: us-mn-msp-01
+        enabled: true
+      - name: Ethernet1/3
+        device: us-mn-msp-01-core-01
+        description: "US-MN-MSP-01-SW-02 : Eth1/3"
+        mode: tagged
+        tagged_vlans:
+          - name: US-MN-MSP-01 Mgmt VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 User VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 IOT VLAN
+            site: us-mn-msp-01
+        enabled: true
+      - name: Vlan1
+        device: us-mn-msp-01-core-01
+        type: virtual
+        description: Default VLAN
+        enabled: false
+      - name: Vlan5
+        device: us-mn-msp-01-core-01
+        type: virtual
+        description: Mgmt VLAN
+        enabled: true
+      - name: Vlan10
+        device: us-mn-msp-01-core-01
+        type: virtual
+        description: User VLAN
+        enabled: true
+      - name: Vlan20
+        device: us-mn-msp-01-core-01
+        type: virtual
+        description: Voice VLAN
+        enabled: true
+      - name: Vlan30
+        device: us-mn-msp-01-core-01
+        type: virtual
+        description: IOT VLAN
+        enabled: true
+    ip_addresses:
+      - address: 10.115.115.11/24
+        assigned_object:
+          name: Ethernet0/0
+          device: US-MN-MSP-01-CORE-01
+        description: "US-MN-MSP-01-CORE-01 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: 10.10.0.2/30
+        assigned_object:
+          name: Ethernet0/1
+          device: US-MN-MSP-01-CORE-01
+        description: "US-MN-MSP-01-CORE-01 : Eth0/1"
+        status: active
+        state: present
+      - address: 10.10.0.113/28
+        assigned_object:
+          name: Vlan5
+          device: US-MN-MSP-01-CORE-01
+        description: "US-MN-MSP-01-CORE-01 : Vlan5"
+        status: active
+        state: present
+      - address: 10.10.0.129/25
+        assigned_object:
+          name: Vlan10
+          device: US-MN-MSP-01-CORE-01
+        description: "US-MN-MSP-01-CORE-01 : Vlan10"
+        status: active
+        state: present
+      - address: 10.10.1.1/25
+        assigned_object:
+          name: Vlan20
+          device: US-MN-MSP-01-CORE-01
+        description: "US-MN-MSP-01-CORE-01 : Vlan20"
+        status: active
+        state: present
+      - address: 10.10.1.129/25
+        assigned_object:
+          name: Vlan30
+          device: US-MN-MSP-01-CORE-01
+        description: "US-MN-MSP-01-CORE-01 : Vlan30"
+        status: active
+        state: present
+    state: present
+  - data:
+      name: US-MN-MSP-01-MDF-R1-CM3
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      rack: US-MN-MSP-01-MDF-R1
+      face: front
+      position: 34
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-EDGE-01
+      device_role: edge-router
+      description: US-MN-MSP-01 Edge Router
+      device_type: cisco-iol
+      platform: ios
+      site: us-mn-msp-01
+      location: us-mn-msp-01-mdf
+      rack: US-MN-MSP-01-MDF-R1
+      face: front
+      position: 33
+      oob_ip: 10.115.115.12
+      status: active
+    state: present
+    interfaces:
+      - name: Ethernet0/0
+        device: us-mn-msp-01-edge-01
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: us-mn-msp-01-edge-01
+        description: "US-MO-STL-60-WAN-01 : Eth0/1"
+        mtu: 1500
+        enabled: true
+      - name: Ethernet0/2
+        device: us-mn-msp-01-edge-01
+        description: "US-MN-MSP-01-CORE-01 : Eth0/1"
+        mtu: 1500
+        enabled: true
+      - name: Ethernet0/3
+        device: us-mn-msp-01-edge-01
+        enabled: false
+      - name: Ethernet1/0
+        device: us-mn-msp-01-edge-01
+        enabled: false
+      - name: Ethernet1/1
+        device: us-mn-msp-01-edge-01
+        enabled: false
+      - name: Ethernet1/2
+        device: us-mn-msp-01-edge-01
+        enabled: false
+      - name: Ethernet1/3
+        device: us-mn-msp-01-edge-01
+        enabled: false
+      - name: Vlan1
+        device: us-mn-msp-01-edge-01
+        type: virtual
+        description: Default VLAN
+        enabled: false
+    ip_addresses:
+      - address: 10.115.115.12/24
+        assigned_object:
+          name: Ethernet0/0
+          device: US-MN-MSP-01-EDGE-01
+        description: "US-MN-MSP-01-EDGE-01 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: 10.195.255.2/30
+        assigned_object:
+          name: Ethernet0/1
+          device: US-MN-MSP-01-EDGE-01
+        description: "US-MN-MSP-01-EDGE-01 : Eth0/1"
+        status: active
+        state: present
+      - address: 10.10.0.1/30
+        assigned_object:
+          name: Ethernet0/2
+          device: US-MN-MSP-01-EDGE-01
+        description: "US-MN-MSP-01-EDGE-01 : Eth0/2"
+        status: active
+        state: present
+  # US-MN-MSP-01-IDF-01-R1
+  - data:
+      name: US-MN-MSP-01-IDF-01-R1-PP1
+      device_role: structured-cabling
+      description: Patch Panel to US-MN-MSP-01-MDF-R1
+      device_type: leviton-quickport-24p-1ru-patch-panel
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-01
+      rack: US-MN-MSP-01-IDF-01-R1
+      face: front
+      position: 42
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-IDF-01-R1-CM1
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-01
+      rack: US-MN-MSP-01-IDF-01-R1
+      face: front
+      position: 40
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-SW-01
+      device_role: access-switch
+      description: US-MN-MSP-01 Access Switch 01
+      device_type: cisco-iol-l2
+      platform: ios
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-01
+      rack: US-MN-MSP-01-IDF-01-R1
+      face: front
+      position: 39
+      oob_ip: 10.115.115.13
+      status: active
+    state: present
+    interfaces:
+      - name: Ethernet0/0
+        device: us-mn-msp-01-sw-01
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: us-mn-msp-01-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet0/2
+        device: us-mn-msp-01-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet0/3
+        device: us-mn-msp-01-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/0
+        device: us-mn-msp-01-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/1
+        device: us-mn-msp-01-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/2
+        device: us-mn-msp-01-sw-01
+        enabled: true
+        mode: access
+        untagged_vlan:
+          name: US-MN-MSP-01 IOT VLAN
+          site: us-mn-msp-01
+      - name: Ethernet1/3
+        device: us-mn-msp-01-sw-01
+        description: "US-MN-MSP-01-CORE-01 : Eth1/2"
+        mode: tagged
+        tagged_vlans:
+          - name: US-MN-MSP-01 Mgmt VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 User VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 IOT VLAN
+            site: us-mn-msp-01
+        enabled: true
+      - name: Vlan1
+        device: us-mn-msp-01-sw-01
+        type: virtual
+        description: Default VLAN
+        enabled: false
+      - name: Vlan5
+        device: us-mn-msp-01-sw-01
+        type: virtual
+        description: Mgmt VLAN
+        enabled: true
+    ip_addresses:
+      - address: 10.115.115.13/24
+        assigned_object:
+          name: Ethernet0/0
+          device: US-MN-MSP-01-SW-01
+        description: "US-MN-MSP-01-SW-01 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: 10.10.0.114/28
+        assigned_object:
+          name: Vlan5
+          device: US-MN-MSP-01-SW-01
+        description: "US-MN-MSP-01-SW-01 : Vlan5"
+        status: active
+        state: present
+  - data:
+      name: US-MN-MSP-01-IDF-01-R1-CM2
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-01
+      rack: US-MN-MSP-01-IDF-01-R1
+      face: front
+      position: 37
+      status: active
+    state: present
+  # US-MN-MSP-01-IDF-02-R1
+  - data:
+      name: US-MN-MSP-01-IDF-02-R1-PP1
+      device_role: structured-cabling
+      description: Patch Panel to US-MN-MSP-01-MDF-R1
+      device_type: leviton-quickport-24p-1ru-patch-panel
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-02
+      rack: US-MN-MSP-01-IDF-02-R1
+      face: front
+      position: 42
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-IDF-02-R1-CM1
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-02
+      rack: US-MN-MSP-01-IDF-02-R1
+      face: front
+      position: 40
+      status: active
+    state: present
+  - data:
+      name: US-MN-MSP-01-SW-02
+      device_role: access-switch
+      description: US-MN-MSP-01 Access Switch 02
+      device_type: cisco-iol-l2
+      platform: ios
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-02
+      rack: US-MN-MSP-01-IDF-02-R1
+      face: front
+      position: 39
+      oob_ip: 10.115.115.14
+      status: active
+    state: present
+    interfaces:
+      - name: Ethernet0/0
+        device: us-mn-msp-01-sw-02
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: us-mn-msp-01-sw-02
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet0/2
+        device: us-mn-msp-01-sw-02
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet0/3
+        device: us-mn-msp-01-sw-02
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/0
+        device: us-mn-msp-01-sw-02
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/1
+        device: us-mn-msp-01-sw-02
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: US-MN-MSP-01 User VLAN
+          site: us-mn-msp-01
+        tagged_vlans:
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/2
+        device: us-mn-msp-01-sw-02
+        enabled: true
+        mode: access
+        untagged_vlan:
+          name: US-MN-MSP-01 IOT VLAN
+          site: us-mn-msp-01
+      - name: Ethernet1/3
+        device: us-mn-msp-01-sw-02
+        description: "US-MN-MSP-01-CORE-01 : Eth1/3"
+        mode: tagged
+        tagged_vlans:
+          - name: US-MN-MSP-01 Mgmt VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 User VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 Voice VLAN
+            site: us-mn-msp-01
+          - name: US-MN-MSP-01 IOT VLAN
+            site: us-mn-msp-01
+        enabled: true
+      - name: Vlan1
+        device: us-mn-msp-01-sw-02
+        type: virtual
+        description: Default VLAN
+        enabled: false
+      - name: Vlan5
+        device: us-mn-msp-01-sw-02
+        type: virtual
+        description: Mgmt VLAN
+        enabled: true
+    ip_addresses:
+      - address: 10.115.115.14/24
+        assigned_object:
+          name: Ethernet0/0
+          device: US-MN-MSP-01-SW-02
+        description: "US-MN-MSP-01-SW-02 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: 10.10.0.115/28
+        assigned_object:
+          name: Vlan5
+          device: US-MN-MSP-01-SW-02
+        description: "US-MN-MSP-01-SW-02 : Vlan5"
+        status: active
+        state: present
+  - data:
+      name: US-MN-MSP-01-IDF-02-R1-CM2
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: us-mn-msp-01
+      location: us-mn-msp-01-idf-02
+      rack: US-MN-MSP-01-IDF-02-R1
+      face: front
+      position: 37
+      status: active
+    state: present

@@ -1,0 +1,16 @@
+---
+#
+# Ansible Role to Configure Netbox Cables
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox Cables
+  ansible.builtin.include_tasks: configure_cables.yml
+  when: cables is defined
+  loop: "{{ cables }}"
+  loop_control:
+    loop_var: cable

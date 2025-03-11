@@ -1,0 +1,20 @@
+---
+#
+# Ansible Role to Configure Netbox Devices
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox Device Roles
+  ansible.builtin.include_tasks: configure_device_roles.yml
+  when: device_roles is defined
+
+- name: Configure Netbox Devices
+  ansible.builtin.include_tasks: configure_devices.yml
+  when: devices is defined
+  loop: "{{ devices }}"
+  loop_control:
+    loop_var: device

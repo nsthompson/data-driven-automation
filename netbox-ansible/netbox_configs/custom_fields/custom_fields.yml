@@ -1,0 +1,10 @@
+---
+custom_fields:
+  - data:
+      name: enable_voice
+      description: Enable voice vlan configuration
+      object_types:
+        - dcim.interface
+      type: boolean
+      default: false
+    state: present

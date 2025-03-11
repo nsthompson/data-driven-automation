@@ -1,0 +1,17 @@
+---
+- name: Configure Device Platforms
+  netbox.netbox.netbox_platform:
+    data:
+      name: "{{ platform.data.name }}"
+      slug: "{{ platform.data.slug | default(omit) }}"
+      description: "{{ platform.data.description | default(omit) }}"
+      manufacturer: "{{ platform.data.manufacturer | default(omit) }}"
+      config_template: "{{ platform.data.config_template | default(omit) }}"
+      napalm_args: "{{ platform.data.napalm_args | default(omit) }}"
+      napalm_driver: "{{ platform.data.napalm_driver | default(omit) }}"
+      custom_fields: "{{ platform.data.custom_fields | default(omit) }}"
+      tags: "{{ platform.data.tags | default(omit) }}"
+    state: "{{ platform.state }}"
+  loop: "{{ platforms }}"
+  loop_control:
+    loop_var: platform
