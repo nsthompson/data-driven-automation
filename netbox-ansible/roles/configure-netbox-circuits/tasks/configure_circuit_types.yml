@@ -1,5 +1,5 @@
 ---
-- name: Configure Netbox Circuit Types
+- name: Configure Netbox Circuit Types # noqa args[module]
   netbox.netbox.netbox_circuit_type:
     data:
       name: "{{ circuit.data.name }}"

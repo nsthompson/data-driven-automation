@@ -5,16 +5,16 @@
     method: GET
     headers:
       Authorization: "Token {{ netbox_token }}"
-    return_content: yes
+    return_content: true
   register: response
 
 - name: Fail if multiple rack-types with same slug
-  fail:
+  ansible.builtin.fail:
     msg: "Multiple rack-types found with slug {{ rack.data.slug }}"
   when: response.json.count > 1
 
 - name: Set rack_type_id if exists
-  set_fact:
+  ansible.builtin.set_fact:
     rack_type_id: "{{ response.json.results[0].id }}"
   when: response.json.count == 1
 

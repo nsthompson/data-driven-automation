@@ -18,16 +18,16 @@
     method: GET
     headers:
       Authorization: "Token {{ netbox_token }}"
-    return_content: yes
+    return_content: true
   register: response
 
 - name: Fail if multiple racks with same name
-  fail:
+  ansible.builtin.fail:
     msg: "Multiple rack-types found with name {{ rack.data.name }}"
   when: response.json.count > 1
 
 - name: Set rack_id if exists
-  set_fact:
+  ansible.builtin.set_fact:
     rack_id: "{{ response.json.results[0].id }}"
   when: response.json.count == 1
 

@@ -10,11 +10,13 @@ circuits:
       a:
         description: US-MN-MSP-01 Termination
         connected: false
-        site: us-mn-msp-01
+        termination_site: us-mn-msp-01
+        termination_type: dcim.site
         state: present
       z:
         description: US-MO-STL-60 Termination
         connected: false
-        site: us-mo-stl-60
+        termination_site: us-mo-stl-60
+        termination_type: dcim.site
         state: present
     state: present

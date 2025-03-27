@@ -1,14 +1,96 @@
 {
-    "image": "ghcr.io/srl-labs/containerlab/devcontainer-dood-slim:latest",
+    "name": "Python Dev Container",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	},
 
     "runArgs": [
         "--network=host",
         "--pid=host",
-        "--privileged"
+        "--privileged",
+		"--platform=linux/amd64"
     ],
+
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker": {
+			"version": "latest"
+		}
+	},
+
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/usr/bin/zsh"
+					},
+					"bash": {
+						"path": "/usr/bin/bash",
+						"icon": "terminal-bash"
+					},
+					"tmux": {
+						"path": "/usr/bin/tmux",
+						"icon": "terminal-tmux"
+					}
+				},
+				"terminal.integrated.defaultProfile.osx": "zsh",
+				"terminal.integrated.profiles.osx": {
+					"zsh": {
+						"path": "/usr/bin/zsh"
+					},
+					"bash": {
+						"path": "/usr/bin/bash",
+						"icon": "terminal-bash"
+					},
+					"tmux": {
+						"path": "/usr/bin/tmux",
+						"icon": "terminal-tmux"
+					}
+				},
+				"terminal.integrated.fontFamily": "Roboto Mono for Powerline",
+				"dotfiles.repository": "nsthompson/dotfiles",
+				"dotfiles.targetPath": "~/dotfiles",
+				"dotfiles.installCommand": "install.sh"
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.pylint",
+				"ms-python.isort",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"yzhang.markdown-all-in-one",
+				"redhat.ansible",
+				"njpwerner.autodocstring",
+				"ms-azuretools.vscode-docker",
+				"robocorp.robotframework-lsp",
+				"shardulm94.trailing-spaces",
+				"tamasfe.even-better-toml",
+				"hashicorp.terraform",
+				"davidanson.vscode-markdownlint",
+				"ms-kubernetes-tools.vscode-kubernetes-tools",
+				"mechatroner.rainbow-csv",
+				"eugenejeon.codesnap-plus-fix",
+				"github.vscode-github-actions",
+				"eamodio.gitlens",
+				"tim-koehler.helm-intellisense"
+			]
+		}
+	},
+
     "mounts": [
         "type=bind,source=/Users/${localEnv:USER}/.ssh,target=/home/vscode/.ssh"
     ],
+
     "workspaceFolder": "${localWorkspaceFolder}",
     "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind"
 }

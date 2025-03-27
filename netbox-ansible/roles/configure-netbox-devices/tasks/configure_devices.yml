@@ -1,4 +1,5 @@
 ---
+# Create devices, without oob_ip address set
 - name: Creating device {{ device.data.name }}
   netbox.netbox.netbox_device:
     data:
@@ -19,7 +20,6 @@
       config_template: "{{ device.data.config_template | default(omit) }}"
       custom_fields: "{{ device.data.custom_fields | default(omit) }}"
       local_context_data: "{{ device.data.local_context_data | default(omit) }}"
-      oob_ip: "{{ device.data.oob_ip | default(omit) }}"
       platform: "{{ device.data.platform | default(omit) }}"
       primary_ipv4: "{{ device.data.primary_ipv4 | default(omit) }}"
       primary_ipv6: "{{ device.data.primary_ipv6 | default(omit) }}"
@@ -89,3 +89,12 @@
   loop: "{{ device.ip_addresses }}"
   loop_control:
     loop_var: ip
+
+# Update devices with oob_ip address
+- name: Setting device {{ device.data.name }} OOB IP to {{ device.data.oob_ip }}
+  netbox.netbox.netbox_device:
+    data:
+      name: "{{ device.data.name }}"
+      oob_ip: "{{ device.data.oob_ip }}"
+    state: "{{ device.state }}"
+  when: device.data.oob_ip is defined

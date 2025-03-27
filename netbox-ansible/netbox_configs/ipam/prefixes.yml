@@ -1,11 +1,9 @@
 ---
 prefixes:
-
   - data:
       prefix: "10.195.0.0/16"
       description: "ATC DC1 Subnet"
       status: container
-      site: us-mo-stl-60
       is_pool: false
       mark_utilized: false
     first_available: false
@@ -14,7 +12,6 @@ prefixes:
       prefix: "10.195.255.0/24"
       description: "ATC DC1 WAN Subnet"
       status: container
-      site: us-mo-stl-60
       is_pool: false
       mark_utilized: false
     first_available: false
@@ -23,7 +20,6 @@ prefixes:
       prefix: "10.195.255.0/30"
       description: "ATC DC1 WAN to US-MN-MSP-01 Routing Subnet"
       status: active
-      site: us-mo-stl-60
       is_pool: false
       mark_utilized: false
     first_available: false
@@ -50,7 +46,6 @@ prefixes:
       description: "US-MN-MSP-01 Subnet"
       status: container
       is_pool: false
-      site: us-mn-msp-01
       mark_utilized: false
     first_available: false
     state: present
@@ -59,7 +54,6 @@ prefixes:
       description: "US-MN-MSP-01 Utility Subnets"
       status: container
       is_pool: false
-      site: us-mn-msp-01
       mark_utilized: false
     first_available: false
     state: present
@@ -68,7 +62,6 @@ prefixes:
       description: "US-MN-MSP-01 Edge Routing Subnet"
       status: active
       is_pool: false
-      site: us-mn-msp-01
       mark_utilized: false
     first_available: false
     state: present
@@ -77,7 +70,6 @@ prefixes:
       description: "US-MN-MSP-01 Management Subnet"
       status: active
       is_pool: false
-      site: us-mn-msp-01
       vlan:
         name: US-MN-MSP-01 Mgmt VLAN
         site: us-mn-msp-01
@@ -89,7 +81,6 @@ prefixes:
       description: "US-MN-MSP-01 User Subnet"
       status: active
       is_pool: false
-      site: us-mn-msp-01
       vlan:
         name: US-MN-MSP-01 User VLAN
         site: us-mn-msp-01
@@ -101,7 +92,6 @@ prefixes:
       description: "US-MN-MSP-01 Voice Subnet"
       status: active
       is_pool: false
-      site: us-mn-msp-01
       vlan:
         name: US-MN-MSP-01 Voice VLAN
         site: us-mn-msp-01
@@ -113,7 +103,6 @@ prefixes:
       description: "US-MN-MSP-01 IOT Subnet"
       status: active
       is_pool: false
-      site: us-mn-msp-01
       vlan:
         name: US-MN-MSP-01 IOT VLAN
         site: us-mn-msp-01

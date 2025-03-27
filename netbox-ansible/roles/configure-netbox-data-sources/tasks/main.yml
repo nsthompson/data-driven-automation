@@ -1,0 +1,16 @@
+---
+#
+# Ansible Role to Configure Netbox Data Sources
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox Data Sources
+  ansible.builtin.include_tasks: configure_data_sources.yml
+  when: data_sources is defined
+  loop: "{{ data_sources }}"
+  loop_control:
+    loop_var: source

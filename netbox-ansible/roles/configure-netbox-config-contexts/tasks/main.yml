@@ -1,0 +1,16 @@
+---
+#
+# Ansible Role to Configure Netbox Configuration Contexts
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox Configuration Contexts
+  ansible.builtin.include_tasks: configure_config_contexts.yml
+  when: config_contexts is defined
+  loop: "{{ config_contexts }}"
+  loop_control:
+    loop_var: context

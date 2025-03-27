@@ -1,0 +1,16 @@
+data_sources:
+  - data:
+      type: git
+      name: data-driven-automation
+      source_url: https://github.com/nsthompson/data-driven-automation-config-contexts.git
+      description: Repo containing config context data for demo environment
+      enabled: true
+      ignore_rules: |-
+        .gitignore
+        *.md
+        LICENSE
+      parameters:
+        username: oauth2
+        password: "{{ lookup('ansible.builtin.env', 'GITHUB_TOKEN', default=undef()) }}"
+        branch: main
+    state: present

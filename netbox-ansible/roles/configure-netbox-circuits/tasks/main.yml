@@ -16,16 +16,9 @@
   ansible.builtin.include_tasks: configure_providers.yml
   when: providers is defined
 
-- name: Configure Netbox Circuits and Terminations
+- name: Configure Netbox Circuits
   ansible.builtin.include_tasks: configure_circuits.yml
   when: circuits is defined
   loop: "{{ circuits }}"
   loop_control:
     loop_var: circuit
-
-# - name: Configure Netbox Devices
-#   ansible.builtin.include_tasks: configure_devices.yml
-#   when: devices is defined
-#   loop: "{{ devices }}"
-#   loop_control:
-#     loop_var: device

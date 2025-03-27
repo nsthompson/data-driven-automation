@@ -1,5 +1,5 @@
 ---
-- name: Configure Site Groups
+- name: Configure Site Groups # noqa args[module]
   netbox.netbox.netbox_site_group:
     data:
       name: "{{ group.name }}"

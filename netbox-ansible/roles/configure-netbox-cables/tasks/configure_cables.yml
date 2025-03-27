@@ -1,5 +1,5 @@
 ---
-- name: Creating cable from {{ cable.data.termination_a.device }} {{ cable.data.termination_a.name }} to {{ cable.data.termination_b.device }} {{ cable.data.termination_b.name }}
+- name: Creating cable from {{ cable.data.termination_a.device }} {{ cable.data.termination_a.name }} to {{ cable.data.termination_b.device }} {{ cable.data.termination_b.name }} # noqa args[module] name[template]
   netbox.netbox.netbox_cable:
     data:
       termination_a_type: "{{ cable.data.termination_a_type }}"

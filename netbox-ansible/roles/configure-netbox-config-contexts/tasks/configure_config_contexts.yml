@@ -1,0 +1,21 @@
+- name: Configure config context {{ context.data.name }} # noqa args[module]
+  netbox.netbox.netbox_config_context:
+    data:
+      name: "{{ context.data.name }}"
+      weight: "{{ context.data.weight | default(omit) }}"
+      description: "{{ context.data.description | default(omit) }}"
+      data: "{{ context.data.data | default({'default_data': 'no data provided'}) }}"
+      is_active: "{{ context.data.active | default(omit) }}"
+      regions: "{{ context.data.regions | default(omit) }}"
+      sites: "{{ context.data.sites | default(omit) }}"
+      site_groups: "{{ context.data.site_groups | default(omit) }}"
+      roles: "{{ context.data.roles | default(omit) }}"
+      device_types: "{{ context.data.device_types | default(omit) }}"
+      platforms: "{{ context.data.platforms | default(omit) }}"
+      cluster_types: "{{ context.data.cluster_types | default(omit) }}"
+      cluster_groups: "{{ context.data.cluster_groups | default(omit) }}"
+      clusters: "{{ context.data.clusters | default(omit) }}"
+      tenant_groups: "{{ context.data.tenant_groups | default(omit) }}"
+      tenants: "{{ context.data.tenants | default(omit) }}"
+      tags: "{{ context.data.tags | default(omit) }}"
+    state: "{{ context.state }}"

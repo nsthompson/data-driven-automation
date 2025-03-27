@@ -1,0 +1,52 @@
+- name: Checking for data source with name {{ source.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/core/data-sources/?name={{ source.data.name }}"
+    method: GET
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+    return_content: true
+  register: response
+
+- name: Fail if multiple data sources with same name
+  ansible.builtin.fail:
+    msg: "Multiple data sources found with name {{ source.data.name }}"
+  when: response.json.count > 1
+
+- name: Set data_source_id if exists
+  ansible.builtin.set_fact:
+    data_source_id: "{{ response.json.results[0].id }}"
+  when: response.json.count == 1
+
+- name: Updating data source {{ source.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/core/data-sources/{{ data_source_id }}/"
+    method: PATCH
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ source.data }}"
+    status_code: 200
+  when: response.json.count == 1 and source.state == "present"
+
+- name: Creating data source {{ source.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/core/data-sources/"
+    method: POST
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ source.data }}"
+    status_code: 201
+  when: response.json.count == 0 and source.state == "present"
+
+- name: Deleting data source {{ source.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/core/data-sources/{{ data_source_id }}/"
+    method: DELETE
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    status_code: 204
+  when: response.json.count == 1 and source.state == "absent"

@@ -1,0 +1,82 @@
+config_contexts:
+  - data:
+      name: "Global AAA Configuration"
+      weight: 100
+      description: "Approved AAA Configuration for All IOS-XE Devices"
+      active: true
+      data:
+        aaa_commands:
+          - "aaa new-model"
+          - "aaa authentication login default local"
+          - "aaa authorization exec default local"
+          - "aaa authorization network default local"
+      platforms: ios
+    state: present
+  - data:
+      name: "Globally Disabled Configuration"
+      weight: 100
+      description: "Default Disabled Configuration for All IOS-XE Devices"
+      active: true
+      data:
+        disabled_commands:
+          - "no ip http server"
+          - "no ip http secure-server"
+          - "no ip domain lookup"
+      platforms: ios
+    state: present
+  - data:
+      name: "Global Service Configuration Best Practices"
+      weight: 100
+      description: "Global Configuration Best Practices for All IOS-XE Devices"
+      active: true
+      data:
+        service_configuration:
+          password_encryption: true
+          tcp_keepalives_in: true
+          tcp_keepalives_out: true
+          timestamps:
+            - msg: debug
+              enable: true
+              timestamp: datetime
+              datetime_options:
+                localtime: true
+                msec: true
+                show_timezone: true
+            - msg: log
+              enable: true
+              timestamp: datetime
+              datetime_options:
+                localtime: true
+                msec: true
+                show_timezone: true
+      platforms: ios
+    state: present
+  - data:
+      name: "Clock Configuration - US Central Time"
+      weight: 100
+      description: "US Central Time Configuration for IOS-XE Devices"
+      active: true
+      data:
+        clock_commands:
+          - "clock timezone CST -6 0"
+          - "clock summer-time CDT recurring"
+      platforms: ios
+      regions:
+        - US-MN
+        - US-MO
+    state: present
+  - data:
+      name: "US NTP Configuration"
+      weight: 100
+      description: "US NTP Servers for IOS-XE Devices"
+      active: true
+      data:
+        ntp_configuration:
+          logging: true
+          servers:
+            - server: 128.101.101.101
+              version: 2
+              vrf: clab-mgmt
+      platforms: ios
+      regions: US
+    state: present

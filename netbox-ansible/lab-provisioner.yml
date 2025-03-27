@@ -28,11 +28,13 @@
       when: not netbox_token is defined
 
   roles:
-    # - {role: configure-netbox-sites, when: sites is defined}
-    # - {role: configure-netbox-device-types}
-    # - {role: configure-netbox-custom-fields}
-    # # - {role: configure-netbox-racks, when: racks is defined}
-    # - {role: configure-netbox-ipam}
+    - {role: configure-netbox-sites}
+    - {role: configure-netbox-device-types}
+    - {role: configure-netbox-custom-fields}
+    - {role: configure-netbox-racks}
+    - {role: configure-netbox-ipam}
     - {role: configure-netbox-devices}
-    # # - {role: configure-netbox-circuits}
-    # # - {role: configure-netbox-cables}
+    - {role: configure-netbox-circuits}
+    - {role: configure-netbox-cables}
+    # - {role: configure-netbox-data-sources}
+    - {role: configure-netbox-config-contexts}
