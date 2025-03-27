@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   vars:
-    netbox_url: "{{ lookup('ansible.builtin.env', 'NETBOX_URL', default=undef()) }}"
+    netbox_url: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
     netbox_token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
 
   module_defaults:
@@ -29,3 +29,10 @@
 
   roles:
     - {role: configure-base-device}
+    - {role: configure-interfaces}
+
+  handlers:
+    - name: Save IOS Running Configurations
+      cisco.ios.ios_config:
+        save_when: always
+      when: '"ios" in platforms'

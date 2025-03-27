@@ -8,8 +8,6 @@
 # Written by Nick Thompson (github/@nsthompson)
 #
 
-- name: Configure Device Hostname
-  cisco.ios.ios_hostname:
-    config:
-      hostname: "{{ hostvars[inventory_hostname].inventory_hostname }}"
-  when: hostvars[inventory_hostname].inventory_hostname is defined
+- name: Configure Cisco IOS Devices
+  ansible.builtin.include_tasks: configure_cisco_ios.yml
+  when: '"ios" in platforms'

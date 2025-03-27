@@ -1,0 +1,38 @@
+- name: Configure Device Hostname
+  cisco.ios.ios_hostname:
+    config:
+      hostname: "{{ inventory_hostname }}"
+  when: inventory_hostname is defined
+  notify: Save IOS Running Configurations
+
+- name: Disable Default Configurations
+  cisco.ios.ios_config:
+    lines: "{{ config_context[0].disabled_commands }}"
+  when: config_context[0].disabled_commands is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure Global Service Best Practices
+  cisco.ios.ios_service:
+    config: "{{ config_context[0].service_configuration }}"
+    state: replaced
+  when: config_context[0].service_configuration is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure AAA Settings
+  cisco.ios.ios_config:
+    lines: "{{ config_context[0].aaa_commands }}"
+  when: config_context[0].aaa_commands is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure Clock Settings
+  cisco.ios.ios_config:
+    lines: "{{ config_context[0].clock_commands }}"
+  when: config_context[0].clock_commands is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure NTP Settings
+  cisco.ios.ios_ntp_global:
+    config: "{{ config_context[0].ntp_configuration }}"
+    state: replaced
+  when: config_context[0].ntp_configuration is defined
+  notify: Save IOS Running Configurations
