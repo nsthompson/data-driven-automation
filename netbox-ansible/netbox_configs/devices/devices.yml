@@ -137,7 +137,7 @@ devices:
         mtu: 1500
         enabled: true
         custom_fields:
-          ospfv2_network_type: point-to-point
+          ospfv2_network_type: point_to_point
           ospfv2_area: 0
           ospfv2_passive_interface: false
       - name: Ethernet0/2
@@ -218,7 +218,7 @@ devices:
         type: virtual
         enabled: true
         custom_fields:
-          ospfv2_network_type: point-to-point
+          ospfv2_network_type: point_to_point
           ospfv2_area: 0
     ip_addresses:
       - address: 10.115.115.11/24
@@ -320,7 +320,7 @@ devices:
         mtu: 1500
         enabled: true
         custom_fields:
-          ospfv2_network_type: point-to-point
+          ospfv2_network_type: point_to_point
           ospfv2_area: 0
           ospfv2_passive_interface: false
       - name: Ethernet0/3
@@ -331,7 +331,7 @@ devices:
         device: us-mn-msp-01-edge-01
         enabled: true
         custom_fields:
-          ospfv2_network_type: point-to-point
+          ospfv2_network_type: point_to_point
           ospfv2_area: 0
     ip_addresses:
       - address: 10.115.115.12/24

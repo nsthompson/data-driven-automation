@@ -19,6 +19,9 @@
 - name: Configure Netbox ASNs
   ansible.builtin.include_tasks: configure_asns.yml
   when: asns is defined
+  loop: "{{ asns }}"
+  loop_control:
+    loop_var: asn
 
 - name: Configure Netbox VRFs
   ansible.builtin.include_tasks: configure_vrfs.yml
