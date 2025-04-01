@@ -1,0 +1,63 @@
+{# parse ospfv2 process data #}
+{% if custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is defined %}
+process_config:
+  - process_id: {{ custom_fields.ospfv2_process_id }}
+{%  if custom_fields.ospfv2_router_id | length > 0 %}
+    router_id: {{ custom_fields.ospfv2_router_id }}
+{%  endif %}
+{%  if config_context[0].ospf_configuration is defined and config_context[0].ospf_configuration.log_adjacency_changes is defined %}
+    log_adjacency_changes: {{ config_context[0].ospf_configuration.log_adjacency_changes }}
+{%  endif %}
+{# passive interface configuration #}
+    passive_interfaces:
+      default: true
+{# parse passive interfaces #}
+{% set ospf = namespace(passive_interfaces = [], enabled_interfaces = []) %}
+{%  for interface in interfaces %}
+{%    if interface.custom_fields.ospfv2_passive_interface is false %}
+{%      set ospf.passive_interfaces = ospf.passive_interfaces + [interface.name] %}
+{%    endif %}
+{# parse OSPF interfaces #}
+{%    if (interface.custom_fields.ospfv2_area is not none and interface.custom_fields.ospfv2_network_type is not none) %}
+{%      set ospf.enabled_interfaces = ospf.enabled_interfaces + [
+          {
+            'name': interface.name,
+            'address_family': [
+              {
+                'afi': 'ipv4',
+                'network': {
+                  interface.custom_fields.ospfv2_network_type: 'true'
+                },
+                'process': {
+                  'id': custom_fields.ospfv2_process_id,
+                  'area_id': interface.custom_fields.ospfv2_area
+                }
+              }
+            ]
+          }
+          ] %}
+{%    endif %}
+{%    if (interface.custom_fields.ospfv2_area is not none and interface.custom_fields.ospfv2_network_type is none) %}
+{%      set ospf.enabled_interfaces = ospf.enabled_interfaces + [
+          {
+            'name': interface.name,
+            'address_family': [
+              {
+                'afi': 'ipv4',
+                'process': {
+                  'id': custom_fields.ospfv2_process_id,
+                  'area_id': interface.custom_fields.ospfv2_area
+                }
+              }
+            ]
+          }
+          ] %}
+{%    endif %}
+{%  endfor %}
+{%  if ospf.passive_interfaces | length > 0 %}
+      interface:
+        set_interface: false
+        name: {{ ospf.passive_interfaces }}
+{%  endif %}
+interface_config: {{ ospf.enabled_interfaces }}
+{% endif %}

@@ -1,0 +1,12 @@
+- name: Configuring Custom Field Choice Sets
+  netbox.netbox.netbox_custom_field_choice_set:
+    data:
+      name: "{{ choice_set.data.name }}"
+      description: "{{ choice_set.data.description | default(omit) }}"
+      base_choices: "{{ choice_set.data.base_choices | default(omit) }}"
+      extra_choices: "{{ choice_set.data.extra_choices | default(omit) }}"
+      order_alphabetically: "{{ choice_set.data.order_alphabeticaly | default(omit) }}"
+    state: "{{ choice_set.state }}"
+  loop: "{{ choice_sets }}"
+  loop_control:
+    loop_var: choice_set

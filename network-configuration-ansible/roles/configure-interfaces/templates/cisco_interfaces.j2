@@ -1,0 +1,64 @@
+{# parse l2 interfaces #}
+{% if interface.ip_addresses | length < 1 and "Vlan" not in interface.name %}
+{%    if interface.tagged_vlans | length > 0 and interface.custom_fields.enable_voice %}
+l2_config:
+  name: {{ interface.name }}
+  mode: access
+  access:
+    vlan: {{ interface.untagged_vlan.vid }}
+  voice:
+    vlan: {{ interface.tagged_vlans[0].vid }}
+{%   elif interface.tagged_vlans | length > 0 and not interface.custom_fields.enable_voice %}
+l2_config:
+  name: {{ interface.name }}
+  mode: trunk
+  trunk:
+    allowed_vlans:
+{%      for vlan in interface.tagged_vlans %}
+    - {{ vlan.vid }}
+{%      endfor %}
+    encapsulation: dot1q
+{%    elif interface.untagged_vlan %}
+l2_config:
+  name: {{ interface.name }}
+  mode: access
+  access:
+    vlan: {{ interface.untagged_vlan.vid }}
+{%    endif %}
+{# parse l3 physical interfaces #}
+{% elif interface.ip_addresses | length >= 1 %}
+l3_config:
+  name: {{ interface.name }}
+  ipv4:
+{% set vrf_data = namespace(interface_vrf = {}) %}
+{% for ip in interface.ip_addresses %}
+    - address: {{ ip.address }}
+{%  if ip.role.value is defined and ip.role.value == "secondary" %}
+      secondary: true
+{%  endif %}
+{%  if ip.vrf.name is defined %}
+{%  set vrf_data.interface_vrf = { 'name': interface.name, 'vrf_name': ip.vrf.name } %}
+{%  endif %}
+{% endfor %}
+{% endif %}
+{# interface state and description #}
+interface_config:
+  name: {{ interface.name }}
+  enabled: {{ interface.enabled }}
+{% if (interface.ip_addresses | length >= 1 and "Ethernet" in interface.name) and ("edge-router" not in device_roles and "wan-router" not in device_roles) %}
+  mode: layer3
+{% elif (interface.ip_addresses | length < 1 and "Ethernet" in interface.name) and ("edge-router" not in device_roles and "wan-router" not in device_roles) %}
+  mode: layer2
+{% endif %}
+{% if interface.description != "" %}
+  description: '{{ interface.description }}'
+{% endif %}
+{% if interface.mtu is not none %}
+  mtu: {{ interface.mtu }}
+{% endif %}
+{# interface vrf configuration #}
+{% if vrf_data.interface_vrf is defined and vrf_data.interface_vrf | length > 0 %}
+vrf_config:
+  name: {{ vrf_data.interface_vrf.name }}
+  vrf_name: {{ vrf_data.interface_vrf.vrf_name }}
+{% endif %}

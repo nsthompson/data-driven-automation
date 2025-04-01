@@ -5,6 +5,7 @@ oob_ip_as_primary_ip: true
 interfaces: true
 config_context: yes
 services: true
+site_data: true
 group_by:
   - sites
 query_filters:

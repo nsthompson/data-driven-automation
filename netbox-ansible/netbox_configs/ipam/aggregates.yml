@@ -18,4 +18,9 @@ aggregates:
       date_added: "2025-02-26"
       description: Private RFC1918 Address Space
     state: present
-
+  - data:
+      prefix: "100.64.0.0/10"
+      description: "Private RFC6598 Address Space"
+      date_added: "2025-03-29"
+      rir: rfc6598
+    state: present

@@ -8,6 +8,10 @@
 # Written by Nick Thompson (github/@nsthompson)
 #
 
+- name: Configure Custom Field Choice Sets
+  ansible.builtin.include_tasks: configure_choice_sets.yml
+  when: choice_sets is defined
+
 - name: Configure Custom Fields
   ansible.builtin.include_tasks: configure_custom_fields.yml
   when: custom_fields is defined

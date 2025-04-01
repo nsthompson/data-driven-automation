@@ -52,6 +52,34 @@ config_contexts:
       platforms: ios
     state: present
   - data:
+      name: "Global VTP Configuration Best Practices"
+      weight: 100
+      description: "Global VTP Configuration Best Practices for All IOS-XE Devices"
+      active: true
+      data:
+        vtp_commands:
+          - "vtp mode transparent"
+      platforms: ios
+      roles:
+        - core-switch
+        - access-switch
+    state: present
+  - data:
+      name: "Global OSPFv2 Configuration Best Practices"
+      weight: 100
+      description: "Global OSPFv2 Configuration Best Practices for IOS-XE Devices"
+      active: true
+      data:
+        ospf_configuration:
+          log_adjacency_changes:
+            detail: true
+            set: true
+      plaforms: ios
+      roles:
+        - core-switch
+        - edge-router
+    state: present
+  - data:
       name: "Clock Configuration - US Central Time"
       weight: 100
       description: "US Central Time Configuration for IOS-XE Devices"
@@ -64,6 +92,19 @@ config_contexts:
       regions:
         - US-MN
         - US-MO
+    state: present
+  - data:
+      name: "Clock Configuration - US Eastern Time"
+      weight: 100
+      description: "US Eastern Time Configuration for IOS-XE Devices"
+      active: true
+      data:
+        clock_commands:
+          - "clock timezone EST -5 0"
+          - "clock summer-time EDT recurring"
+      platforms: ios
+      regions:
+        - US-Northeast
     state: present
   - data:
       name: "US NTP Configuration"

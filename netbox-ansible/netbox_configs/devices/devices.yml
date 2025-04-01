@@ -31,23 +31,10 @@ devices:
       - name: Ethernet0/3
         device: us-mo-stl-60-wan-01
         enabled: false
-      - name: Ethernet1/0
-        device: us-mo-stl-60-wan-01
-        enabled: false
-      - name: Ethernet1/1
-        device: us-mo-stl-60-wan-01
-        enabled: false
-      - name: Ethernet1/2
-        device: us-mo-stl-60-wan-01
-        enabled: false
-      - name: Ethernet1/3
-        device: us-mo-stl-60-wan-01
-        enabled: false
-      - name: Vlan1
-        device: us-mo-stl-60-wan-01
+      - name: Loopback0
         type: virtual
-        description: Default VLAN
-        enabled: false
+        device: us-mo-stl-60-wan-01
+        enabled: true
     ip_addresses:
       - address: 10.115.115.10/24
         assigned_object:
@@ -63,6 +50,14 @@ devices:
           device: US-MO-STL-60-WAN-01
         description: "US-MO-STL-60-WAN-01 : Eth0/1"
         status: active
+        state: present
+      - address: 100.64.255.1/32
+        assigned_object:
+          name: Loopback0
+          device: US-MO-STL-60-WAN-01
+        description: "US-MO-STL-60-WAN-01 : Loopback0"
+        status: active
+        role: Loopback
         state: present
   # US-MN-MSP-01-MDF-R1
   - data:
@@ -117,7 +112,7 @@ devices:
       name: US-MN-MSP-01-CORE-01
       device_role: core-switch
       description: US-MN-MSP-01 Core Switch
-      device_type: cisco-iol
+      device_type: cisco-iol-l2
       platform: ios
       site: us-mn-msp-01
       location: us-mn-msp-01-mdf
@@ -126,6 +121,10 @@ devices:
       position: 36
       oob_ip: 10.115.115.11
       status: active
+      custom_fields:
+        enable_ospfv2: true
+        ospfv2_process_id: 1
+        ospfv2_router_id: 100.64.255.3
     interfaces:
       - name: Ethernet0/0
         device: us-mn-msp-01-core-01
@@ -137,6 +136,10 @@ devices:
         description: "US-MN-MSP-01-EDGE-01 : Eth0/2"
         mtu: 1500
         enabled: true
+        custom_fields:
+          ospfv2_network_type: point-to-point
+          ospfv2_area: 0
+          ospfv2_passive_interface: false
       - name: Ethernet0/2
         device: us-mn-msp-01-core-01
         enabled: false
@@ -187,21 +190,36 @@ devices:
         type: virtual
         description: Mgmt VLAN
         enabled: true
+        custom_fields:
+          ospfv2_area: 0
       - name: Vlan10
         device: us-mn-msp-01-core-01
         type: virtual
         description: User VLAN
         enabled: true
+        custom_fields:
+          ospfv2_area: 0
       - name: Vlan20
         device: us-mn-msp-01-core-01
         type: virtual
         description: Voice VLAN
         enabled: true
+        custom_fields:
+          ospfv2_area: 0
       - name: Vlan30
         device: us-mn-msp-01-core-01
         type: virtual
         description: IOT VLAN
         enabled: true
+        custom_fields:
+          ospfv2_area: 0
+      - name: Loopback0
+        device: us-mn-msp-01-core-01
+        type: virtual
+        enabled: true
+        custom_fields:
+          ospfv2_network_type: point-to-point
+          ospfv2_area: 0
     ip_addresses:
       - address: 10.115.115.11/24
         assigned_object:
@@ -246,6 +264,14 @@ devices:
         description: "US-MN-MSP-01-CORE-01 : Vlan30"
         status: active
         state: present
+      - address: 100.64.255.3/32
+        assigned_object:
+          name: Loopback0
+          device: US-MN-MSP-01-CORE-01
+        description: "US-MN-MSP-01-CORE-01 : Loopback0"
+        status: active
+        role: Loopback
+        state: present
     state: present
   - data:
       name: US-MN-MSP-01-MDF-R1-CM3
@@ -272,6 +298,10 @@ devices:
       position: 33
       oob_ip: 10.115.115.12
       status: active
+      custom_fields:
+        enable_ospfv2: true
+        ospfv2_process_id: 1
+        ospfv2_router_id: 100.64.255.2
     state: present
     interfaces:
       - name: Ethernet0/0
@@ -289,26 +319,20 @@ devices:
         description: "US-MN-MSP-01-CORE-01 : Eth0/1"
         mtu: 1500
         enabled: true
+        custom_fields:
+          ospfv2_network_type: point-to-point
+          ospfv2_area: 0
+          ospfv2_passive_interface: false
       - name: Ethernet0/3
         device: us-mn-msp-01-edge-01
         enabled: false
-      - name: Ethernet1/0
-        device: us-mn-msp-01-edge-01
-        enabled: false
-      - name: Ethernet1/1
-        device: us-mn-msp-01-edge-01
-        enabled: false
-      - name: Ethernet1/2
-        device: us-mn-msp-01-edge-01
-        enabled: false
-      - name: Ethernet1/3
-        device: us-mn-msp-01-edge-01
-        enabled: false
-      - name: Vlan1
-        device: us-mn-msp-01-edge-01
+      - name: Loopback0
         type: virtual
-        description: Default VLAN
-        enabled: false
+        device: us-mn-msp-01-edge-01
+        enabled: true
+        custom_fields:
+          ospfv2_network_type: point-to-point
+          ospfv2_area: 0
     ip_addresses:
       - address: 10.115.115.12/24
         assigned_object:
@@ -331,6 +355,14 @@ devices:
           device: US-MN-MSP-01-EDGE-01
         description: "US-MN-MSP-01-EDGE-01 : Eth0/2"
         status: active
+        state: present
+      - address: 100.64.255.2/32
+        assigned_object:
+          name: Loopback0
+          device: US-MN-MSP-01-EDGE-01
+        description: "US-MN-MSP-01-EDGE-01 : Loopback0"
+        status: active
+        role: Loopback
         state: present
   # US-MN-MSP-01-IDF-01-R1
   - data:

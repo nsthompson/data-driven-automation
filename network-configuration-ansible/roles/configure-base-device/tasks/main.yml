@@ -11,3 +11,7 @@
 - name: Configure Cisco IOS Devices
   ansible.builtin.include_tasks: configure_cisco_ios.yml
   when: '"ios" in platforms'
+
+- name: Configure Cisco IOS VTP Settings
+  ansible.builtin.include_tasks: configure_cisco_vtp.yml
+  when: '"ios" in platforms'

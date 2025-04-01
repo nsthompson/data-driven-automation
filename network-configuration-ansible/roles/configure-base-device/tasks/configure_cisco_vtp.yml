@@ -1,0 +1,33 @@
+- name: Lookup Device VLANs
+  ansible.builtin.set_fact:
+    device_vlans: "{{ lookup('netbox.netbox.nb_lookup', 'vlans', api_filter='device=inventory_hostname') }}"
+  when: '"access-switch" in device_roles or "core-switch" in device_roles'
+
+- name: Parse List of VLAN Configuration Data
+  ansible.builtin.set_fact:
+    vlan_configuration: "{{ vlan_configuration | default([]) + [
+      {
+        'name': 'VLAN'+(vlan.value.vid | string),
+        'vlan_id': vlan.value.vid,
+        'state': vlan.value.status.value,
+        'shutdown': 'disabled'
+      }
+    ]
+    }}"
+  loop: "{{ device_vlans }}"
+  loop_control:
+    loop_var: vlan
+  when: device_vlans is defined
+
+- name: Configure VTP Settings
+  cisco.ios.ios_config:
+    lines: "{{ config_context[0].vtp_commands }}"
+  when: config_context[0].vtp_commands is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure VLANs
+  cisco.ios.ios_vlans:
+    config: "{{ vlan_configuration }}"
+    state: replaced
+  when: vlan_configuration is defined
+  notify: Save IOS Running Configurations

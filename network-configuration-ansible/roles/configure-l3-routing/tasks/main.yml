@@ -1,0 +1,13 @@
+---
+#
+# Ansible Role to Configure Layer 3 Routing
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Cisco IOS-XE OSPFv2
+  ansible.builtin.include_tasks: configure_cisco_ios_ospfv2.yml
+  when: '"ios" in platforms and custom_fields.enable_ospfv2'

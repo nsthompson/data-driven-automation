@@ -16,6 +16,7 @@
       search_weight: "{{ custom_field.data.search_weight | default(omit) }}"
       type: "{{ custom_field.data.type | default(omit) }}"
       ui_visibility: "{{ custom_field.data.ui_visibility | default(omit) }}"
+      validation_minimum: "{{ custom_field.data.validation_minimum | default(omit) }}"
       validation_maximum: "{{ custom_field.data.validation_maximum | default(omit) }}"
       validation_regex: "{{ custom_field.data.validation_regex | default(omit) }}"
       weight: "{{ custom_field.data.weight | default(omit) }}"
@@ -23,4 +24,3 @@
   loop: "{{ custom_fields }}"
   loop_control:
     loop_var: custom_field
-      

@@ -1,0 +1,86 @@
+- name: Populate Interface Data
+  ansible.builtin.set_fact:
+    parsed_interfaces: "{{ parsed_interfaces | default([]) + [ lookup('template', 'templates/cisco_interfaces.j2') | from_yaml ] }}"
+  loop: "{{ interfaces }}"
+  loop_control:
+    loop_var: interface
+
+- name: Build List of VRF Configuration Data
+  ansible.builtin.set_fact:
+    vrf_configuration: "{{ vrf_configuration | default([]) + [interface.vrf_config] }}"
+  loop: "{{ parsed_interfaces }}"
+  loop_control:
+    loop_var: interface
+  when: interface.vrf_config is defined
+
+- name: Build List of L2 Interface Configuration Data
+  ansible.builtin.set_fact:
+    l2_configuration: "{{ l2_configuration | default([]) + [interface.l2_config] }}"
+  loop: "{{ parsed_interfaces }}"
+  loop_control:
+    loop_var: interface
+  when: interface.l2_config is defined
+
+- name: Build List of L2 Interface Trunk Encapsulation Data
+  ansible.builtin.set_fact:
+    l2_trunk_configuration: "{{ l2_trunk_configuration | default([]) + [{'name': interface.l2_config.name, 'trunk': { 'encapsulation': interface.l2_config.trunk.encapsulation } }] }}"
+  loop: "{{ parsed_interfaces }}"
+  loop_control:
+    loop_var: interface
+  when: interface.l2_config is defined and interface.l2_config.trunk is defined
+
+- name: Build List of L3 Interface Configuration Data
+  ansible.builtin.set_fact:
+    l3_configuration: "{{ l3_configuration | default([]) + [interface.l3_config] }}"
+  loop: "{{ parsed_interfaces }}"
+  loop_control:
+    loop_var: interface
+  when: interface.l3_config is defined
+
+- name: Build List of Interface Configuration Data
+  ansible.builtin.set_fact:
+    interface_configuration: "{{ interface_configuration | default([]) + [interface.interface_config] }}"
+  loop: "{{ parsed_interfaces }}"
+  loop_control:
+    loop_var: interface
+  when: interface.interface_config is defined
+
+- name: Debug
+  ansible.builtin.debug:
+    msg: "{{ interface_configuration }}"
+
+- name: Configure Interfaces State and Description
+  cisco.ios.ios_interfaces:
+    config: "{{ interface_configuration }}"
+    state: replaced
+  when: interface_configuration is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure Interface VRFs
+  cisco.ios.ios_vrf_interfaces:
+    config: "{{ vrf_configuration }}"
+    state: replaced
+  when: vrf_configuration is defined
+  notify: Save IOS Running Configurations
+
+# Have to set interface trunk encap to dot1q BEFORE applying the rest of the configuration
+- name: Configure L2 Interface Trunk Modes
+  cisco.ios.ios_l2_interfaces:
+    config: "{{ l2_trunk_configuration }}"
+    state: replaced
+  when: l2_trunk_configuration is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure L2 Interfaces
+  cisco.ios.ios_l2_interfaces:
+    config: "{{ l2_configuration }}"
+    state: replaced
+  when: l2_configuration is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure L3 Interfaces
+  cisco.ios.ios_l3_interfaces:
+    config: "{{ l3_configuration }}"
+    state: replaced
+  when: l3_configuration is defined
+  notify: Save IOS Running Configurations

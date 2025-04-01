@@ -5,3 +5,13 @@ rirs:
       description: RFC1918 Addresses
       is_private: true
     state: present
+  - data:
+      name: RFC6598
+      description: RFC6598 Addresses
+      is_private: true
+    state: present
+  - data:
+      name: Private
+      description: Private RIR
+      is_private: true
+    state: present

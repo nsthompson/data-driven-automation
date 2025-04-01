@@ -1,0 +1,22 @@
+- name: Parse OSPF Configuration Data
+  ansible.builtin.set_fact:
+    ospf_configuration: "{{ lookup('template', 'templates/cisco_ios_ospfv2.j2') | from_yaml }}"
+
+- name: Parsed Debug
+  ansible.builtin.debug:
+    msg: "{{ ospf_configuration }}"
+
+- name: Configure OSPFv2
+  cisco.ios.ios_ospfv2:
+    config:
+      processes: "{{ ospf_configuration.process_config }}"
+    state: replaced
+  when: ospf_configuration.process_config is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure OSPF Interfaces
+  cisco.ios.ios_ospf_interfaces:
+    config: "{{ ospf_configuration.interface_config }}"
+    state: replaced
+  when: ospf_configuration.interface_config is defined
+  notify: Save IOS Running Configurations

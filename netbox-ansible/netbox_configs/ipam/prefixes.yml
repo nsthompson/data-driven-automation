@@ -109,3 +109,11 @@ prefixes:
       mark_utilized: false
     first_available: false
     state: present
+  - data:
+      prefix: "100.64.255.0/24"
+      description: "Loopback Subnet"
+      status: active
+      is_pool: false
+      mark_utilized: false
+    first_available: true
+    state: present

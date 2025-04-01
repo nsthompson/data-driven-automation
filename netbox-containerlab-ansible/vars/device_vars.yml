@@ -6,5 +6,5 @@ sites:
       - access-switch
       - core-switch
   - name: us-mo-stl-60
-    roles: 
+    roles:
       - wan-router

@@ -8,3 +8,59 @@ custom_fields:
       type: boolean
       default: false
     state: present
+  - data:
+      name: enable_ospfv2
+      description: Enable OSPFv2
+      object_types:
+        - dcim.device
+      type: boolean
+      default: false
+      group_name: OSPFv2
+    state: present
+  - data:
+      name: ospfv2_process_id
+      description: OSPFv2 Process ID
+      object_types:
+        - dcim.device
+      type: integer
+      validation_minimum: 1
+      validation_maximum: 65535
+      group_name: OSPFv2
+    state: present
+  - data:
+      name: ospfv2_router_id
+      description: OSPFv2 Router ID
+      object_types:
+        - dcim.device
+      type: text
+      validation_regex: '\b((25[0-5]|2[0-4]\d|1?\d\d?)\.){3}(25[0-5]|2[0-4]\d|1?\d\d?)\b'
+      group_name: OSPFv2
+    state: present
+  - data:
+      name: ospfv2_network_type
+      description: OSPFv2 Network Type
+      object_types:
+        - dcim.interface
+      type: select
+      choice_set: OSPF-Network-Types
+      group_name: OSPFv2
+    state: present
+  - data:
+      name: ospfv2_passive_interface
+      description: OSPFv2 Passive Interface
+      object_types:
+        - dcim.interface
+      type: boolean
+      default: true
+      group_name: OSPFv2
+    state: present
+  - data:
+      name: ospfv2_area
+      description: OSPFv2 Area
+      object_types:
+        - dcim.interface
+      type: integer
+      validation_minimum: 0
+      validation_maximum: 4294967295
+      group_name: OSPFv2
+    state: present

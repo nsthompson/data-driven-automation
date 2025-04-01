@@ -1,0 +1,12 @@
+---
+choice_sets:
+  - data:
+      name: OSPF-Network-Types
+      description: "OSPF Network Types"
+      extra_choices:
+        - ['broadcast', 'Broadcast']
+        - ['non_broadcast', 'Non-Broadcast']
+        - ['point_to_multipoint', 'Point to Multipoint']
+        - ['point_to_point', 'Point to Point']
+      order_alphabetically: false
+    state: present

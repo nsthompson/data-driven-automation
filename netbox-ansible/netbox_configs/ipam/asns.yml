@@ -3,12 +3,12 @@ asns:
   - data:
       asn: 65000
       description: ATC Core ASN
-      rir: rfc1918
+      rir: private
       site: us-mo-stl-60
     state: present
   - data:
       asn: 65001
       description: US-MN-MSP-01 ASN
-      rir: rfc1918
-      site: us-mo-stl-60
+      rir: private
+      site: us-mn-msp-01
     state: present

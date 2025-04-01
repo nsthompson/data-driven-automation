@@ -12,7 +12,7 @@
       netbox_token: "{{ netbox_token }}"
 
   pre_tasks:
-    - name: Include vars from netbox_configs directory
+    - name: Include vars from network_configs directory
       ansible.builtin.include_vars:
         dir: network_configs
         extensions: ["yml"]
@@ -30,6 +30,7 @@
   roles:
     - {role: configure-base-device}
     - {role: configure-interfaces}
+    - {role: configure-l3-routing}
 
   handlers:
     - name: Save IOS Running Configurations

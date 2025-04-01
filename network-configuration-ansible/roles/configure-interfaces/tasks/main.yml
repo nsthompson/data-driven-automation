@@ -1,0 +1,13 @@
+---
+#
+# Ansible Role to Configure Network Interfaces
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Cisco IOS Device Interfaces
+  ansible.builtin.include_tasks: configure_cisco_interfaces.yml
+  when: '"ios" in platforms'
