@@ -36,5 +36,6 @@
     - {role: configure-netbox-devices}
     - {role: configure-netbox-circuits}
     - {role: configure-netbox-cables}
-    # - {role: configure-netbox-data-sources}
+    - {role: configure-netbox-data-sources}
     - {role: configure-netbox-config-contexts}
+    - {role: configure-netbox-bgp}
