@@ -1,0 +1,32 @@
+{# parse bgp process data #}
+{% if custom_fields.enable_bgp and bgp_data is defined %}
+global_config:
+  as_number: {{ bgp_data.local_as.asn }}
+  address_family:
+    - afi: ipv4
+      bgp:
+      neighbors:
+{%      set remote_addr = (bgp_data.remote_address.address | ansible.utils.ipaddr('address')) %}
+        - neighbor_address: {{ remote_addr }}
+          description: '{{ bgp_data.remote_address.description }}'
+          remote_as: {{ bgp_data.remote_as.asn }}
+          soft_reconfiguration: true
+          log_neighbor_changes:
+            set: true
+      redistribute:
+        - connected:
+            set: true
+{%      if custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is not none %}
+        - ospf:
+            process_id: {{ custom_fields.ospfv2_process_id }}
+{%      endif %}
+      networks:
+{%    if prefix_data is defined %}
+{%      for prefix in prefix_data %}
+{%        if prefix.value.children == 0 %}
+        - address: {{ prefix.value.prefix | ansible.utils.ipaddr('network') }}
+          mask: {{ prefix.value.prefix | ansible.utils.ipaddr('netmask') }}
+{%        endif %}
+{%      endfor %}
+{%    endif %}
+{% endif %}

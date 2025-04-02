@@ -9,6 +9,8 @@
       mark_utilized: "{{ prefix.data.mark_utilized | default(omit) }}"
       parent: "{{ prefix.data.parent | default(omit) }}"
       site: "{{ prefix.data.site | default(omit) }}"
+      scope: "{{ prefix.data.scope | default(omit) }}"
+      scope_type: "{{ prefix.data.scope_type | default(omit) }}"
       vrf: "{{ prefix.data.vrf | default(omit) }}"
       tenant: "{{ prefix.data.tenant | default(omit) }}"
       vlan: "{{ prefix.data.vlan | default(omit) }}"

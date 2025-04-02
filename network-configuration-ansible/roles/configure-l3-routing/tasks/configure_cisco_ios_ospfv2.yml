@@ -2,10 +2,6 @@
   ansible.builtin.set_fact:
     ospf_configuration: "{{ lookup('template', 'templates/cisco_ios_ospfv2.j2') | from_yaml }}"
 
-- name: Parsed Debug
-  ansible.builtin.debug:
-    msg: "{{ ospf_configuration }}"
-
 - name: Configure OSPFv2
   cisco.ios.ios_ospfv2:
     config:

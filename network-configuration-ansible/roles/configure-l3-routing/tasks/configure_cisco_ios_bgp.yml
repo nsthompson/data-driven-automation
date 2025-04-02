@@ -1,0 +1,35 @@
+- name: Query for BGP sessions assigned to {{ inventory_hostname }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/plugins/bgp/session/?device={{ inventory_hostname }}"
+    method: GET
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+    return_content: true
+  register: session_response
+  when: custom_fields.enable_bgp is defined and custom_fields.enable_bgp
+
+- name: Populate BGP Session Data
+  ansible.builtin.set_fact:
+    bgp_data: "{{ session_response.json.results[0] }}"
+
+- name: Query Netbox Site Prefix Data
+  ansible.builtin.set_fact:
+    prefix_data: "{{ lookup('netbox.netbox.nb_lookup', 'prefixes', api_filter='site=' + bgp_data.site.slug) }}"
+
+- name: Parse BGP Configuration Data
+  ansible.builtin.set_fact:
+    bgp_configuration: "{{ lookup('template', 'templates/cisco_ios_bgp.j2') | from_yaml }}"
+
+- name: Configure BGP
+  cisco.ios.ios_bgp_address_family:
+    config: "{{ bgp_configuration.global_config }}"
+    state: replaced
+  when: bgp_configuration.global_config is defined
+  notify: Save IOS Running Configurations
+
+- name: Configure BGP Route Redistribution into OSPF
+  cisco.ios.ios_config:
+    lines:
+      - "{{ 'redistribute bgp ' + (bgp_data.local_as.asn | string) }}"
+    parents: "{{ 'router ospf ' + (custom_fields.ospfv2_process_id | string) }}"
+  when: custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is not none

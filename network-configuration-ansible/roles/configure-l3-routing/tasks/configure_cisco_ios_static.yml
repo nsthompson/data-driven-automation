@@ -1,0 +1,5 @@
+- name: Configure Static Routes
+  cisco.ios.ios_static_routes:
+    config: "{{ config_context[0].static_routes }}"
+    state: replaced
+  notify: Save IOS Running Configurations

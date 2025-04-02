@@ -18,6 +18,15 @@ custom_fields:
       group_name: OSPFv2
     state: present
   - data:
+      name: enable_bgp
+      description: Enable BGP
+      object_types:
+        - dcim.device
+      type: boolean
+      default: false
+      group_name: BGP
+    state: present
+  - data:
       name: ospfv2_process_id
       description: OSPFv2 Process ID
       object_types:

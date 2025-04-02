@@ -6,6 +6,8 @@ prefixes:
       status: container
       is_pool: false
       mark_utilized: false
+      scope: us-mo-stl-60
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -14,6 +16,8 @@ prefixes:
       status: container
       is_pool: false
       mark_utilized: false
+      scope: us-mo-stl-60
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -47,6 +51,8 @@ prefixes:
       status: container
       is_pool: false
       mark_utilized: false
+      scope: us-mn-msp-01
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -55,6 +61,8 @@ prefixes:
       status: container
       is_pool: false
       mark_utilized: false
+      scope: us-mn-msp-01
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -63,6 +71,8 @@ prefixes:
       status: active
       is_pool: false
       mark_utilized: false
+      scope: us-mn-msp-01
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -74,6 +84,8 @@ prefixes:
         name: US-MN-MSP-01 Mgmt VLAN
         site: us-mn-msp-01
       mark_utilized: false
+      scope: us-mn-msp-01
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -85,6 +97,8 @@ prefixes:
         name: US-MN-MSP-01 User VLAN
         site: us-mn-msp-01
       mark_utilized: false
+      scope: us-mn-msp-01
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -96,6 +110,8 @@ prefixes:
         name: US-MN-MSP-01 Voice VLAN
         site: us-mn-msp-01
       mark_utilized: false
+      scope: us-mn-msp-01
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:
@@ -107,6 +123,8 @@ prefixes:
         name: US-MN-MSP-01 IOT VLAN
         site: us-mn-msp-01
       mark_utilized: false
+      scope: us-mn-msp-01
+      scope_type: dcim.site
     first_available: false
     state: present
   - data:

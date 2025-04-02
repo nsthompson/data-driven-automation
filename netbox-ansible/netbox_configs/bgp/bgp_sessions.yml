@@ -1,0 +1,36 @@
+---
+bgp_sessions:
+  - data:
+      name: MSP-01-to-ATC
+      description: "BGP Session to ATC WAN Router"
+      site:
+        name: US-MN-MSP-01
+      device:
+        name: US-MN-MSP-01-EDGE-01
+      status: active
+      remote_as:
+        asn: 65000
+      remote_address:
+        address: 10.195.255.1/30
+      local_as:
+        asn: 65001
+      local_address:
+        address: 10.195.255.2/30
+    state: present
+  - data:
+      name: ATC-to-MSP-01
+      description: "BGP Session to MSP 01 Edge Router"
+      site:
+        name: US-MO-STL-60
+      device:
+        name: US-MO-STL-60-WAN-01
+      status: active
+      remote_as:
+        asn: 65001
+      remote_address:
+        address: 10.195.255.2/30
+      local_as:
+        asn: 65000
+      local_address:
+        address: 10.195.255.1/30
+    state: present

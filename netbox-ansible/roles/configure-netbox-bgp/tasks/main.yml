@@ -1,0 +1,16 @@
+---
+#
+# Ansible Role to Configure NetBox BGP Plugin
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure BGP Sessions
+  ansible.builtin.include_tasks: configure_bgp_sessions.yml
+  loop: "{{ bgp_sessions }}"
+  loop_control:
+    loop_var: session
+  when: bgp_sessions is defined

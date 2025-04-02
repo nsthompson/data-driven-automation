@@ -1,0 +1,56 @@
+- name: Checking for BGP session with name {{ session.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/plugins/bgp/session/?name={{ session.data.name }}"
+    method: GET
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+    return_content: true
+  register: existing_response
+
+- name: Fail if multiple sessions with same name
+  ansible.builtin.fail:
+    msg: "Multiple data sources found with name {{ session.data.name }}"
+  when: existing_response.json.count > 1
+
+- name: Set bgp_session_id if exists
+  ansible.builtin.set_fact:
+    bgp_session_id: "{{ response.json.results[0].id }}"
+  when: existing_response.json.count == 1
+
+- name: Updating BGP session {{ session.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/plugins/bgp/session/{{ bgp_session_id }}/"
+    method: PATCH
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ session.data }}"
+    status_code: 200
+  when: existing_response.json.count == 1 and session.state == "present"
+
+- name: Creating BGP session {{ session.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/plugins/bgp/session/"
+    method: POST
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ session.data }}"
+    status_code: 201
+  register: response
+  changed_when: 'response.status == 201'
+  when: existing_response.json.count == 0 and session.state == "present"
+
+- name: Deleting BGP session {{ session.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/plugins/bgp/session/{{ bgp_session_id }}/"
+    method: DELETE
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    status_code: 204
+  register: response
+  changed_when: 'response.status == 204'
+  when: existing_response.json.count == 1 and session.state == "absent"

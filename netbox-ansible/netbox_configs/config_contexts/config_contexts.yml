@@ -121,3 +121,20 @@ config_contexts:
       platforms: ios
       regions: US
     state: present
+  - data:
+      name: "US-MN-MSP-01 Static Routes"
+      weight: 100
+      description: "Static Routes for Access Switches in US-MN-MSP-01"
+      active: true
+      data:
+        static_routes:
+          - address_families:
+            - afi: ipv4
+              routes:
+                - dest: '0.0.0.0/0'
+                  next_hops:
+                    - forward_router_address: 10.10.0.113
+      platforms: ios
+      sites: us-mn-msp-01
+      roles: access-switch
+    state: present
