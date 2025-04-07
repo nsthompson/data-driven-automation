@@ -18,4 +18,4 @@
 
 - name: Configure Cisco IOS-XE BGP
   ansible.builtin.include_tasks: configure_cisco_ios_bgp.yml
-  when: '"ios" in platforms and custom_fields.enable_bgp'
+  when: '"ios" in platforms and and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
