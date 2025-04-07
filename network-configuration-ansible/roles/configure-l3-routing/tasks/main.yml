@@ -14,7 +14,7 @@
 
 - name: Configure Cisco IOS-XE OSPFv2
   ansible.builtin.include_tasks: configure_cisco_ios_ospfv2.yml
-  when: '"ios" in platforms and custom_fields.enable_ospfv2'
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
 
 - name: Configure Cisco IOS-XE BGP
   ansible.builtin.include_tasks: configure_cisco_ios_bgp.yml
