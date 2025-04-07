@@ -14,7 +14,7 @@
 
 - name: Set bgp_session_id if exists
   ansible.builtin.set_fact:
-    bgp_session_id: "{{ response.json.results[0].id }}"
+    bgp_session_id: "{{ existing_response.json.results[0].id }}"
   when: existing_response.json.count == 1
 
 - name: Updating BGP session {{ session.data.name }}
