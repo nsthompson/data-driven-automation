@@ -1,4 +1,6 @@
+---
 plugin: netbox.netbox.nb_inventory
+api_endpoint: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
 token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
 validate_certs: true
 oob_ip_as_primary_ip: true
