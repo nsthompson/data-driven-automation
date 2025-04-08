@@ -16,7 +16,7 @@ global_config:
       redistribute:
         - connected:
             set: true
-{%      if custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is not none %}
+{%      if custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is not none %}
         - ospf:
             process_id: {{ custom_fields.ospfv2_process_id }}
 {%      endif %}
