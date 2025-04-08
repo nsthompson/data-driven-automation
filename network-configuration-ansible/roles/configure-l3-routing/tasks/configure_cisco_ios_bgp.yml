@@ -32,4 +32,4 @@
     lines:
       - "{{ 'redistribute bgp ' + (bgp_data.local_as.asn | string) }}"
     parents: "{{ 'router ospf ' + (custom_fields.ospfv2_process_id | string) }}"
-  when: custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is not none
+  when: custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is not none
