@@ -1,0 +1,15 @@
+---
+- name: Rulebook to trigger automation to enforce state against a changed device
+  hosts: all
+  gather_facts: false
+
+  sources:
+    - ansible.eda.webhook:
+        host: 127.0.0.1
+        port: 5000
+
+  rules:
+    - name: Debug test
+      condition: true
+      action:
+        debug: "{{ event }}"
