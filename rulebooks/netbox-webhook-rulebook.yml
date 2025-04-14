@@ -17,5 +17,5 @@
       condition: event.payload.event == "updated"
       action:
         run_job_template:
-          name: Configure NetBox Lab Environment
+          name: Configure Demo Network from NetBox
           organization: Data-Driven-Demo
