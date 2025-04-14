@@ -6,11 +6,16 @@
   sources:
     - name: Listen for events from NetBox
       ansible.eda.webhook:
-        host: 127.0.0.1
+        host: 0.0.0.0
         port: 5000
+      filters:
+        - ansible.eda.insert_hosts_to_meta:
+            host_path: event.payload.device
 
   rules:
-    - name: Debug test
-      condition: true
+    - name: Configure target device
+      condition: event.payload.event == "updated"
       action:
-        debug:
+        run_job_template:
+          name: Configure NetBox Lab Environment
+          organization: Data-Driven-Demo
