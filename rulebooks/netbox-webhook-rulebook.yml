@@ -4,7 +4,8 @@
   gather_facts: false
 
   sources:
-    - ansible.eda.webhook:
+    - name: Listen for events from NetBox
+      ansible.eda.webhook:
         host: 127.0.0.1
         port: 5000
 
