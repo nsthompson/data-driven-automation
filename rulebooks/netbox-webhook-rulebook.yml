@@ -10,7 +10,7 @@
         port: 5000
       filters:
         - ansible.eda.insert_hosts_to_meta:
-            host_path: event.payload.device
+            host_path: payload.device
 
   rules:
     - name: Configure target device
