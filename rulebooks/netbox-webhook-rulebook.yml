@@ -19,3 +19,5 @@
         run_job_template:
           name: Configure Demo Network from NetBox
           organization: Data-Driven-Demo
+          job_args:
+            limit: "{{ payload.meta.hosts }}"
