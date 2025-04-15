@@ -1,0 +1,15 @@
+---
+event_rules:
+  - data:
+      name: DCIM-Device-and-Interface-Updates
+      description: Fire webhook on Device and Interface Updates
+      object_types:
+        - dcim.device
+        - dcim.interface
+      enabled: true
+      event_types:
+        - object_updated
+      action_type: webhook
+      action_object_type: extras.webhook
+      action_object_id: "{{ query('netbox.netbox.nb_lookup', 'webhooks', api_filter='name=AAP-EDA-Event-Stream', api_endpoint=netbox_url, token=netbox_token)[0].value.id }}"
+    state: present

@@ -1,0 +1,20 @@
+---
+#
+# Ansible Role to Configure Webhooks and Event Rules
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Configure Netbox Webhooks
+  ansible.builtin.include_tasks: configure_webhooks.yml
+  when: webhooks is defined
+
+- name: Configure Netbox Event Rules
+  ansible.builtin.include_tasks: configure_event_rules.yml
+  when: event_rules is defined
+  loop: "{{ event_rules }}"
+  loop_control:
+    loop_var: rule

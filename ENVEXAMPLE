@@ -1,3 +1,5 @@
 export NETBOX_API= # Your Netbox Instance URL
 export NETBOX_TOKEN= # Your Netbox API Token
 export ANSIBLE_HOST_KEY_CHECKING=False
+export EVENT_STREAM_URL= # URL Provided by EDA for Configured Event Stream
+export EVENT_STREAM_TOKEN= # Base64 Encoding of Credentials for AAP EDA Event Stream

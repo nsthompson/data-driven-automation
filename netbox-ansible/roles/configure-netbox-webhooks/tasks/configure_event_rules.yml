@@ -1,0 +1,52 @@
+- name: Checking for event rule with name {{ rule.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/extras/event-rules/?name={{ rule.data.name }}"
+    method: GET
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+    return_content: true
+  register: response
+
+- name: Fail if multiple event rules with same name
+  ansible.builtin.fail:
+    msg: "Multiple event rules found with name {{ rule.data.name }}"
+  when: response.json.count > 1
+
+- name: Set event_rule_id if exists
+  ansible.builtin.set_fact:
+    event_rule_id: "{{ response.json.results[0].id }}"
+  when: response.json.count == 1
+
+- name: Updating event rule {{ rule.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/extras/event-rules/{{ event_rule_id }}/"
+    method: PATCH
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ rule.data }}"
+    status_code: 200
+  when: response.json.count == 1 and rule.state == "present"
+
+- name: Creating event rule {{ rule.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/extras/event-rules/"
+    method: POST
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ rule.data }}"
+    status_code: 201
+  when: response.json.count == 0 and rule.state == "present"
+
+- name: Deleting event rule {{ rule.data.name }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/extras/event-rules/{{ data_source_id }}/"
+    method: DELETE
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    status_code: 204
+  when: response.json.count == 1 and rule.state == "absent"

@@ -1,0 +1,24 @@
+---
+- name: Configure Netbox Webhooks
+  netbox.netbox.netbox_webhook:
+    data:
+      name: "{{ webhook.data.name }}"
+      payload_url: "{{ webhook.data.payload_url | default(omit) }}"
+      http_method: "{{ webhook.data.http_method | default(omit) }}"
+      http_content_type: "{{ webhook.data.http_content_type | default(omit) }}"
+      additional_headers: "{{ webhook.data.additional_headers | default(omit) }}"
+      body_template: "{{ webhook.data.body_template | default(omit) }}"
+      secret: "{{ webhook.data.secret | default(omit) }}"
+      ssl_verification: "{{ webhook.data.ssl_verification | default(omit) }}"
+      ca_file_path: "{{ webhook.data.ca_file_path | default(omit) }}"
+      enabled: "{{ webhook.data.enabled | default(omit) }}"
+      # The following parameters are for Event Rules and appear to be unused in recent NetBox versions
+      content_types: "{{ webhook.data.content_types | default(omit) }}"
+      type_create: "{{ webhook.data.type_create | default(omit) }}"
+      type_delete: "{{ webhook.data.type_delete | default(omit) }}"
+      type_update: "{{ webhook.data.type_update | default(omit) }}"
+      conditions: "{{ webhook.data.conditions | default(omit) }}"
+    state: "{{ webhook.state }}"
+  loop: "{{ webhooks }}"
+  loop_control:
+    loop_var: webhook

@@ -1,0 +1,35 @@
+---
+webhooks:
+  - data:
+      name: AAP-EDA-Event-Stream
+      payload_url: "{{ lookup('ansible.builtin.env', 'EVENT_STREAM_URL', default=undef()) }}"
+      http_method: POST
+      http_content_type: application/json
+      additional_headers: |-
+        {{ 'Authorization: Basic ' + lookup('ansible.builtin.env', 'EVENT_STREAM_TOKEN', default=undef()) }}
+      body_template: !unsafe |-
+        {
+          {# body template for interface changes #}
+          {% if model == "interface" %}
+            "device": "{{ data.device.name }}",
+            "model": "{{ model }}",
+            "interface": "{{ data.name }}",
+            "event": "{{ event }}",
+            "username": "{{ username }}"
+          {% endif %}
+          {# body template for device changes #}
+          {% if model == "device" %}
+            "device": "{{ data.name }}",
+            "model": "{{ model }}",
+            "event": "{{ event }}",
+            "username": "{{ username }}"
+          {% endif %}
+        }
+      ssl_verification: false
+      type_create: false
+      type_update: true
+      type_delete: false
+      content_types:
+        - dcim.device
+        - dcim.interface
+    state: present
