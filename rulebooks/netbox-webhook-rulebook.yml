@@ -20,4 +20,4 @@
           name: Configure Demo Network from NetBox
           organization: Data-Driven-Demo
           job_args:
-            limit: "{{ payload.meta.hosts }}"
+            limit: "{{ event.payload.meta.hosts }}"
