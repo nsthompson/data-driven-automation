@@ -18,3 +18,4 @@
           organization: Data-Driven-Demo
           job_args:
             limit: "{{ event.payload.device }}"
+            job_tags: "{{ event.payload.model }}"

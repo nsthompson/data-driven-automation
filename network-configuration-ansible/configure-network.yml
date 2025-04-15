@@ -23,9 +23,9 @@
       when: not netbox_token is defined
 
   roles:
-    - {role: configure-base-device}
-    - {role: configure-interfaces}
-    - {role: configure-l3-routing}
+    - {role: configure-base-device, tags: ['device']}
+    - {role: configure-interfaces, tags: ['interface']}
+    - {role: configure-l3-routing, tags: ['routing']}
 
   handlers:
     - name: Save IOS Running Configurations
