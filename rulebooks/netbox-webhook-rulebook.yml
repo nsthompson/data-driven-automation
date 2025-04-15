@@ -8,9 +8,6 @@
       ansible.eda.webhook:
         host: 0.0.0.0
         port: 5000
-      filters:
-        - ansible.eda.insert_hosts_to_meta:
-            host_path: payload.device
 
   rules:
     - name: Configure target device
@@ -20,4 +17,4 @@
           name: Configure Demo Network from NetBox
           organization: Data-Driven-Demo
           job_args:
-            limit: "{{ event.payload.meta.hosts }}"
+            limit: "{{ event.payload.device }}"
