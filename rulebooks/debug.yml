@@ -13,4 +13,4 @@
     - name: Debug all messages
       condition: true
       action:
-        debug:
+        debug: "{{ event }}"
