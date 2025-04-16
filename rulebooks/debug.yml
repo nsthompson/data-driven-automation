@@ -12,4 +12,5 @@
   rules:
     - name: Debug all messages
       condition: true
-      debug:
+      action:
+        debug:
