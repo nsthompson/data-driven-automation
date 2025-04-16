@@ -10,7 +10,7 @@
         port: 5000
 
   rules:
-    - name: Debug all messages
+    - name: Print Event Data
       condition: true
       action:
-        debug: "{{ event }}"
+        print_event:
