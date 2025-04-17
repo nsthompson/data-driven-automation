@@ -5,14 +5,14 @@ config_contexts:
       description: "Approved AAA Configuration for All IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - device
         aaa_commands:
           - "aaa new-model"
           - "aaa authentication login default local"
           - "aaa authorization exec default local"
           - "aaa authorization network default local"
       platforms: ios
-      tags:
-        - device
     state: present
   - data:
       name: "Globally Disabled Configuration"
@@ -20,13 +20,13 @@ config_contexts:
       description: "Default Disabled Configuration for All IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - device
         disabled_commands:
           - "no ip http server"
           - "no ip http secure-server"
           - "no ip domain lookup"
       platforms: ios
-      tags:
-        - device
     state: present
   - data:
       name: "Global Service Configuration Best Practices"
@@ -34,6 +34,8 @@ config_contexts:
       description: "Global Configuration Best Practices for All IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - device
         service_configuration:
           password_encryption: true
           tcp_keepalives_in: true
@@ -54,8 +56,6 @@ config_contexts:
                 msec: true
                 show_timezone: true
       platforms: ios
-      tags:
-        - device
     state: present
   - data:
       name: "Global VTP Configuration Best Practices"
@@ -63,14 +63,14 @@ config_contexts:
       description: "Global VTP Configuration Best Practices for All IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - device
         vtp_commands:
           - "vtp mode transparent"
       platforms: ios
       roles:
         - core-switch
         - access-switch
-      tags:
-        - device
     state: present
   - data:
       name: "Global OSPFv2 Configuration Best Practices"
@@ -78,6 +78,8 @@ config_contexts:
       description: "Global OSPFv2 Configuration Best Practices for IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - routing
         ospf_configuration:
           log_adjacency_changes:
             detail: true
@@ -86,8 +88,6 @@ config_contexts:
       roles:
         - core-switch
         - edge-router
-      tags:
-        - routing
     state: present
   - data:
       name: "Clock Configuration - US Central Time"
@@ -95,6 +95,8 @@ config_contexts:
       description: "US Central Time Configuration for IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - device
         clock_commands:
           - "clock timezone CST -6 0"
           - "clock summer-time CDT recurring"
@@ -102,8 +104,6 @@ config_contexts:
       regions:
         - US-MN
         - US-MO
-      tags:
-        - device
     state: present
   - data:
       name: "Clock Configuration - US Eastern Time"
@@ -111,14 +111,14 @@ config_contexts:
       description: "US Eastern Time Configuration for IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - device
         clock_commands:
           - "clock timezone EST -5 0"
           - "clock summer-time EDT recurring"
       platforms: ios
       regions:
         - US-Northeast
-      tags:
-        - device
     state: present
   - data:
       name: "US NTP Configuration"
@@ -126,6 +126,8 @@ config_contexts:
       description: "US NTP Servers for IOS-XE Devices"
       active: true
       data:
+        controller_tags:
+          - device
         ntp_configuration:
           logging: true
           servers:
@@ -134,8 +136,6 @@ config_contexts:
               vrf: clab-mgmt
       platforms: ios
       regions: US
-      tags:
-        - device
     state: present
   - data:
       name: "US-MN-MSP-01 Static Routes"
@@ -143,6 +143,8 @@ config_contexts:
       description: "Static Routes for Access Switches in US-MN-MSP-01"
       active: true
       data:
+        controller_tags:
+          - routing
         static_routes:
           - address_families:
             - afi: ipv4
@@ -153,6 +155,4 @@ config_contexts:
       platforms: ios
       sites: us-mn-msp-01
       roles: access-switch
-      tags:
-        - routing
     state: present

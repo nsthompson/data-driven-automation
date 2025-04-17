@@ -13,3 +13,17 @@ event_rules:
       action_object_type: extras.webhook
       action_object_id: "{{ query('netbox.netbox.nb_lookup', 'webhooks', api_filter='name=AAP-EDA-Event-Stream', api_endpoint=netbox_url, token=netbox_token)[0].value.id }}"
     state: present
+  - data:
+      name: Config-Contexts
+      description: Fire webhook on Config Context Changes
+      object_types:
+        - extras.configcontext
+      enabled: true
+      event_types:
+        - object_created
+        - object_updated
+        - object_deleted
+      action_type: webhook
+      action_object_type: extras.webhook
+      action_object_id: "{{ query('netbox.netbox.nb_lookup', 'webhooks', api_filter='name=AAP-EDA-Event-Stream', api_endpoint=netbox_url, token=netbox_token)[0].value.id }}"
+    state: present
