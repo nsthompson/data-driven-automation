@@ -1,0 +1,11 @@
+- name: Configure Tags
+  netbox.netbox.netbox_tag:
+    data:
+      name: "{{ tag.data.name }}"
+      description: "{{ tag.data.description | default(omit) }}"
+      color: "{{ tag.data.color | default(omit) }}"
+      slug: "{{ tag.data.slug | default(omit) }}"
+    state: "{{ tag.state }}"
+  loop: "{{ netbox_tags }}"
+  loop_control:
+    loop_var: tag

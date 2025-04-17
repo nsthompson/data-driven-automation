@@ -25,3 +25,5 @@
         run_job_template:
           name: Parse NetBox Config Context Webhook
           organization: Data-Driven-Demo
+          job_args:
+            job_tags: "{{ event.payload.data.tags | join(',') }}"

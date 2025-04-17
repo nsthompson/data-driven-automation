@@ -1,6 +1,6 @@
 ---
 #
-# Ansible Role to Configure Netbox Custom Fields
+# Ansible Role to Configure Netbox Customization Data
 #
 # Copyright (C) 2025 World Wide Technology
 # All Rights Reserved
@@ -15,3 +15,7 @@
 - name: Configure Custom Fields
   ansible.builtin.include_tasks: configure_custom_fields.yml
   when: custom_fields is defined
+
+- name: Configure Tags
+  ansible.builtin.include_tasks: configure_tags.yml
+  when: netbox_tags is defined

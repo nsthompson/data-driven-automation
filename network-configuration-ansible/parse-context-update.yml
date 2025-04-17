@@ -36,19 +36,6 @@
       when: not controller_oauth_token is defined
 
   tasks:
-    # - name: Load JSON Test Data
-    #   ansible.builtin.set_fact:
-    #     ansible_eda: >-
-    #       {{ ansible_eda | default({}) | combine(
-    #         {
-    #           'event': {
-    #             'payload': {
-    #               'data': (lookup('file', 'payload_test.json') | from_json)
-    #             }
-    #           }
-    #         }
-    #       ) }}
-
     - name: Parse received event to build API filter
       ansible.builtin.set_fact:
         parsed_api_filter: "{{ lookup('template', 'templates/config_context_webhook.j2') }}"
