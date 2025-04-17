@@ -55,7 +55,7 @@
 
     - name: Parse tags
       ansible.builtin.set_fact:
-        target_tags: "{{ ansible_eda.event.payload.data.tags | join(',') }}"
+        target_tags: "{{ ansible_eda.event.payload.data.data.controller_tags | join(',') }}"
       when: ansible_eda.event.payload.data.tags | length > 0
 
     - name: Launch playbook to configure target hosts
