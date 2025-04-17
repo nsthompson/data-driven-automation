@@ -11,7 +11,7 @@
 
   rules:
     - name: Configure target device
-      condition: event.payload.event == "updated"
+      condition: event.payload.event == "updated" and model != "configcontext"
       action:
         run_job_template:
           name: Configure Demo Network from NetBox
@@ -19,3 +19,9 @@
           job_args:
             limit: "{{ event.payload.device }}"
             job_tags: "{{ event.payload.model }}"
+    - name: Trigger webhook parsing playbook
+      condition: event.payload.event == "updated" and model == "configcontext"
+      action:
+        run_job_template:
+          name: Parse NetBox Config Context Webhook
+          organization: Data-Driven-Demo
