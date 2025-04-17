@@ -56,7 +56,7 @@
 
     - name: Look up hosts using the updated config context in NetBox
       ansible.builtin.set_fact:
-        target_hosts: "{{ lookup('netbox.netbox.nb_lookup', 'devices', api_filter=parsed_api_filter) | community.general.json_query('[*].value.name') }}"
+        target_hosts: "{{ lookup('netbox.netbox.nb_lookup', 'devices', api_filter=parsed_api_filter) | community.general.json_query('[*].value.name') | join(',') }}"
       when: parsed_api_filter is defined
 
     - name: Debug target hosts
