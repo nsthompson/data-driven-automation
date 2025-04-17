@@ -72,4 +72,4 @@
         limit: "{{ target_hosts }}"
         tags: "{{ target_tags | default(omit) }}"
         validate_certs: "{{ controller_verify_ssl | default(omit) }}"
-      when: target_hosts is defined
+      when: target_hosts != ""
