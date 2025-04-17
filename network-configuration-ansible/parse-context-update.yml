@@ -58,6 +58,11 @@
         target_tags: "{{ ansible_eda.event.payload.data.data.controller_tags | join(',') }}"
       when: ansible_eda.event.payload.data.data.controller_tags | length > 0
 
+    - name: Debug target tags
+      ansible.builtin.debug:
+        msg: "{{ target_tags }}"
+      when: target_tags is defined
+
     - name: Launch playbook to configure target hosts
       ansible.controller.job_launch:
         controller_host: "{{ controller_host }}"
