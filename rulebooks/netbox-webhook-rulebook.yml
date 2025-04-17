@@ -17,7 +17,7 @@
           name: Configure Demo Network from NetBox
           organization: Data-Driven-Demo
           job_args:
-            limit: "{{ event.payload.device }}"
+            limit: "{{ event.payload.data.device.name }}"
             job_tags: "{{ event.payload.model }}"
     - name: Trigger webhook parsing playbook
       condition: event.payload.event == "updated" and event.payload.model == "configcontext"
