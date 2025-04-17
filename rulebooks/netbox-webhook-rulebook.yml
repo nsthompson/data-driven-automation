@@ -11,7 +11,7 @@
 
   rules:
     - name: Configure target device
-      condition: event.payload.event == "updated" and model != "configcontext"
+      condition: (event.payload.event == "updated" and model == "device") or (event.payload.event == "updated" and model == "interface")
       action:
         run_job_template:
           name: Configure Demo Network from NetBox
