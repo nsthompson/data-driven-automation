@@ -1,0 +1,14 @@
+[galaxy]
+server_list = rh-certified_repo, validated_repo, community_repo
+
+[galaxy_server.rh-certified_repo]
+url=https://<GATEWAY>/api/galaxy/content/rh-certified/
+token=<TOKEN>
+
+[galaxy_server.validated_repo]
+url=https://<GATEWAY>/api/galaxy/content/validated/
+token=<TOKEN>
+
+[galaxy_server.community_repo]
+url=https://<GATEWAY>/api/galaxy/content/community/
+token=<TOKEN>

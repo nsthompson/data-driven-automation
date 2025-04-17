@@ -1,0 +1,8 @@
+---
+collections:
+  - community.general
+  - ansible.controller
+  - cisco.ios
+  - name: https://github.com/netbox-community/ansible_modules
+    type: git
+    branch: devel

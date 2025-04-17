@@ -1,0 +1,36 @@
+{% for region in ansible_eda.event.payload.data | community.general.json_query('regions[*].slug') -%}
+{{ 'region=' + region + ' ' }}
+{%- endfor %}
+{% for site_group in ansible_eda.event.payload.data | community.general.json_query('site_groups[*].slug') -%}
+{{ 'site_group=' + site_group + ' ' }}
+{%- endfor %}
+{% for site in ansible_eda.event.payload.data | community.general.json_query('sites[*].slug') -%}
+{{ 'site=' + site + ' ' }}
+{%- endfor %}
+{% for location in ansible_eda.event.payload.data | community.general.json_query('locations[*].slug') -%}
+{{ 'location=' + location + ' ' }}
+{%- endfor %}
+{% for device_type in ansible_eda.event.payload.data | community.general.json_query('device_types[*].slug') -%}
+{{ 'device_type=' + device_type + ' ' }}
+{%- endfor %}
+{% for role in ansible_eda.event.payload.data | community.general.json_query('roles[*].slug') -%}
+{{ 'role=' + role + ' ' }}
+{%- endfor %}
+{% for platform in ansible_eda.event.payload.data | community.general.json_query('platforms[*].slug') -%}
+{{ 'platform=' + platform + ' ' }}
+{%- endfor %}
+{% for cluster_type in ansible_eda.event.payload.data | community.general.json_query('cluster_types[*].slug') -%}
+{{ 'cluster_type=' + cluster_type + ' ' }}
+{%- endfor %}
+{% for cluster_group in ansible_eda.event.payload.data | community.general.json_query('cluster_groups[*].slug') -%}
+{{ 'cluster_group=' + cluster_group + ' ' }}
+{%- endfor %}
+{% for cluster in ansible_eda.event.payload.data | community.general.json_query('clusters[*].slug') -%}
+{{ 'cluster=' + cluster + ' ' }}
+{%- endfor %}
+{% for tenant_group in ansible_eda.event.payload.data | community.general.json_query('tenant_groups[*].slug') -%}
+{{ 'tenant_group=' + tenant_group + ' ' }}
+{%- endfor %}
+{% for tenant in ansible_eda.event.payload.data | community.general.json_query('tenants[*].slug') -%}
+{{ 'tenant=' + tenant + ' ' }}
+{%- endfor %}
