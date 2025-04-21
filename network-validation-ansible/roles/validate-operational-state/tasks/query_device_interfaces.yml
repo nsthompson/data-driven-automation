@@ -1,0 +1,15 @@
+- name: Construct interface apifilter for device {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    interface_filter: "{{ 'status=active connected=true device=' + inventory_hostname }}"
+
+- name: Query for connected and active interfaces on {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    active_interfaces: >-
+      {{ active_interfaces | default([]) +
+        [
+          (interface | community.general.json_query('value.name'))
+        ]
+      }}
+  loop: "{{ query('netbox.netbox.nb_lookup', 'interfaces', api_filter=interface_filter, api_endpoint=netbox_url, token=netbox_token) }}"
+  loop_control:
+    loop_var: interface

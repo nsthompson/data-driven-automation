@@ -1,0 +1,6 @@
+- name: Validate interface status for active interfaces
+  ansible.builtin.include_tasks: assert_interface_status.yml
+  loop: "{{ parsed_show_interface }}"
+  loop_control:
+    loop_var: parsed_interface
+  when: parsed_interface.interface == active_interface

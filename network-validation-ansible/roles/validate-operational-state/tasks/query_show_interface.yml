@@ -1,0 +1,6 @@
+- name: Query and parse show interface output
+  ansible.utils.cli_parse:
+    command: "show interface"
+    parser:
+      name: ansible.netcommon.ntc_templates
+    set_fact: parsed_show_interface

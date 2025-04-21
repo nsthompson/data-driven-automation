@@ -1,0 +1,36 @@
+- name: Validating interface status
+  block:
+    - name: Validate interface link and protocol status
+      ansible.builtin.assert:
+        that:
+          - parsed_interface.link_status == "up"
+          - parsed_interface.link_status == "up"
+        fail_msg: >-
+          Interface {{ active_interface }} has link status {{ parsed_interface.link_status }}
+          and protocol status {{ parsed_interface.link_status }}.
+        success_msg: "Interface {{ active_interface }} is up/up"
+        quiet: true
+      register: status_result
+
+    - name: Update Successful Results
+      ansible.builtin.set_fact:
+        status_results: >-
+          {{ status_results | combine(
+            {
+              active_interface: {
+                "state": "pass",
+                "link_status": "up",
+                "protocol_status": "up"
+              }
+            }, recursive=true) }}
+  rescue:
+    - name: Update Failure Results
+      ansible.builtin.set_fact:
+        status_results: >-
+          {{ status_results | combine(
+            {
+              active_interface: {
+                "state": "fail",
+                "reason": status_result.msg
+              }
+            }, recursive=true) }}

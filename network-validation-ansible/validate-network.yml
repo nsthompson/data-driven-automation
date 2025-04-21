@@ -23,6 +23,7 @@
       when: not netbox_token is defined
 
   roles:
+    - {role: validate-operational-state}
     - {role: validate-device-neighbors}
 
   post_tasks:
