@@ -1,0 +1,41 @@
+---
+- name: Validating neighbor adjacencies
+  block:
+    - name: Validate neighbor exists
+      ansible.builtin.assert:
+        that:
+          - ansible_net_neighbors[interface.key] is defined
+        fail_msg: "Interface {{ interface.key }} has no neighbor adjacencies"
+        success_msg: "Interface {{ interface.key }} has neighbor adjacencies"
+        quiet: true
+      register: adjacency_result
+
+    - name: Validating neighbor adjacencies on {{ inventory_hostname }}
+      ansible.builtin.assert:
+        that:
+          - interface.value.neighbor is in ansible_net_neighbors[interface.key][0].host
+          - interface.value.neighbor_interface == ansible_net_neighbors[interface.key][0].port
+        fail_msg: "Expected neighbor {{ interface.value.neighbor }} is not adjacent to {{ interface.key }}"
+        success_msg: "Expected neighbor {{ interface.value.neighbor }} is adjacent to {{ interface.key }}"
+        quiet: true
+
+    - name: Update Successful Results
+      ansible.builtin.set_fact:
+        adjacency_results: >-
+          {{ adjacency_results | combine(
+            {
+              interface.key: {
+                "state": "pass"
+              }
+            }, recursive=true) }}
+  rescue:
+    - name: Update Failure Results
+      ansible.builtin.set_fact:
+        adjacency_results: >-
+          {{ adjacency_results | combine(
+            {
+              interface.key: {
+                "state": "fail",
+                "reason": adjacency_result.msg
+              }
+            }, recursive=true) }}

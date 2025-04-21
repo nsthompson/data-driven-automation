@@ -1,0 +1,33 @@
+---
+#
+# Ansible Role to Validate Device Neighbors
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Collect interface information from NetBox for {{ inventory_hostname }}
+  ansible.builtin.include_tasks: query_device_interfaces.yml
+
+- name: Collect Neighbors from {{ inventory_hostname }}
+  ansible.builtin.include_tasks: query_device_neighbors.yml
+
+# - name: Debug Interface Data for {{ inventory_hostname }}
+#   ansible.builtin.debug:
+#     msg: "{{ interface_data }}"
+
+# - name: Debug Facts data for {{ inventory_hostname }}
+#   ansible.builtin.debug:
+#     msg: "{{ ansible_net_neighbors }}"
+
+- name: Define adjacency_results dict for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    adjacency_results: {}
+
+- name: Validate Device Neighbors
+  ansible.builtin.include_tasks: validate_device_neighbors.yml
+  loop: "{{ interface_data | dict2items }}"
+  loop_control:
+    loop_var: interface

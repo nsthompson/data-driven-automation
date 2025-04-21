@@ -1,0 +1,9 @@
+{
+{%- for device in ansible_play_hosts -%}
+  "{{ device }}": {
+    {%- if hostvars[device].get('adjacency_results') is defined -%}
+    "adjacency_results": {{ hostvars[device]['adjacency_results'] }}
+    {%- endif -%}
+  }{{ "," if not loop.last }}
+{% endfor %}
+}

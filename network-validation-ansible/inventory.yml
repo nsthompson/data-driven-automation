@@ -1,0 +1,20 @@
+---
+plugin: netbox.netbox.nb_inventory
+token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
+validate_certs: true
+oob_ip_as_primary_ip: true
+interfaces: true
+config_context: yes
+services: true
+site_data: true
+group_by:
+  - sites
+query_filters:
+  - role: edge-router
+  - role: core-switch
+  - role: access-switch
+  - role: wan-router
+device_query_filters:
+  - status: active
+compose:
+  ansible_network_os: platform.slug

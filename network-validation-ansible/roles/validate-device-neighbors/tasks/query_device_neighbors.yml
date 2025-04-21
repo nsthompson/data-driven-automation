@@ -1,0 +1,6 @@
+- name: Query CDP Neighbors for Device {{ inventory_hostname }}
+  cisco.ios.ios_facts:
+    gather_subset:
+      - all
+    gather_network_resources:
+      - interfaces
