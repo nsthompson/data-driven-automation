@@ -30,7 +30,7 @@
   roles:
     - {role: configure-netbox-sites}
     - {role: configure-netbox-device-types}
-    - {role: configure-netbox-custom-fields}
+    - {role: configure-netbox-customization}
     - {role: configure-netbox-racks}
     - {role: configure-netbox-ipam}
     - {role: configure-netbox-devices}
