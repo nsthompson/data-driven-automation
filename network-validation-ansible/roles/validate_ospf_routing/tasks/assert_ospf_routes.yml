@@ -38,4 +38,5 @@
                   "state": "fail",
                   "reason": ospf_route_result.msg
                 }
+              }
             }, recursive=true) }}

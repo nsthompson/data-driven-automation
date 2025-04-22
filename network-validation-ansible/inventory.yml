@@ -4,7 +4,7 @@ token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
 validate_certs: true
 oob_ip_as_primary_ip: true
 interfaces: true
-config_context: yes
+config_context: true
 services: true
 site_data: true
 group_by:
