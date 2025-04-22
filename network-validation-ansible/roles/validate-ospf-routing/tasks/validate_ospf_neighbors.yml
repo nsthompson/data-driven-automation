@@ -1,0 +1,6 @@
+- name: Validate ospf neighbor state for active interfaces
+  ansible.builtin.include_tasks: assert_ospf_neighbors.yml
+  loop: "{{ parsed_ospf_neighbors }}"
+  loop_control:
+    loop_var: neighbor
+  when: interface.key == neighbor.interface

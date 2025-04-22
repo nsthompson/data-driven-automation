@@ -1,0 +1,37 @@
+---
+#
+# Ansible Role to Validate OSPF Routing
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Collect active OSPF interface information from NetBox for {{ inventory_hostname }}
+  ansible.builtin.include_tasks: query_device_interfaces.yml
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+
+- name: Define ospf_status_results dict for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    ospf_status_results: {}
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+
+- name: Query OSPF State on {{ inventory_hostname }}
+  ansible.builtin.include_tasks: query_ospf_state.yml
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+
+- name: Validate OSPF Neighbors on {{ inventory_hostname }}
+  ansible.builtin.include_tasks: validate_ospf_neighbors.yml
+  when:
+    - '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+    - ospf_neighbor_result
+  loop: "{{ ospf_interface_data | dict2items }}"
+  loop_control:
+    loop_var: interface
+
+- name: Validate OSPF Routes on {{ inventory_hostname }}
+  ansible.builtin.include_tasks: validate_ospf_routes.yml
+  when:
+    - '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+    - parsed_ospf_routes | length > 0

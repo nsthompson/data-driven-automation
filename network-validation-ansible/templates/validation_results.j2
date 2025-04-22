@@ -7,6 +7,9 @@
     {%- if hostvars[device]['adjacency_results'] is defined -%}
     "adjacency_results": {{ hostvars[device]['adjacency_results'] }},
     {%- endif -%}
+    {%- if hostvars[device]['ospf_status_results'] is defined -%}
+    "ospf_status_results": {{ hostvars[device]['ospf_status_results'] }},
+    {%- endif -%}
   }{{ "," if not loop.last }}
 {%- endfor -%}
 }

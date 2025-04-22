@@ -1,0 +1,36 @@
+- name: Validating ospf routing
+  block:
+    - name: Validate OSPF Neighbor Relationships
+      ansible.builtin.assert:
+        that:
+          - neighbor.neighbor_id == hostvars[interface.value['neighbor']]['custom_fields']['ospfv2_router_id']
+          - neighbor.state == "FULL/  -"
+        fail_msg: >-
+          Neighbor {{ neighbor.neighbor_id }} is misconfigured or not operational.
+        success_msg: "Neighbor {{ neighbor.neighbor_id }} is operational."
+        quiet: true
+      register: ospf_status_result
+
+    - name: Update Successful Results
+      ansible.builtin.set_fact:
+        ospf_status_results: >-
+          {{ ospf_status_results | combine(
+            {
+              interface.key: {
+                "neighbor": neighbor.neighbor_id,
+                "address": neighbor.ip_address,
+                "ospf_status": neighbor.state,
+                "state": "pass"
+              }
+            }, recursive=true) }}
+  rescue:
+    - name: Update Failure Results
+      ansible.builtin.set_fact:
+        ospf_status_results: >-
+          {{ ospf_status_results | combine(
+            {
+              interface.key: {
+                "state": "fail",
+                "reason": ospf_status_result.msg
+              }
+            }, recursive=true) }}

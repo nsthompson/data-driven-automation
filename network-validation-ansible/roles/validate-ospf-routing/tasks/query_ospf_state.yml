@@ -1,0 +1,47 @@
+- name: Query and parse show ip ospf neighbor
+  ansible.utils.cli_parse:
+    command: "show ip ospf neighbor"
+    parser:
+      name: ansible.netcommon.ntc_templates
+    set_fact: parsed_ospf_neighbors
+
+- name: Validating ospf routing
+  block:
+    - name: Validate neighbor relationships were returned
+      ansible.builtin.assert:
+        that:
+          - parsed_ospf_neighbors | length > 0
+        fail_msg: "No OSPF neighbors detected for {{ inventory_hostname }}"
+        quiet: true
+      register: ospf_neighbor_result
+  rescue:
+    - name: Update Failure Results
+      ansible.builtin.set_fact:
+        ospf_status_results: >-
+          {{ ospf_status_results | combine(
+            {
+              "ospf_neighbors": {
+                "state": "fail",
+                "reason": ospf_neighbor_result.msg
+              }
+            }, recursive=true) }}
+
+- name: Define OSPF neighbor list
+  ansible.builtin.set_fact:
+    ospf_neighbor_addresses: []
+
+- name: Build list of OSPF Neighbor Addresses
+  ansible.builtin.set_fact:
+    ospf_neighbor_addresses: "{{ ospf_neighbor_addresses + [neighbor.ip_address] }}"
+  when: neighbor.ip_address not in ospf_neighbor_addresses
+  loop: "{{ parsed_ospf_neighbors }}"
+  loop_control:
+    loop_var: neighbor
+
+- name: Query and parse show ip route ospf
+  ansible.utils.cli_parse:
+    command: "show ip route ospf"
+    parser:
+      name: ansible.netcommon.ntc_templates
+    set_fact: parsed_ospf_routes
+  when: ospf_neighbor_result

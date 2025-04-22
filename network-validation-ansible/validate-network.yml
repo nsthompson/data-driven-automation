@@ -25,6 +25,7 @@
   roles:
     - {role: validate-operational-state}
     - {role: validate-device-neighbors}
+    - {role: validate-ospf-routing}
 
   post_tasks:
     - name: Aggregate results  # noqa: run-once[task]

@@ -1,0 +1,18 @@
+- name: Construct interface apifilter for device {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    interface_filter: "{{ 'cf_ospfv2_area!=null cf_ospfv2_passive_interface=false status=active connected=true device=' + inventory_hostname }}"
+
+- name: Query for ospf enabled and connected interfaces on {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    ospf_interface_data: >-
+      {{ ospf_interface_data | default({}) | combine(
+          {
+            (interface | community.general.json_query('value.name')): {
+              "neighbor": (interface | community.general.json_query('value.connected_endpoints[0].device.display')),
+              "neighbor_interface": (interface | community.general.json_query('value.connected_endpoints[0].name'))
+            }
+          }
+      ) }}
+  loop: "{{ query('netbox.netbox.nb_lookup', 'interfaces', api_filter=interface_filter, api_endpoint=netbox_url, token=netbox_token) }}"
+  loop_control:
+    loop_var: interface
