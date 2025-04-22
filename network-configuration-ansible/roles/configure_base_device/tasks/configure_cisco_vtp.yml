@@ -5,15 +5,14 @@
 
 - name: Parse List of VLAN Configuration Data
   ansible.builtin.set_fact:
-    vlan_configuration: "{{ vlan_configuration | default([]) + [
-      {
-        'name': 'VLAN'+(vlan.value.vid | string),
-        'vlan_id': vlan.value.vid,
-        'state': vlan.value.status.value,
-        'shutdown': 'disabled'
-      }
-    ]
-    }}"
+    vlan_configuration: >-
+      {{ vlan_configuration | default([]) +
+        [{
+          'name': 'VLAN'+(vlan.value.vid | string),
+          'vlan_id': vlan.value.vid,
+          'state': vlan.value.status.value,
+          'shutdown': 'disabled'
+        }] }}
   loop: "{{ device_vlans }}"
   loop_control:
     loop_var: vlan

@@ -1,6 +1,9 @@
 - name: Populate Interface Data
   ansible.builtin.set_fact:
-    parsed_interfaces: "{{ parsed_interfaces | default([]) + [ lookup('template', 'templates/cisco_interfaces.j2') | from_yaml ] }}"
+    parsed_interfaces: >-
+      {{ parsed_interfaces | default([]) +
+        [lookup('template', 'templates/cisco_interfaces.j2') | from_yaml]
+      }}
   loop: "{{ interfaces }}"
   loop_control:
     loop_var: interface
@@ -23,7 +26,15 @@
 
 - name: Build List of L2 Interface Trunk Encapsulation Data
   ansible.builtin.set_fact:
-    l2_trunk_configuration: "{{ l2_trunk_configuration | default([]) + [{'name': interface.l2_config.name, 'trunk': { 'encapsulation': interface.l2_config.trunk.encapsulation } }] }}"
+    l2_trunk_configuration: >-
+      {{ l2_trunk_configuration | default([]) +
+        [{
+          'name': interface.l2_config.name,
+          'trunk': {
+            'encapsulation': interface.l2_config.trunk.encapsulation
+            }
+        }]
+      }}
   loop: "{{ parsed_interfaces }}"
   loop_control:
     loop_var: interface
