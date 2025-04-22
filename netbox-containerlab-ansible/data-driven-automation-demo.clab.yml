@@ -10,7 +10,8 @@ topology:
     # US-MN-MSP-01
     US-MN-MSP-01-CORE-01:
       kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.12.01
+      type: L2
+      image: vrnetlab/cisco_iol:l2-17.12.01
       mgmt-ipv4: 10.115.115.11
     US-MN-MSP-01-EDGE-01:
       kind: cisco_iol
@@ -32,7 +33,7 @@ topology:
       image: vrnetlab/cisco_iol:17.12.01
       mgmt-ipv4: 10.115.115.10
   links:
-   - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet0/1", "US-MN-MSP-01-EDGE-01:Ethernet0/2"]
-   - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet1/2", "US-MN-MSP-01-SW-01:Ethernet1/3"]
-   - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet1/3", "US-MN-MSP-01-SW-02:Ethernet1/3"]
-   - endpoints: ["US-MN-MSP-01-EDGE-01:Ethernet0/1", "US-MO-STL-60-WAN-01:Ethernet0/1"]
+    - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet0/1", "US-MN-MSP-01-EDGE-01:Ethernet0/2"]
+    - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet1/2", "US-MN-MSP-01-SW-01:Ethernet1/3"]
+    - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet1/3", "US-MN-MSP-01-SW-02:Ethernet1/3"]
+    - endpoints: ["US-MN-MSP-01-EDGE-01:Ethernet0/1", "US-MO-STL-60-WAN-01:Ethernet0/1"]

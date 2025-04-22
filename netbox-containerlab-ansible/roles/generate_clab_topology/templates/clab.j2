@@ -36,5 +36,5 @@ topology:
 {# Sort the endpoints and keep unique pairs to remove duplicates #}
 {% set unique_endpoints = endpoint_tuples | map('sort') | unique | list %}
 {% for endpoints in unique_endpoints %}
-   - endpoints: ["{{ endpoints[0] }}", "{{ endpoints[1] }}"]
+    - endpoints: ["{{ endpoints[0] }}", "{{ endpoints[1] }}"]
 {% endfor %}

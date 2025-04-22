@@ -1,3 +1,4 @@
+---
 - name: Construct role filter for {{ site.name }}
   ansible.builtin.set_fact:
     role_filters: "{{ site.roles | map('regex_replace', '^(.*)$', ' role=\\1') | join(' ') }}"

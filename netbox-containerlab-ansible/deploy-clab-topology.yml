@@ -1,0 +1,120 @@
+---
+- name: Capture Target Host Details
+  connection: local
+  hosts: localhost
+  vars_prompt:
+    - name: username
+      prompt: Username
+      private: false
+
+    - name: password
+      prompt: Password
+      private: true
+
+    - name: target
+      prompt: Containerlab Host
+      private: false
+
+    - name: lab_name
+      prompt: Lab Name
+      private: false
+
+    - name: topology_file
+      prompt: Topology File
+      private: false
+
+    - name: containerlab_mode
+      prompt: "[deploy/destroy/inspect]"
+      private: false
+
+  tasks:
+    - name: Add Host
+      ansible.builtin.add_host:
+        name: "{{ target }}"
+        group: clab_host
+        ansible_user: "{{ username }}"
+        ansible_password: "{{ password }}"
+        lab_name: "{{ lab_name }}"
+        topology_file: "{{ topology_file }}"
+        containerlab_mode: "{{ containerlab_mode }}"
+
+- name: Deploy Containerlab Topology
+  hosts: clab_host
+
+  tasks:
+    - name: Validate Target Host Directory Exists
+      ansible.builtin.file:
+        path: "{{ 'topologies/' + lab_name }}"
+        state: directory
+        mode: "0755"
+      when: containerlab_mode == "deploy"
+
+    - name: Copy Topology File to Target Host
+      ansible.builtin.copy:
+        src: "{{ './' + topology_file }}"
+        dest: "{{ 'topologies/' + lab_name + '/' + topology_file }}"
+        mode: "0644"
+      when: containerlab_mode == "deploy"
+
+    - name: Deploy or Redeploy Containerlab Topology
+      when: containerlab_mode == "deploy"
+      block:
+        - name: Validate Topology is Running # noqa: no-changed-when
+          ansible.builtin.command:
+            chdir: "{{ 'topologies/' + lab_name }}"
+            cmd: containerlab inspect -f json
+          register: inspect_result
+
+        - name: Redeploy Containerlab Topology # noqa: no-changed-when
+          ansible.builtin.command:
+            chdir: "{{ 'topologies/' + lab_name }}"
+            cmd: containerlab redeploy -f json
+          register: redeploy_result
+          when: inspect_result is defined
+
+      rescue:
+        - name: Deploy Containerlab Topology # noqa: no-changed-when
+          ansible.builtin.command:
+            chdir: "{{ 'topologies/' + lab_name }}"
+            cmd: containerlab deploy -f json
+          register: deploy_result
+
+      always:
+        - name: Debug Inspect Results
+          ansible.builtin.debug:
+            msg: "{{ inspect_result.stdout | from_json }}"
+          when: inspect_result.stdout is defined and inspect_result is not failed
+
+        - name: Debug Redeploy Results
+          ansible.builtin.debug:
+            msg: "{{ redeploy_result.stdout | from_json }}"
+          when: redeploy_result.stdout is defined
+
+        - name: Debug Deploy Results
+          ansible.builtin.debug:
+            msg: "{{ deploy_result.stdout | from_json }}"
+          when: deploy_result.stdout is defined
+
+    - name: Inspect Containerlab Topology # noqa: no-changed-when
+      ansible.builtin.command:
+        chdir: "{{ 'topologies/' + lab_name }}"
+        cmd: containerlab inspect -f json
+      register: inspect_result
+      when: containerlab_mode == 'inspect'
+
+    - name: Debug Inspect Results
+      ansible.builtin.debug:
+        msg: "{{ inspect_result.stdout | from_json }}"
+      when: containerlab_mode == 'inspect'
+
+    - name: Destroy Containerlab Topology # noqa: no-changed-when
+      ansible.builtin.command:
+        chdir: "{{ 'topologies/' + lab_name }}"
+        cmd: containerlab destroy -c
+      register: destroy_result
+      when: containerlab_mode == 'destroy'
+
+    - name: Debug Destroy Results
+      ansible.builtin.debug:
+        msg: "{{ destroy_result }}"
+      when: containerlab_mode == 'destroy'

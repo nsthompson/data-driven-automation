@@ -28,5 +28,5 @@
       when: not netbox_token is defined
 
   roles:
-    - {name: query-netbox-sites, when: sites is defined}
-    - {name: generate-clab-topology, when: devices_by_site is defined}
+    - { role: query_netbox_sites, when: sites is defined }
+    - { role: generate_clab_topology, when: devices_by_site is defined }

@@ -1,12 +1,8 @@
+---
 - name: Query for devices
   ansible.builtin.set_fact:
-    site_devices:
-      "{{ (site_devices | default([])) +
-        query('netbox.netbox.nb_lookup',
-        'devices',
-        api_filter=site_filter,
-        api_endpoint=netbox_url,
-        token=netbox_token)
+    site_devices: "{{
+      site_devices | default([]) + query('netbox.netbox.nb_lookup', 'devices', api_filter=site_filter, api_endpoint=netbox_url, token=netbox_token)
       }}"
   loop: "{{ site_filters }}"
   loop_control:
@@ -27,17 +23,18 @@
 
 - name: Construct api_filter for unique Device-Type models
   ansible.builtin.set_fact:
-    model_filter: "{{ site_devices | community.general.json_query('[*].value.device_type.model') | unique | map('regex_replace', '^(.*)$', 'model=\\1') | join(' ') }}"
+    model_filter: "{{
+      site_devices | community.general.json_query('[*].value.device_type.model') | unique | map('regex_replace', '^(.*)$', 'model=\\1') | join(' ')
+      }}"
 
 - name: Map image definition to Device-Type models
   ansible.builtin.set_fact:
-    model_images: "{{
-      query('netbox.netbox.nb_lookup',
-        'device-types',
-        api_filter=model_filter,
-        api_endpoint=netbox_url,
-        token=netbox_token) | community.general.json_query('[*].{model: value.model, image: value.part_number}')
-      }}"
+    model_images: >-
+      {{ query('netbox.netbox.nb_lookup',
+      'device-types',
+      api_filter=model_filter,
+      api_endpoint=netbox_url,
+      token=netbox_token) | community.general.json_query('[*].{model: value.model, image: value.part_number}') }}
 
 - name: Create device_models dictionary
   ansible.builtin.set_fact:
@@ -47,8 +44,10 @@
 
 - name: Construct api_filter for interfaces lookup
   ansible.builtin.set_fact:
-    interface_filter: "status=active connected=true \
-      {{ site_devices | community.general.json_query('[*].value.name') | unique | map('regex_replace', '^(.*)$', 'device=\\1') | join(' ') }}"
+    interface_filter: >-
+      status=active connected=true
+      {{ site_devices | community.general.json_query('[*].value.name') | unique |
+      map('regex_replace', '^(.*)$', 'device=\1') | join(' ') }}
 
 - name: Create device interface dictionary
   ansible.builtin.set_fact:
