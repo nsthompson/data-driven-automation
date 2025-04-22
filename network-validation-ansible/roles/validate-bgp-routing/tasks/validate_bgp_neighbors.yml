@@ -1,0 +1,6 @@
+- name: Validate bgp neighbor state
+  ansible.builtin.include_tasks: assert_bgp_neighbors.yml
+  loop: "{{ parsed_bgp_summary }}"
+  loop_control:
+    loop_var: neighbor
+  when: (session.remote_ip | ansible.utils.ipaddr('address')) == neighbor.bgp_neighbor

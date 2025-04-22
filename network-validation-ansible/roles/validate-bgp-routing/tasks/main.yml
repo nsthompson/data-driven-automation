@@ -1,0 +1,41 @@
+---
+#
+# Ansible Role to Validate BGP Routing
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Collect active BGP session information from NetBox for {{ inventory_hostname }}
+  ansible.builtin.include_tasks: query_bgp_sessions.yml
+  when: '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+
+- name: Define bgp_status_results dict for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    bgp_status_results: {}
+  when:
+    - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+    - bgp_session_data | length > 0
+
+- name: Query BGP State on {{ inventory_hostname }}
+  ansible.builtin.include_tasks: query_bgp_state.yml
+  when:
+    - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+    - bgp_session_data | length > 0
+
+- name: Validate BGP Neighbors on {{ inventory_hostname }}
+  ansible.builtin.include_tasks: validate_bgp_neighbors.yml
+  when:
+    - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+    - bgp_neighbor_result
+  loop: "{{ bgp_session_data }}"
+  loop_control:
+    loop_var: session
+
+- name: Validate BGP Routes on {{ inventory_hostname }}
+  ansible.builtin.include_tasks: validate_bgp_routes.yml
+  when:
+    - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+    - parsed_bgp_routes | length > 0

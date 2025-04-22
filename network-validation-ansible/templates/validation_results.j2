@@ -10,6 +10,9 @@
     {%- if hostvars[device]['ospf_status_results'] is defined -%}
     "ospf_status_results": {{ hostvars[device]['ospf_status_results'] }},
     {%- endif -%}
+    {%- if hostvars[device]['bgp_status_results'] is defined -%}
+    "bgp_status_results": {{ hostvars[device]['bgp_status_results'] }},
+    {%- endif -%}
   }{{ "," if not loop.last }}
 {%- endfor -%}
 }

@@ -1,0 +1,39 @@
+- name: Validating BGP routing
+  block:
+    - name: Validate BGP Routes
+      ansible.builtin.assert:
+        that:
+          - route.nexthop_ip in bgp_neighbor_addresses
+          - route.protocol == "B"
+        fail_msg: >-
+          Route {{ route.network }} / {{ route.prefix_length }} is learned via the wrong next hop.
+        quiet: true
+      register: bgp_route_result
+
+    - name: Update Successful Results
+      ansible.builtin.set_fact:
+        bgp_status_results: >-
+          {{ bgp_status_results | combine(
+            {
+              "routes": {
+                route.network: {
+                  "prefix_length": route.prefix_length,
+                  "nexthop_ip": route.nexthop_ip,
+                  "state": "pass"
+                }
+              }
+            }, recursive=true) }}
+  rescue:
+    - name: Update Failure Results
+      ansible.builtin.set_fact:
+        bgp_status_results: >-
+          {{ bgp_status_results | combine(
+            {
+              "routes": {
+                route.network: {
+                  "prefix_length": route.prefix_length,
+                  "nexthop_ip": route.nexthop_ip,
+                  "state": "fail",
+                  "reason": bgp_route_result.msg
+                }
+            }, recursive=true) }}

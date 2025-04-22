@@ -1,0 +1,47 @@
+- name: Query and parse show ip bgp summary
+  ansible.utils.cli_parse:
+    command: "show ip bgp summary"
+    parser:
+      name: ansible.netcommon.ntc_templates
+    set_fact: parsed_bgp_summary
+
+- name: Validating BGP routing
+  block:
+    - name: Validate neighbor relationships were returned
+      ansible.builtin.assert:
+        that:
+          - parsed_bgp_summary | length > 0
+        fail_msg: "No BGP neighbors detected for {{ inventory_hostname }}"
+        quiet: true
+      register: bgp_neighbor_result
+  rescue:
+    - name: Update Failure Results
+      ansible.builtin.set_fact:
+        bgp_status_results: >-
+          {{ bgp_status_results | combine(
+            {
+              "bgp_neighbors": {
+                "state": "fail",
+                "reason": bgp_neighbor_result.msg
+              }
+            }, recursive=true) }}
+
+- name: Define BGP neighbor list
+  ansible.builtin.set_fact:
+    bgp_neighbor_addresses: []
+
+- name: Build list of BGP Neighbor Addresses
+  ansible.builtin.set_fact:
+    bgp_neighbor_addresses: "{{ bgp_neighbor_addresses + [neighbor.bgp_neighbor] }}"
+  when: neighbor.bgp_neighbor not in bgp_neighbor_addresses
+  loop: "{{ parsed_bgp_summary }}"
+  loop_control:
+    loop_var: neighbor
+
+- name: Query and parse show ip route bgp
+  ansible.utils.cli_parse:
+    command: "show ip route bgp"
+    parser:
+      name: ansible.netcommon.ntc_templates
+    set_fact: parsed_bgp_routes
+  when: bgp_neighbor_result

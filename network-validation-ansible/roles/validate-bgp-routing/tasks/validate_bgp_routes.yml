@@ -1,0 +1,5 @@
+- name: Validate BGP routes
+  ansible.builtin.include_tasks: assert_bgp_routes.yml
+  loop: "{{ parsed_bgp_routes }}"
+  loop_control:
+    loop_var: route

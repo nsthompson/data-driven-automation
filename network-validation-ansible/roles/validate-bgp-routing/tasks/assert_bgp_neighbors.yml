@@ -1,0 +1,40 @@
+- name: Validating BGP routing
+  block:
+    - name: Validate BGP Neighbor Relationships
+      ansible.builtin.assert:
+        that:
+          - neighbor.neighbor_as | int == session.remote_as
+          - neighbor.state_or_prefixes_received | int > 0
+        fail_msg: >-
+          Neighbor {{ session.device }} is misconfigured or not operational.
+        success_msg: "Neighbor {{ session.device }} is operational."
+        quiet: true
+      register: bgp_status_result
+
+    - name: Update Successful Results
+      ansible.builtin.set_fact:
+        bgp_status_results: >-
+          {{ bgp_status_results | combine(
+            {
+              "bgp_sessions": {
+                session.name: {
+                  "neighbor": neighbor.bgp_neighbor,
+                  "remote_as": neighbor.neighbor_as,
+                  "prefixes": neighbor.state_or_prefixes_received,
+                  "state": "pass"
+                }
+              }
+            }, recursive=true) }}
+  rescue:
+    - name: Update Failure Results
+      ansible.builtin.set_fact:
+        bgp_status_results: >-
+          {{ bgp_status_results | combine(
+            {
+              "bgp_sessions": {
+                session.name: {
+                  "state": "fail",
+                  "reason": bgp_status_result.msg
+                }
+              }
+            }, recursive=true) }}
