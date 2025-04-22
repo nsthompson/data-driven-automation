@@ -14,9 +14,9 @@
 - name: Collect Neighbors from {{ inventory_hostname }}
   ansible.builtin.include_tasks: query_device_neighbors.yml
 
-- name: Define adjacency_results dict for {{ inventory_hostname }}
+- name: Define neighbor_results dict for {{ inventory_hostname }}
   ansible.builtin.set_fact:
-    adjacency_results: {}
+    neighbor_results: {}
 
 - name: Validate Device Neighbors
   ansible.builtin.include_tasks: validate_device_neighbors.yml

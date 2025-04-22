@@ -10,12 +10,12 @@
           and protocol status {{ parsed_interface.link_status }}.
         success_msg: "Interface {{ active_interface }} is up/up"
         quiet: true
-      register: status_result
+      register: interface_result
 
     - name: Update Successful Results
       ansible.builtin.set_fact:
-        status_results: >-
-          {{ status_results | combine(
+        interface_results: >-
+          {{ interface_results | combine(
             {
               active_interface: {
                 "state": "pass",
@@ -26,8 +26,8 @@
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        status_results: >-
-          {{ status_results | combine(
+        interface_results: >-
+          {{ interface_results | combine(
             {
               active_interface: {
                 "state": "fail",

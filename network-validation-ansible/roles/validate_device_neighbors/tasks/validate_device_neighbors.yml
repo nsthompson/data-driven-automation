@@ -8,7 +8,7 @@
         fail_msg: "Interface {{ interface.key }} has no neighbor adjacencies"
         success_msg: "Interface {{ interface.key }} has neighbor adjacencies"
         quiet: true
-      register: adjacency_result
+      register: neighbor_result
 
     - name: Validating neighbor adjacencies on {{ inventory_hostname }}
       ansible.builtin.assert:
@@ -21,21 +21,23 @@
 
     - name: Update Successful Results
       ansible.builtin.set_fact:
-        adjacency_results: >-
-          {{ adjacency_results | combine(
+        neighbor_results: >-
+          {{ neighbor_results | combine(
             {
               interface.key: {
+                "neighbor": interface.value.neighbor,
+                "neighbor_interface": interface.value.neighbor_interface,
                 "state": "pass"
               }
             }, recursive=true) }}
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        adjacency_results: >-
-          {{ adjacency_results | combine(
+        neighbor_results: >-
+          {{ neighbor_results | combine(
             {
               interface.key: {
                 "state": "fail",
-                "reason": adjacency_result.msg
+                "reason": neighbor_result.msg
               }
             }, recursive=true) }}

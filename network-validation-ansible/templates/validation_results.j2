@@ -1,11 +1,11 @@
 {
 {%- for device in ansible_play_hosts -%}
   "{{ device }}": {
-    {%- if hostvars[device]['status_results'] is defined -%}
-    "status_results": {{ hostvars[device]['status_results'] }},
+    {%- if hostvars[device]['interface_results'] is defined -%}
+    "interface_results": {{ hostvars[device]['interface_results'] }},
     {%- endif -%}
-    {%- if hostvars[device]['adjacency_results'] is defined -%}
-    "adjacency_results": {{ hostvars[device]['adjacency_results'] }},
+    {%- if hostvars[device]['neighbor_results'] is defined -%}
+    "neighbor_results": {{ hostvars[device]['neighbor_results'] }},
     {%- endif -%}
     {%- if hostvars[device]['ospf_status_results'] is defined -%}
     "ospf_status_results": {{ hostvars[device]['ospf_status_results'] }},
