@@ -1,0 +1,13 @@
+- name: Configure RIRs  # noqa: args[module]
+  netbox.netbox.netbox_rir:
+    data:
+      name: "{{ rir.data.name }}"
+      slug: "{{ rir.data.slug | default(omit) }}"
+      description: "{{ rir.data.description | default(omit) }}"
+      is_private: "{{ rir.data.is_private | default(omit) }}"
+      custom_fields: "{{ rir.data.custom_fields | default(omit) }}"
+      tags: "{{ rir.data.tags | default(omit) }}"
+    state: "{{ rir.state }}"
+  loop: "{{ rirs }}"
+  loop_control:
+    loop_var: rir

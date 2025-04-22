@@ -42,7 +42,7 @@ custom_fields:
       object_types:
         - dcim.device
       type: text
-      validation_regex: '\b((25[0-5]|2[0-4]\d|1?\d\d?)\.){3}(25[0-5]|2[0-4]\d|1?\d\d?)\b'
+      validation_regex: "\\b((25[0-5]|2[0-4]\\d|1?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|1?\\d\\d?)\\b"
       group_name: OSPFv2
     state: present
   - data:

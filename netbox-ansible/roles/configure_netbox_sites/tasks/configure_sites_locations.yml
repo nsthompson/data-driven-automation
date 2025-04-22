@@ -1,0 +1,43 @@
+---
+- name: Configuring site {{ site.name }}  # noqa: args[module]
+  netbox.netbox.netbox_site:
+    data:
+      name: "{{ site.name }}"
+      slug: "{{ site.name | lower }}"
+      description: "{{ site.description | default(omit) }}"
+      site_group: "{{ site.site_group | default(omit) }}"
+      status: "{{ site.status | default(omit) }}"
+      region: "{{ site.region | default(omit) }}"
+      asn: "{{ site.asn | default(omit) }}"
+      comments: "{{ site.comments | default(omit) }}"
+      contact_email: "{{ site.contact_email | default(omit) }}"
+      contact_name: "{{ site.contact_name | default(omit) }}"
+      contact_phone: "{{ site.contact_phone | default(omit) }}"
+      custom_fields: "{{ site.custom_fields | default(omit) }}"
+      facility: "{{ site.facility | default(omit) }}"
+      latitude: "{{ site.latitude | default(omit) }}"
+      longitude: "{{ site.longitude | default(omit) }}"
+      physical_address: "{{ site.physical_address | default(omit) }}"
+      shipping_address: "{{ site.shipping_address | default(omit) }}"
+      tags: "{{ site.tags | default(omit) }}"
+      tenant: "{{ site.tenant | default(omit) }}"
+      time_zone: "{{ site.time_zone | default(omit) }}"
+    state: "{{ site.state }}"
+
+- name: Configuring locations for {{ site.name }}  # noqa: args[module]
+  netbox.netbox.netbox_location:
+    data:
+      name: "{{ location.name }}"
+      slug: "{{ location.name | lower }}"
+      description: "{{ location.description | default(omit) }}"
+      status: "{{ location.status | default(omit) }}"
+      site: "{{ site.name }}"
+      parent_location: "{{ site.parent_location | default(omit) }}"
+      facility: "{{ site.facility | default(omit) }}"
+      tenant: "{{ site.tenant | default(omit) }}"
+      tags: "{{ site.tags | default(omit) }}"
+      custom_fields: "{{ site.custom_fields | default(omit) }}"
+    state: "{{ location.state }}"
+  loop: "{{ site.locations }}"
+  loop_control:
+    loop_var: location

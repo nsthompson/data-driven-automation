@@ -28,15 +28,15 @@
       when: not netbox_token is defined
 
   roles:
-    - {role: configure-netbox-sites}
-    - {role: configure-netbox-device-types}
-    - {role: configure-netbox-customization}
-    - {role: configure-netbox-racks}
-    - {role: configure-netbox-ipam}
-    - {role: configure-netbox-devices}
-    - {role: configure-netbox-circuits}
-    - {role: configure-netbox-cables}
-    - {role: configure-netbox-data-sources}
-    - {role: configure-netbox-config-contexts}
-    - {role: configure-netbox-webhooks}
-    - {role: configure-netbox-bgp}
+    - {role: configure_netbox_sites}
+    - {role: configure_netbox_device_types}
+    - {role: configure_netbox_customization}
+    - {role: configure_netbox_racks}
+    - {role: configure_netbox_ipam}
+    - {role: configure_netbox_devices}
+    - {role: configure_netbox_circuits}
+    - {role: configure_netbox_cables}
+    - {role: configure_netbox_data_sources}
+    - {role: configure_netbox_config_contexts}
+    - {role: configure_netbox_webhooks}
+    - {role: configure_netbox_bgp}

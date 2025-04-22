@@ -1,0 +1,26 @@
+- name: Configuring Custom Fields  # noqa: args[module]
+  netbox.netbox.netbox_custom_field:
+    data:
+      name: "{{ custom_field.data.name }}"
+      description: "{{ custom_field.data.description | default(omit) }}"
+      choice_set: "{{ custom_field.data.choice_set | default(omit) }}"
+      content_types: "{{ custom_field.data.content_types | default(omit) }}"
+      default: "{{ custom_field.data.default | default(omit) }}"
+      filter_logic: "{{ custom_field.data.filter_logic | default(omit) }}"
+      group_name: "{{ custom_field.data.group_name | default(omit) }}"
+      label: "{{ custom_field.data.label | default(omit) }}"
+      object_type: "{{ custom_field.data.object_type | default(omit) }}"
+      object_types: "{{ custom_field.data.object_types | default(omit) }}"
+      related_object_types: "{{ custom_field.data.related_object_types | default(omit) }}"
+      required: "{{ custom_field.data.required | default(omit) }}"
+      search_weight: "{{ custom_field.data.search_weight | default(omit) }}"
+      type: "{{ custom_field.data.type | default(omit) }}"
+      ui_visibility: "{{ custom_field.data.ui_visibility | default(omit) }}"
+      validation_minimum: "{{ custom_field.data.validation_minimum | default(omit) }}"
+      validation_maximum: "{{ custom_field.data.validation_maximum | default(omit) }}"
+      validation_regex: "{{ custom_field.data.validation_regex | default(omit) }}"
+      weight: "{{ custom_field.data.weight | default(omit) }}"
+    state: "{{ custom_field.state }}"
+  loop: "{{ custom_fields }}"
+  loop_control:
+    loop_var: custom_field

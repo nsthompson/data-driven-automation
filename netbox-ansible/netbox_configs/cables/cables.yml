@@ -1,5 +1,6 @@
+---
 cables:
-# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-MDF
+  # US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-MDF
   - data:
       termination_a_type: dcim.interface
       termination_a:
@@ -14,7 +15,7 @@ cables:
       status: connected
       label: US-MN-MSP-01-EDGE-01 to US-MO-STL-60-WAN-01
     state: present
-# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-IDF-01
+  # US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-IDF-01
   - data:
       termination_a_type: dcim.rearport
       termination_a:
@@ -351,7 +352,7 @@ cables:
       status: connected
       label: US-MN-MSP-01-MDF-R1-PP1 to US-MN-MSP-01-IDF-01-R1-PP1
     state: present
-# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-IDF-02
+  # US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-IDF-02
   - data:
       termination_a_type: dcim.rearport
       termination_a:
@@ -688,7 +689,7 @@ cables:
       status: connected
       label: US-MN-MSP-01-MDF-R1-PP2 to US-MN-MSP-01-IDF-02-R1-PP1
     state: present
-# US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-MDF-R1
+  # US-MN-MSP-01-MDF-R1 to US-MN-MSP-01-MDF-R1
   - data:
       termination_a_type: dcim.interface
       termination_a:
@@ -737,7 +738,7 @@ cables:
       length: 3
       length_unit: ft
     state: present
-# US-MN-MSP-01-IDF-01-R1 to US-MN-MSP-01-IDF-01-R1
+  # US-MN-MSP-01-IDF-01-R1 to US-MN-MSP-01-IDF-01-R1
   - data:
       termination_a_type: dcim.interface
       termination_a:
@@ -754,7 +755,7 @@ cables:
       length: 3
       length_unit: ft
     state: present
-# US-MN-MSP-01-IDF-01-R1 to US-MN-MSP-01-IDF-01-R1
+  # US-MN-MSP-01-IDF-01-R1 to US-MN-MSP-01-IDF-01-R1
   - data:
       termination_a_type: dcim.interface
       termination_a:
@@ -771,7 +772,7 @@ cables:
       length: 3
       length_unit: ft
     state: present
-# US-MO-STL-60-DC1-R1 to US-MO-STL-60-DC1
+  # US-MO-STL-60-DC1-R1 to US-MO-STL-60-DC1
   - data:
       termination_a_type: dcim.interface
       termination_a:

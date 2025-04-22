@@ -1,3 +1,4 @@
+---
 data_sources:
   - data:
       type: git

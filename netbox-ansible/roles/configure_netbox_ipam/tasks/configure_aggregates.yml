@@ -1,0 +1,15 @@
+- name: Configure Aggregates  # noqa: args[module]
+  netbox.netbox.netbox_aggregate:
+    data:
+      prefix: "{{ aggregate.data.prefix }}"
+      rir: "{{ aggregate.data.rir | default(omit) }}"
+      description: "{{ aggregate.data.description | default(omit) }}"
+      comments: "{{ aggregate.data.comments | default(omit) }}"
+      date_added: "{{ aggregate.data.date_added | default(omit) }}"
+      custom_fields: "{{ aggregate.data.custom_fields | default(omit) }}"
+      tags: "{{ aggregate.data.tags | default(omit) }}"
+      tenant: "{{ aggregate.data.tenant | default(omit) }}"
+    state: "{{ aggregate.state }}"
+  loop: "{{ aggregates }}"
+  loop_control:
+    loop_var: aggregate

@@ -1,0 +1,14 @@
+---
+- name: Configuring Rack Roles  # noqa: args[module]
+  netbox.netbox.netbox_rack_role:
+    data:
+      name: "{{ role.name }}"
+      slug: "{{ role.slug | default(omit) }}"
+      description: "{{ role.description | default(omit) }}"
+      color: "{{ role.color | default(omit) }}"
+      custom_fields: "{{ role.custom_fields | default(omit) }}"
+      tags: "{{ role.tags | default(omit) }}"
+    state: "{{ role.state }}"
+  loop: "{{ rack_roles }}"
+  loop_control:
+    loop_var: role

@@ -1,3 +1,4 @@
+---
 config_contexts:
   - data:
       name: "Global AAA Configuration"
@@ -147,11 +148,11 @@ config_contexts:
           - routing
         static_routes:
           - address_families:
-            - afi: ipv4
-              routes:
-                - dest: '0.0.0.0/0'
-                  next_hops:
-                    - forward_router_address: 10.10.0.113
+              - afi: ipv4
+                routes:
+                  - dest: "0.0.0.0/0"
+                    next_hops:
+                      - forward_router_address: 10.10.0.113
       platforms: ios
       sites: us-mn-msp-01
       roles: access-switch

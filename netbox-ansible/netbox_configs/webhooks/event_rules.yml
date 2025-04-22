@@ -11,7 +11,14 @@ event_rules:
         - object_updated
       action_type: webhook
       action_object_type: extras.webhook
-      action_object_id: "{{ query('netbox.netbox.nb_lookup', 'webhooks', api_filter='name=AAP-EDA-Event-Stream', api_endpoint=netbox_url, token=netbox_token)[0].value.id }}"
+      action_object_id: >-
+        {{ query(
+          'netbox.netbox.nb_lookup',
+          'webhooks',
+          api_filter='name=AAP-EDA-Event-Stream',
+          api_endpoint=netbox_url,
+          token=netbox_token)[0].value.id
+        }}
     state: present
   - data:
       name: Config-Contexts
@@ -25,5 +32,12 @@ event_rules:
         - object_deleted
       action_type: webhook
       action_object_type: extras.webhook
-      action_object_id: "{{ query('netbox.netbox.nb_lookup', 'webhooks', api_filter='name=AAP-EDA-Event-Stream', api_endpoint=netbox_url, token=netbox_token)[0].value.id }}"
+      action_object_id: >-
+        {{ query(
+          'netbox.netbox.nb_lookup',
+          'webhooks',
+          api_filter='name=AAP-EDA-Event-Stream',
+          api_endpoint=netbox_url,
+          token=netbox_token)[0].value.id
+        }}
     state: present

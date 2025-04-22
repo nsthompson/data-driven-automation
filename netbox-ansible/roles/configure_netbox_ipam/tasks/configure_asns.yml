@@ -1,0 +1,45 @@
+- name: Configure ASNs  # noqa: args[module]
+  netbox.netbox.netbox_asn:
+    data:
+      asn: "{{ asn.data.asn }}"
+      rir: "{{ asn.data.rir | default(omit) }}"
+      description: "{{ asn.data.description | default(omit) }}"
+      tenant: "{{ asn.data.tenant | default(omit) }}"
+      custom_fields: "{{ asn.data.custom_fields | default(omit) }}"
+      tags: "{{ asn.data.tags | default(omit) }}"
+    state: "{{ asn.state }}"
+  register: asn_response
+
+- name: Checking for Site with name {{ asn.data.site }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/dcim/sites/?name={{ asn.data.site }}"
+    method: GET
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+    return_content: true
+  register: response
+  when: asn.data.site is defined
+
+- name: Fail if multiple sites with same name
+  ansible.builtin.fail:
+    msg: "Multiple sites found with name {{ asn.data.site }}"
+  when: response.json.count > 1
+
+- name: Set site_id if exists
+  ansible.builtin.set_fact:
+    site_id: "{{ response.json.results[0].id }}"
+  when: response.json.count == 1
+
+- name: Updating site {{ asn.data.site }}
+  ansible.builtin.uri:
+    url: "{{ netbox_url }}/api/dcim/sites/{{ site_id }}/"
+    method: PATCH
+    headers:
+      Authorization: "Token {{ netbox_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      asns:
+        - "{{ asn_response.asn.id }}"
+    status_code: 200
+  when: response.json.count == 1 and asn.state == "present"
