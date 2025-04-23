@@ -16,6 +16,7 @@
       ansible.builtin.include_vars:
         dir: netbox_configs
         extensions: ["yml"]
+        ignore_unknown_extensions: true
 
     - name: Check for Netbox URL
       ansible.builtin.fail:
