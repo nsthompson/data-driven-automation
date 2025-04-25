@@ -1,5 +1,5 @@
 ---
-topology_name: data-driven-automation-demo
+topology_name: data-driven-automation
 mgmt:
   network: custom_mgmt
   ipv4_subnet: 10.115.115.0/24
