@@ -1,0 +1,64 @@
+# WAN Circuit Termination - STL-60-DC1 WAN Router to New Branch WAN Circuit
+- data:
+    termination_a_type: dcim.interface
+    termination_a:
+      device: US-MO-STL-60-WAN-01
+      name: {{ new_site.wan_circuit.dc_wan_port }}
+    termination_b_type: circuits.circuittermination
+    termination_b:
+      circuit: {{ new_site.wan_circuit.id }}
+      term_side: Z
+    type: cat6a
+    color: ff5f15
+    status: connected
+    label: US-MO-STL-60-WAN-01 to {{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01
+  state: present
+# WAN Circuit Termination - New Branch Edge Router to WAN Circuit
+- data:
+    termination_a_type: dcim.interface
+    termination_a:
+      device: {{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01
+      name: Ethernet0/1
+    termination_b_type: circuits.circuittermination
+    termination_b:
+      circuit: {{ new_site.wan_circuit.id }}
+      term_side: A
+    type: cat6a
+    color: ff5f15
+    status: connected
+    label: {{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01 to US-MO-STL-60-WAN-01
+  state: present
+# Edge Router to Core Switch
+- data:
+    termination_a_type: dcim.interface
+    termination_a:
+      device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+      name: Ethernet0/1
+    termination_b_type: dcim.interface
+    termination_b:
+      device: {{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01
+      name: Ethernet0/2
+    type: cat6a
+    color: 2300FF
+    status: connected
+    label: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 to {{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01
+    length: 3
+    length_unit: ft
+  state: present
+# Core Switch to Access Switch
+- data:
+    termination_a_type: dcim.interface
+    termination_a:
+      device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+      name: Ethernet1/3
+    termination_b_type: dcim.interface
+    termination_b:
+      device: {{ new_site.region.name + '-' + new_site.site.id }}-SW-01
+      name: Ethernet1/3
+    type: cat6a
+    color: 2300FF
+    status: connected
+    label: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 to {{ new_site.region.name + '-' + new_site.site.id }}-SW-01
+    length: 3
+    length_unit: ft
+  state: present

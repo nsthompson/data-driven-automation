@@ -1,0 +1,452 @@
+  # WAN Router Port Configuration
+  - data:
+      name: US-MO-STL-60-WAN-01
+    state: present
+    interfaces:
+      - name: {{ new_site.wan_circuit.dc_wan_port }}
+        device: us-mo-stl-60-wan-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01 : Eth0/1"
+        mtu: 1500
+        enabled: true
+    ip_addresses:
+      - address: {{ new_site.prefixes.wan_routing_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
+        assigned_object:
+          name: {{ new_site.wan_circuit.dc_wan_port }}
+          device: US-MO-STL-60-WAN-01
+        description: "US-MO-STL-60-WAN-01 : {{ new_site.wan_circuit.dc_wan_port }}"
+        status: active
+        state: present
+  # {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}-PP1
+      device_role: structured-cabling
+      description: Patch Panel to {{ new_site.region.name + '-' + new_site.site.id }} Desks
+      device_type: leviton-quickport-24p-1ru-patch-panel
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 42
+      status: active
+    state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}-CM1
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ (new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id) | lower }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 40
+      status: active
+    state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}-PP2
+      device_role: structured-cabling
+      description: Patch Panel to {{ new_site.region.name + '-' + new_site.site.id }} Desks
+      device_type: leviton-quickport-24p-1ru-patch-panel
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 39
+      status: active
+    state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}-CM2
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 37
+      status: active
+    state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id }}-SW-01
+      device_role: access-switch
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Access Switch 01
+      device_type: cisco-iol-l2
+      platform: ios
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ (new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id) | lower }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 36
+      oob_ip: {{ new_site.devices.access.oob_ip }}
+      status: active
+    state: present
+    interfaces:
+      - name: Ethernet0/0
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+          site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        tagged_vlans:
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet0/2
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+          site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        tagged_vlans:
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet0/3
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+          site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        tagged_vlans:
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/0
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+          site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        tagged_vlans:
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/1
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        enabled: true
+        mode: tagged
+        untagged_vlan:
+          name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+          site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        tagged_vlans:
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        custom_fields:
+          enable_voice: true
+      - name: Ethernet1/2
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        enabled: true
+        mode: access
+        untagged_vlan:
+          name: {{ new_site.region.name + '-' + new_site.site.id }} IOT VLAN
+          site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      - name: Ethernet1/3
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Eth1/3"
+        mode: tagged
+        tagged_vlans:
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Mgmt VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} IOT VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        enabled: true
+      - name: Vlan1
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        type: virtual
+        description: Default VLAN
+        enabled: false
+      - name: Vlan5
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-sw-01
+        type: virtual
+        description: Mgmt VLAN
+        enabled: true
+    ip_addresses:
+      - address: {{ new_site.devices.access.oob_ip }}/24
+        assigned_object:
+          name: Ethernet0/0
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-SW-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-SW-01 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.mgmt_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('2') }}
+        assigned_object:
+          name: Vlan5
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-SW-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-SW-01 : Vlan5"
+        status: active
+        state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}-CM3
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 34
+      status: active
+    state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+      device_role: core-switch
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Core Switch
+      device_type: cisco-iol-l2
+      platform: ios
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 33
+      oob_ip: {{ new_site.devices.core.oob_ip }}
+      status: active
+      custom_fields:
+        enable_ospfv2: true
+        ospfv2_process_id: 1
+        ospfv2_router_id: {{ new_site.devices.core.loopback_ip }}
+    interfaces:
+      - name: Ethernet0/0
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01 : Eth0/2"
+        mtu: 1500
+        enabled: true
+        custom_fields:
+          ospfv2_network_type: point_to_point
+          ospfv2_area: 0
+          ospfv2_passive_interface: false
+      - name: Ethernet0/2
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        enabled: false
+      - name: Ethernet0/3
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        enabled: false
+      - name: Ethernet1/0
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        enabled: false
+      - name: Ethernet1/1
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        enabled: false
+      - name: Ethernet1/2
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        enabled: false
+      - name: Ethernet1/3
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-SW-01 : Eth1/3"
+        mode: tagged
+        tagged_vlans:
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Mgmt VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+          - name: {{ new_site.region.name + '-' + new_site.site.id }} IOT VLAN
+            site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+        enabled: true
+      - name: Vlan1
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        type: virtual
+        description: Default VLAN
+        enabled: false
+      - name: Vlan5
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        type: virtual
+        description: Mgmt VLAN
+        enabled: true
+        custom_fields:
+          ospfv2_area: 0
+      - name: Vlan10
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        type: virtual
+        description: User VLAN
+        enabled: true
+        custom_fields:
+          ospfv2_area: 0
+      - name: Vlan20
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        type: virtual
+        description: Voice VLAN
+        enabled: true
+        custom_fields:
+          ospfv2_area: 0
+      - name: Vlan30
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        type: virtual
+        description: IOT VLAN
+        enabled: true
+        custom_fields:
+          ospfv2_area: 0
+      - name: Loopback0
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-core-01
+        type: virtual
+        enabled: true
+        custom_fields:
+          ospfv2_network_type: point_to_point
+          ospfv2_area: 0
+    ip_addresses:
+      - address: {{ new_site.devices.core.oob_ip }}/24
+        assigned_object:
+          name: Ethernet0/0
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.edge_routing_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('2') }}
+        assigned_object:
+          name: Ethernet0/1
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Eth0/1"
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.mgmt_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
+        assigned_object:
+          name: Vlan5
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Vlan5"
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.user_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
+        assigned_object:
+          name: Vlan10
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Vlan10"
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.voice_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
+        assigned_object:
+          name: Vlan20
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Vlan20"
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.iot_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
+        assigned_object:
+          name: Vlan30
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Vlan30"
+        status: active
+        state: present
+      - address: {{ new_site.devices.core.loopback_ip }}/32
+        assigned_object:
+          name: Loopback0
+          device: {{ new_site.region.name + '-' + new_site.site.id }}-CORE-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Loopback0"
+        status: active
+        role: Loopback
+        state: present
+    state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}-CM4
+      device_role: cable-management
+      description: 2U Cable Management
+      device_type: leviton-horizontal-2ru-cable-mgmt
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 31
+      status: active
+    state: present
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id }}-EDGE-01
+      device_role: edge-router
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Edge Router
+      device_type: cisco-iol
+      platform: ios
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+      rack: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+      face: front
+      position: 30
+      oob_ip: {{ new_site.devices.edge.oob_ip }}
+      status: active
+      custom_fields:
+        enable_bgp: true
+        enable_ospfv2: true
+        ospfv2_process_id: 1
+        ospfv2_router_id: {{ new_site.devices.edge.loopback_ip }}
+    state: present
+    interfaces:
+      - name: Ethernet0/0
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-edge-01
+        description: OOB Management
+        enabled: true
+        vrf: clab-mgmt
+      - name: Ethernet0/1
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-edge-01
+        description: "US-MO-STL-60-WAN-01 : Eth0/1"
+        mtu: 1500
+        enabled: true
+      - name: Ethernet0/2
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-edge-01
+        description: "{{ new_site.region.name + '-' + new_site.site.id }}-CORE-01 : Eth0/1"
+        mtu: 1500
+        enabled: true
+        custom_fields:
+          ospfv2_network_type: point_to_point
+          ospfv2_area: 0
+          ospfv2_passive_interface: false
+      - name: Ethernet0/3
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-edge-01
+        enabled: false
+      - name: Loopback0
+        type: virtual
+        device: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-edge-01
+        enabled: true
+        custom_fields:
+          ospfv2_network_type: point_to_point
+          ospfv2_area: 0
+    ip_addresses:
+      - address: {{ new_site.devices.edge.oob_ip }}/24
+        assigned_object:
+          name: Ethernet0/0
+          device: {{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01
+        description: "{{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01 : Eth0/0"
+        vrf: clab-mgmt
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.wan_routing_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('2') }}
+        assigned_object:
+          name: Ethernet0/1
+          device: {{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01
+        description: "{{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01 : Eth0/1"
+        status: active
+        state: present
+      - address: {{ new_site.prefixes.edge_routing_prefix | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }}
+        assigned_object:
+          name: Ethernet0/2
+          device: {{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01
+        description: "{{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01 : Eth0/2"
+        status: active
+        state: present
+      - address: {{ new_site.devices.edge.loopback_ip }}/32
+        assigned_object:
+          name: Loopback0
+          device: {{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01
+        description: "{{ (new_site.region.name + '-' + new_site.site.id) }}-EDGE-01 : Loopback0"
+        status: active
+        role: Loopback
+        state: present

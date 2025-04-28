@@ -1,0 +1,7 @@
+- name: Render Cable Vars
+  ansible.builtin.set_fact:
+    cables: "{{ lookup('template', 'cables.j2') | from_yaml }}"
+
+- name: Debug Cable Var
+  ansible.builtin.debug:
+    msg: "{{ cables }}"

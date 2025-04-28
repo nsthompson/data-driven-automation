@@ -1,0 +1,6 @@
+  - data:
+      name: {{ new_site.region.name + '-' + new_site.site.id }}-VLANS
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Branch Office VLANs
+      scope_type: dcim.site
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+    state: present

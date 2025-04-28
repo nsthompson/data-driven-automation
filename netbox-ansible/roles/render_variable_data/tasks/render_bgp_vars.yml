@@ -1,0 +1,7 @@
+- name: Render BGP Session Vars
+  ansible.builtin.set_fact:
+    bgp_sessions: "{{ lookup('template', 'bgp.j2') | from_yaml }}"
+
+- name: Debug BGP Session Var
+  ansible.builtin.debug:
+    msg: "{{ bgp_sessions }}"

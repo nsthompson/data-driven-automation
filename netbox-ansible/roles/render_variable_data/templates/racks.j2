@@ -1,0 +1,9 @@
+- data:
+    name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id + '-' + new_site.rack.id }}
+    description: {{ new_site.rack.description }}
+    site: {{ new_site.region.name + '-' + new_site.site.id }}
+    location: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+    status: {{ new_site.status }}
+    rack_role: network-rack
+    rack_type: apc-netshelter-sx-server-rack
+  state: present

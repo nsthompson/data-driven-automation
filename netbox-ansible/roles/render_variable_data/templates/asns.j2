@@ -1,0 +1,6 @@
+- data:
+    asn: {{ new_site.wan_circuit.asn }}
+    description: {{ new_site.region.name + '-' + new_site.site.id }} ASN
+    rir: private
+    site: {{ new_site.region.name + '-' + new_site.site.id }}
+  state: present

@@ -1,0 +1,7 @@
+- name: Render Circuits Vars
+  ansible.builtin.set_fact:
+    circuits: "{{ lookup('template', 'circuits.j2') | from_yaml }}"
+
+- name: Debug Circuits Var
+  ansible.builtin.debug:
+    msg: "{{ circuits }}"

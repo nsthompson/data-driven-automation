@@ -1,0 +1,7 @@
+- name: Render Device Vars
+  ansible.builtin.set_fact:
+    devices: "{{ lookup('template', 'devices.j2') | from_yaml }}"
+
+- name: Debug Device Var
+  ansible.builtin.debug:
+    msg: "{{ devices }}"

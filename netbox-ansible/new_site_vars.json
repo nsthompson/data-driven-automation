@@ -1,0 +1,51 @@
+{
+    "new_site": {
+        "size": "small",
+        "status": "active",
+        "region": {
+            "name": "US-NJ",
+            "description": "New Jersey",
+            "parent": "US-Northeast"
+        },
+        "site": {
+            "id": "EWR-01",
+            "description": "Newark Branch Office"
+        },
+        "location": {
+            "id": "MDF",
+            "description": "Newark Branch MDF"
+        },
+        "rack": {
+            "id": "R1",
+            "description": "Newark Branch 01 MDF Network Rack"
+        },
+        "prefixes": {
+            "site_prefix": "10.10.2.0/23",
+            "utility_prefix": "10.10.2.0/25",
+            "edge_routing_prefix": "10.10.2.0/30",
+            "wan_routing_prefix": "10.195.255.4/30",
+            "mgmt_prefix": "10.10.2.112/28",
+            "user_prefix": "10.10.2.128/25",
+            "voice_prefix": "10.10.3.0/25",
+            "iot_prefix": "10.10.3.128/25"
+        },
+        "devices": {
+            "edge": {
+                "oob_ip": "10.115.115.21",
+                "loopback_ip": "100.64.255.4"
+            },
+            "core": {
+                "oob_ip": "10.115.115.22",
+                "loopback_ip": "100.64.255.5"
+            },
+            "access": {
+                "oob_ip": "10.115.115.23"
+            }
+        },
+        "wan_circuit": {
+            "id": "67890abcde",
+            "dc_wan_port": "Ethernet0/2",
+            "asn": 65002
+        }
+    }
+}

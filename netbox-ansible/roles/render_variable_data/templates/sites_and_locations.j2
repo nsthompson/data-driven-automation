@@ -1,0 +1,13 @@
+  - name: {{ new_site.region.name + '-' + new_site.site.id }}
+    description: {{ new_site.site.description }}
+    site_group: Branches
+    status: {{ new_site.status }}
+    region: {{ new_site.region.name }}
+    state: present
+    locations:
+{% if new_site.size == "small" %}
+      - name: {{ new_site.region.name + '-' + new_site.site.id + '-' + new_site.location.id }}
+        description: {{ new_site.location.description }}
+        status: {{ new_site.status }}
+        state: present
+{% endif %}

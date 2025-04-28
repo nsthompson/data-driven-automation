@@ -1,0 +1,82 @@
+  - data:
+      prefix: {{ new_site.prefixes.site_prefix }}
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Subnet
+      status: container
+      is_pool: false
+      mark_utilized: false
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      scope_type: dcim.site
+    first_available: false
+    state: present
+  - data:
+      prefix: {{ new_site.prefixes.utility_prefix }}
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Utility Subnets
+      status: container
+      is_pool: false
+      mark_utilized: false
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      scope_type: dcim.site
+    first_available: false
+    state: present
+  - data:
+      prefix: {{ new_site.prefixes.edge_routing_prefix }}
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Edge Routing Subnet
+      status: active
+      is_pool: false
+      mark_utilized: false
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      scope_type: dcim.site
+    first_available: false
+    state: present
+  - data:
+      prefix: {{ new_site.prefixes.mgmt_prefix }}
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Management Subnet
+      status: active
+      is_pool: false
+      vlan:
+        name: {{ new_site.region.name + '-' + new_site.site.id }} Mgmt VLAN
+        site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      mark_utilized: false
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      scope_type: dcim.site
+    first_available: false
+    state: present
+  - data:
+      prefix: {{ new_site.prefixes.user_prefix }}
+      description: {{ new_site.region.name + '-' + new_site.site.id }} User Subnet
+      status: active
+      is_pool: false
+      vlan:
+        name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+        site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      mark_utilized: false
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      scope_type: dcim.site
+    first_available: false
+    state: present
+  - data:
+      prefix: {{ new_site.prefixes.voice_prefix }}
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Voice Subnet
+      status: active
+      is_pool: false
+      vlan:
+        name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+        site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      mark_utilized: false
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      scope_type: dcim.site
+    first_available: false
+    state: present
+  - data:
+      prefix: {{ new_site.prefixes.iot_prefix }}
+      description: {{ new_site.region.name + '-' + new_site.site.id }} IOT Subnet
+      status: active
+      is_pool: false
+      vlan:
+        name: {{ new_site.region.name + '-' + new_site.site.id }} IOT VLAN
+        site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      mark_utilized: false
+      scope: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      scope_type: dcim.site
+    first_available: false
+    state: present

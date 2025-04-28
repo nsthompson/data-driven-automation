@@ -1,0 +1,28 @@
+  - data:
+      id: 5
+      name: {{ new_site.region.name + '-' + new_site.site.id }} Mgmt VLAN
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      status: active
+      vlan_group: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-vlans
+    state: present
+  - data:
+      id: 10
+      name: {{ new_site.region.name + '-' + new_site.site.id }} User VLAN
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      status: active
+      vlan_group: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-vlans
+    state: present
+  - data:
+      id: 20
+      name: {{ new_site.region.name + '-' + new_site.site.id }} Voice VLAN
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      status: active
+      vlan_group: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-vlans
+    state: present
+  - data:
+      id: 30
+      name: {{ new_site.region.name + '-' + new_site.site.id }} IOT VLAN
+      site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      status: active
+      vlan_group: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}-vlans
+    state: present

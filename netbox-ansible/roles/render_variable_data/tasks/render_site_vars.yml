@@ -1,0 +1,15 @@
+- name: Render Regions Vars
+  ansible.builtin.set_fact:
+    regions: "{{ lookup('template', 'regions.j2') | from_yaml }}"
+
+- name: Debug Regions Var
+  ansible.builtin.debug:
+    msg: "{{ regions }}"
+
+- name: Render Sites and Locations Vars
+  ansible.builtin.set_fact:
+    sites: "{{ lookup('template', 'sites_and_locations.j2') | from_yaml }}"
+
+- name: Debug Sites Var
+  ansible.builtin.debug:
+    msg: "{{ sites }}"

@@ -1,0 +1,20 @@
+- data:
+    id: {{ new_site.wan_circuit.id }}
+    type: corporate-wan
+    provider: wwt
+    description: "Circuit from {{ new_site.region.name + '-' + new_site.site.id }} to US-MO-STL-60"
+    status: active
+  terminations:
+    a:
+      description: {{ new_site.region.name + '-' + new_site.site.id }} Termination
+      connected: false
+      termination_site: {{ (new_site.region.name + '-' + new_site.site.id) | lower }}
+      termination_type: dcim.site
+      state: present
+    z:
+      description: US-MO-STL-60 Termination
+      connected: false
+      termination_site: us-mo-stl-60
+      termination_type: dcim.site
+      state: present
+  state: present

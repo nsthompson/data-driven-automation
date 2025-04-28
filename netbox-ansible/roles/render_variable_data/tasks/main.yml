@@ -1,0 +1,72 @@
+---
+#
+# Ansible Role to Render Variable Data to provision a new site
+#
+# Copyright (C) 2025 World Wide Technology
+# All Rights Reserved
+#
+# Written by Nick Thompson (github/@nsthompson)
+#
+
+- name: Render Variables for Region, Site, and Location Provisioning
+  ansible.builtin.include_tasks: render_site_vars.yml
+  when:
+    - new_site is defined
+    - new_site.status is defined
+    - new_site.region is defined
+    - new_site.site is defined
+    - new_site.location is defined
+
+- name: Render Variables for Rack Provisoning
+  ansible.builtin.include_tasks: render_rack_vars.yml
+  when:
+    - new_site is defined
+    - new_site.status is defined
+    - new_site.region is defined
+    - new_site.site is defined
+    - new_site.location is defined
+    - new_site.rack is defined
+
+- name: Render Variables for IPAM Provisioning
+  ansible.builtin.include_tasks: render_ipam_vars.yml
+  when:
+    - new_site is defined
+    - new_site.region is defined
+    - new_site.site is defined
+    - new_site.location is defined
+    - new_site.prefixes is defined
+
+- name: Render Variables for Device Provisioning
+  ansible.builtin.include_tasks: render_device_vars.yml
+  when:
+    - new_site is defined
+    - new_site.region is defined
+    - new_site.site is defined
+    - new_site.location is defined
+    - new_site.prefixes is defined
+    - new_site.devices is defined
+
+- name: Render Variables for Circuit Provisioning
+  ansible.builtin.include_tasks: render_circuit_vars.yml
+  when:
+    - new_site is defined
+    - new_site.region is defined
+    - new_site.site is defined
+    - new_site.wan_circuit is defined
+
+- name: Render Variables for Cable Provisioning
+  ansible.builtin.include_tasks: render_cable_vars.yml
+  when:
+    - new_site is defined
+    - new_site.region is defined
+    - new_site.site is defined
+    - new_site.wan_circuit is defined
+
+- name: Render Variables for BGP Provisioning
+  ansible.builtin.include_tasks: render_bgp_vars.yml
+  when:
+    - new_site is defined
+    - new_site.region is defined
+    - new_site.site is defined
+    - new_site.prefixes is defined
+    - new_site.wan_circuit is defined

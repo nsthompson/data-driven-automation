@@ -1,0 +1,7 @@
+- name: Render Rack Vars
+  ansible.builtin.set_fact:
+    racks: "{{ lookup('template', 'racks.j2') | from_yaml }}"
+
+- name: Debug Racks Var
+  ansible.builtin.debug:
+    msg: "{{ racks }}"

@@ -1,0 +1,31 @@
+- name: Render VLAN Group Vars
+  ansible.builtin.set_fact:
+    vlan_groups: "{{ lookup('template', 'vlan_groups.j2') | from_yaml }}"
+
+- name: Debug VLAN Group Var
+  ansible.builtin.debug:
+    msg: "{{ vlan_groups }}"
+
+- name: Render VLAN Vars
+  ansible.builtin.set_fact:
+    vlans: "{{ lookup('template', 'vlans.j2') | from_yaml }}"
+
+- name: Debug VLAN var
+  ansible.builtin.debug:
+    msg: "{{ vlans }}"
+
+- name: Render Prefix Vars
+  ansible.builtin.set_fact:
+    prefixes: "{{ lookup('template', 'prefixes.j2') | from_yaml }}"
+
+- name: Debug Prefix Var
+  ansible.builtin.debug:
+    msg: "{{ prefixes }}"
+
+- name: Render ASN Vars
+  ansible.builtin.set_fact:
+    asns: "{{ lookup('template', 'asns.j2') | from_yaml }}"
+
+- name: Debug ASN Var
+  ansible.builtin.debug:
+    msg: "{{ asns }}"
