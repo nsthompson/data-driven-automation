@@ -3,7 +3,7 @@
   connection: local
   hosts: localhost
   vars:
-    aap_token: "{{ lookup('ansible.builtin.env', 'CONTROLLER_TOKEN', default=undef()) }}"
+    aap_token: "{{ lookup('ansible.builtin.env', 'CONTROLLER_OAUTH_TOKEN', default=undef()) }}"
     netbox_url: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
     netbox_token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
 
