@@ -64,3 +64,16 @@ controller_templates:
       - NetBox API Key
     verbosity: 0
     state: present
+  - name: Update New Site Survey
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: aap-configuration-ansible/update_new_site_aap_survey.yml
+    ask_variables_on_launch: false
+    credentials:
+      - NetBox API Key
+      - AAP Credential
+    verbosity: 0
+    state: present
