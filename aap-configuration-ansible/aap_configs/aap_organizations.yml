@@ -1,0 +1,10 @@
+---
+aap_organizations:
+  - name: Data-Driven-Automation
+    description: Data-Driven Automation Organization
+    galaxy_credentials:
+      - Ansible Galaxy
+      - Automation Hub Published Repository
+      - Automation Hub RH Certified Repository
+      - Automation Hub Validated Repository
+      - Automation Hub Community Repository

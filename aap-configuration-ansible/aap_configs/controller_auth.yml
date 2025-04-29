@@ -1,0 +1,3 @@
+aap_hostname: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST', default=undef()) }}"
+gateway_hostname: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST', default=undef()) }}"
+aap_validate_certs: false

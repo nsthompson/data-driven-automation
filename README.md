@@ -2,6 +2,8 @@
 
 ## Projects
 
+`aap-configuration-ansible` - Populates AAP with configuration to support this project
+
 `netbox-ansible` - Populates NetBox environment with lab data
 
 `netbox-containerlab-ansible` - Generates Containerlab topology files from data in NetBox

@@ -1,0 +1,15 @@
+---
+controller_projects:
+  - name: data-driven-automation
+    description: Data-Driven Automation
+    organization: Data-Driven-Automation
+    scm_branch: main
+    scm_clean: 'yes'
+    scm_delete_on_update: 'no'
+    scm_type: git
+    scm_update_on_launch: 'yes'
+    scm_update_cache_timeout: 0
+    scm_url: git@github.com:nsthompson/data-driven-automation.git
+    scm_credential: Github SSH Key
+    allow_override: true
+    default_environment: network-ee

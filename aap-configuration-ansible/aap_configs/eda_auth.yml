@@ -1,0 +1,2 @@
+eda_token: "{{ lookup('ansible.builtin.env', 'CONTROLLER_TOKEN', default=undef()) }}"
+eda_validate_certs: false

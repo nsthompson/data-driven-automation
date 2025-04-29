@@ -1,0 +1,299 @@
+{
+    "name": "Deploy New Site",
+    "description": "Survey to capture necessary information to deploy a new site in to NetBox",
+    "spec": [
+      {
+        "question_description": "New Branch Deployment Size",
+        "default": "",
+        "required": false,
+        "choices": "small\nmedium\nlarge",
+        "new_question": true,
+        "variable": "new_site.size",
+        "question_name": "Branch Size",
+        "type": "multiplechoice"
+      },
+      {
+        "question_description": "NetBox Site Status",
+        "default": "",
+        "required": false,
+        "choices": "planned\nactive",
+        "new_question": true,
+        "variable": "new_site.status",
+        "question_name": "Site Status",
+        "type": "multiplechoice"
+      },
+      {
+        "question_description": "NetBox Region",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.region.name",
+        "min": 5,
+        "max": 5,
+        "question_name": "REGION: Name (ex. US-MN)",
+        "type": "text"
+      },
+      {
+        "question_description": "NetBox Region Description",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.region.description",
+        "min": 0,
+        "max": 128,
+        "question_name": "REGION: Description",
+        "type": "text"
+      },
+      {
+        "question_description": "Region Parent",
+        "default": "",
+        "required": false,
+        "choices": "{{ netbox_regions }}",
+        "new_question": true,
+        "variable": "new_site.region.parent",
+        "question_name": "REGION: Parent",
+        "type": "multiplechoice"
+      },
+      {
+        "question_description": "NetBox Site ID",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.site.id",
+        "min": 6,
+        "max": 6,
+        "question_name": "SITE: Identifier (ex. MSP-01)",
+        "type": "text"
+      },
+      {
+        "question_description": "NetBox Site Description",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.site.description",
+        "min": 0,
+        "max": 128,
+        "question_name": "SITE: Description",
+        "type": "text"
+      },
+      {
+        "question_description": "NetBox Location Name",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.location.id",
+        "min": 3,
+        "max": 6,
+        "question_name": "LOCATION: Identifier (ex. MDF)",
+        "type": "text"
+      },
+      {
+        "question_description": "NetBox Location Description",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.location.description",
+        "min": 0,
+        "max": 128,
+        "question_name": "LOCATION: Description",
+        "type": "text"
+      },
+      {
+        "question_description": "NetBox Rack Name",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.rack.id",
+        "min": 2,
+        "max": 3,
+        "question_name": "RACK: Identifier (ex. R1)",
+        "type": "text"
+      },
+      {
+        "question_description": "NetBox Rack Description",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.rack.description",
+        "min": 0,
+        "max": 128,
+        "question_name": "RACK: Description",
+        "type": "text"
+      },
+      {
+        "question_description": "Top-Level Site Network Prefix",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.site_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: Site Network",
+        "type": "text"
+      },
+      {
+        "question_description": "Prefix that utility subnets are allocated from",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.utility_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: Utility Network",
+        "type": "text"
+      },
+      {
+        "question_description": "Edge Router to Core Switch Prefix",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.edge_routing_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: Edge Routing",
+        "type": "text"
+      },
+      {
+        "question_description": "WAN Prefix from Site to ATC-DC60",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.wan_routing_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: WAN Routing",
+        "type": "text"
+      },
+      {
+        "question_description": "Management Network Prefix",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.mgmt_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: Management Network",
+        "type": "text"
+      },
+      {
+        "question_description": "User Network Prefix",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.user_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: User Network",
+        "type": "text"
+      },
+      {
+        "question_description": "Voice Network Prefix",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.voice_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: Voice Network",
+        "type": "text"
+      },
+      {
+        "question_description": "IOT Network Prefix",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.prefixes.iot_prefix",
+        "min": 0,
+        "max": 18,
+        "question_name": "PREFIX: IOT Network",
+        "type": "text"
+      },
+      {
+        "question_description": "Edge Router OOB IP",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.devices.edge.oob_ip",
+        "min": 0,
+        "max": 18,
+        "question_name": "EDGE ROUTER: Out-of-Band IP Address",
+        "type": "text"
+      },
+      {
+        "question_description": "Edge Router Loopback IP",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.devices.edge.loopback_ip",
+        "min": 0,
+        "max": 18,
+        "question_name": "EDGE ROUTER: Loopback IP Address",
+        "type": "text"
+      },
+      {
+        "question_description": "Core Switch OOB IP",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.devices.core.oob_ip",
+        "min": 0,
+        "max": 18,
+        "question_name": "CORE SWITCH: Out-of-Band IP Address",
+        "type": "text"
+      },
+      {
+        "question_description": "Core Switch Loopback IP",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.devices.core.loopback_ip",
+        "min": 0,
+        "max": 18,
+        "question_name": "CORE SWITCH: Loopback IP Address",
+        "type": "text"
+      },
+      {
+        "question_description": "Access Switch OOB IP",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.devices.access.oob_ip",
+        "min": 0,
+        "max": 18,
+        "question_name": "ACCESS SWITCH: Out-of-Band IP Address",
+        "type": "text"
+      },
+      {
+        "question_description": "WAN Circuit ID",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.wan_circuit.id",
+        "min": 0,
+        "max": 10,
+        "question_name": "WAN: Circuit ID",
+        "type": "text"
+      },
+      {
+        "question_description": "US-MO-STL-60-WAN-01 Routed Interface",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.wan_circuit.dc_wan_port",
+        "choices": "{{ stl60_available_interfaces }}",
+        "question_name": "WAN: DC WAN Interface",
+        "type": "multiplechoice"
+      },
+      {
+        "question_description": "New Site BGP ASN",
+        "default": "",
+        "required": false,
+        "new_question": true,
+        "variable": "new_site.wan_circuit.asn",
+        "min": 0,
+        "max": 5,
+        "question_name": "WAN: New Site BGP ASN",
+        "type": "text"
+      }
+    ]
+  }

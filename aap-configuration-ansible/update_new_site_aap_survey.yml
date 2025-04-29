@@ -1,0 +1,59 @@
+---
+- name: Playbook to update the AAP Survey for New Site Deployments
+  connection: local
+  hosts: localhost
+  vars:
+    aap_token: "{{ lookup('ansible.builtin.env', 'CONTROLLER_TOKEN', default=undef()) }}"
+    netbox_url: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
+    netbox_token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
+
+  module_defaults:
+    group/netbox.netbox.netbox:
+      netbox_url: "{{ netbox_url }}"
+      netbox_token: "{{ netbox_token }}"
+
+  pre_tasks:
+    - name: Include vars from aap_configs directory
+      ansible.builtin.include_vars:
+        dir: ./aap_configs
+        extensions: ["yml"]
+
+    - name: Check for Netbox URL
+      ansible.builtin.fail:
+        msg: "netbox_url is undefined"
+      when: not netbox_url is defined
+
+    - name: Check for Netbox Token
+      ansible.builtin.fail:
+        msg: "netbox_token is undefined"
+      when: not netbox_token is defined
+
+    - name: Capture existing NetBox regions
+      ansible.builtin.set_fact:
+        netbox_regions: >-
+          {{ query('netbox.netbox.nb_lookup',
+          'regions',
+          api_endpoint=netbox_url,
+          token=netbox_token) |
+          community.general.json_query('[?value.parent.name==`US`].value.name')
+          | join('\n') }}
+
+    - name: Capture available interfaces on US-MO-STL-60-WAN-01
+      ansible.builtin.set_fact:
+        stl60_available_interfaces: >-
+          {{ query('netbox.netbox.nb_lookup',
+          'interfaces',
+          api_filter='device=US-MO-STL-60-WAN-01',
+          api_endpoint=netbox_url,
+          token=netbox_token) |
+          community.general.json_query('[?value.enabled==`false`].value.name')
+          | join('\n') }}
+
+    - name: Generate template for AAP survey
+      ansible.builtin.template:
+        src: templates/deploy_site.j2
+        dest: ./template_surveys/deploy_site.json
+        mode: "0644"
+
+  roles:
+    - {role: infra.aap_configuration.controller_job_templates, when: controller_templates is defined and aap_token is defined}

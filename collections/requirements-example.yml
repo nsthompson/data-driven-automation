@@ -2,6 +2,10 @@
 collections:
   - community.general
   - ansible.controller
+  - ansible.eda
+  - ansible.hub
+  - ansible.platform
+  - infra.aap_configuration
   - cisco.ios
   - name: https://github.com/netbox-community/ansible_modules
     type: git

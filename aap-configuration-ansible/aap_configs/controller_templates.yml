@@ -1,0 +1,66 @@
+---
+controller_templates:
+  - name: Configure NetBox Lab Environment
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: netbox-ansible/lab-provisioner.yml
+    credentials:
+      - NetBox API Key
+    verbosity: 0
+    state: present
+  - name: Configure Network from NetBox
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    ask_limit_on_launch: true
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: network-configuration-ansible/configure-network.yml
+    ask_variables_on_launch: true
+    ask_tags_on_launch: true
+    credentials:
+      - NetBox API Key
+    verbosity: 0
+    state: present
+  - name: Parse NetBox Config Context Webhook
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: network-configuration-ansible/parse-context-update.yml
+    ask_variables_on_launch: true
+    credentials:
+      - NetBox API Key
+      - AAP Credential
+    verbosity: 0
+    state: present
+  - name: Validate Network
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: network-validation-ansible/validate-network.yml
+    ask_variables_on_launch: true
+    credentials:
+      - NetBox API Key
+    verbosity: 0
+    state: present
+  - name: Deploy New Site
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: netbox-ansible/deploy-site.yml
+    ask_variables_on_launch: false
+    survey_enabled: true
+    survey: "{{ lookup('template', 'template_surveys/deploy_site.json') | regex_replace('\\n', '') }}"
+    credentials:
+      - NetBox API Key
+    verbosity: 0
+    state: present

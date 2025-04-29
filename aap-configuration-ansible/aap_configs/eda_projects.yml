@@ -1,0 +1,8 @@
+---
+eda_projects:
+  - name: data-driven-automation
+    description: Data-Driven Automation
+    organization: Data-Driven-Automation
+    scm_type: git
+    scm_url: git@github.com:nsthompson/data-driven-automation.git
+    credential: Github SSH

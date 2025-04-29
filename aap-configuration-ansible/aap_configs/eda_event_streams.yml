@@ -1,0 +1,6 @@
+---
+eda_event_streams:
+  - name: NetBox Event Stream
+    credential_name: NetBox Event-Stream Credential
+    organization: Data-Driven-Automation
+    forward_events: true

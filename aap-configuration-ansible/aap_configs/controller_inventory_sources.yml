@@ -1,0 +1,13 @@
+---
+controller_inventory_sources:
+  - name: netbox-cloud
+    description: NetBox Dynamic Inventory
+    inventory: data-driven-automation
+    source: scm
+    source_project: data-driven-automation
+    source_path: network-configuration-ansible/inventory.yml
+    credential: NetBox API Key
+    execution_environment: network-ee
+    update_on_launch: true
+    overwrite: true
+    overwrite_vars: true

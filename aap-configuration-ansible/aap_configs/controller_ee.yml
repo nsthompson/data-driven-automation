@@ -1,0 +1,7 @@
+---
+controller_execution_environments:
+  - name: network-ee
+    description: Execution environment for network automation
+    image: "{{ lookup('ansible.builtin.env', 'HUB_HOSTNAME', default=undef()) }}/network-ee:latest"
+    pull: missing
+    state: present
