@@ -3,8 +3,13 @@ sites:
   - name: us-mn-msp-01
     roles:
       - edge-router
-      - access-switch
       - core-switch
+      - access-switch
   - name: us-mo-stl-60
     roles:
       - wan-router
+  - name: us-nj-ewr-01
+    roles:
+      - edge-router
+      - core-switch
+      - access-switch

@@ -57,7 +57,7 @@ controller_templates:
     execution_environment: network-ee
     project: data-driven-automation
     playbook: netbox-ansible/deploy-site.yml
-    ask_variables_on_launch: false
+    ask_variables_on_launch: true
     survey_enabled: true
     survey: "{{ lookup('template', 'template_surveys/deploy_site.json') | regex_replace('\\n', '') }}"
     credentials:

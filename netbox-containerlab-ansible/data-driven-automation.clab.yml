@@ -32,8 +32,26 @@ topology:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.12.01
       mgmt-ipv4: 10.115.115.10
+    # US-NJ-EWR-01
+    US-NJ-EWR-01-CORE-01:
+      kind: cisco_iol
+      type: L2
+      image: vrnetlab/cisco_iol:l2-17.12.01
+      mgmt-ipv4: 10.115.115.22
+    US-NJ-EWR-01-EDGE-01:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.01
+      mgmt-ipv4: 10.115.115.21
+    US-NJ-EWR-01-SW-01:
+      kind: cisco_iol
+      type: L2
+      image: vrnetlab/cisco_iol:l2-17.12.01
+      mgmt-ipv4: 10.115.115.23
   links:
     - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet0/1", "US-MN-MSP-01-EDGE-01:Ethernet0/2"]
     - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet1/2", "US-MN-MSP-01-SW-01:Ethernet1/3"]
     - endpoints: ["US-MN-MSP-01-CORE-01:Ethernet1/3", "US-MN-MSP-01-SW-02:Ethernet1/3"]
     - endpoints: ["US-MN-MSP-01-EDGE-01:Ethernet0/1", "US-MO-STL-60-WAN-01:Ethernet0/1"]
+    - endpoints: ["US-MO-STL-60-WAN-01:Ethernet0/2", "US-NJ-EWR-01-EDGE-01:Ethernet0/1"]
+    - endpoints: ["US-NJ-EWR-01-CORE-01:Ethernet0/1", "US-NJ-EWR-01-EDGE-01:Ethernet0/2"]
+    - endpoints: ["US-NJ-EWR-01-CORE-01:Ethernet1/3", "US-NJ-EWR-01-SW-01:Ethernet1/3"]
