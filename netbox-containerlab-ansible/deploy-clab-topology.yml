@@ -1,45 +1,19 @@
 ---
-- name: Capture Target Host Details
-  connection: local
-  hosts: localhost
-  vars_prompt:
-    - name: username
-      prompt: Username
-      private: false
-
-    - name: password
-      prompt: Password
-      private: true
-
-    - name: target
-      prompt: Containerlab Host
-      private: false
-
-    - name: lab_name
-      prompt: Lab Name
-      private: false
-
-    - name: topology_file
-      prompt: Topology File
-      private: false
-
-    - name: containerlab_mode
-      prompt: "[deploy/destroy/inspect]"
-      private: false
-
-  tasks:
-    - name: Add Host
-      ansible.builtin.add_host:
-        name: "{{ target }}"
-        group: clab_host
-        ansible_user: "{{ username }}"
-        ansible_password: "{{ password }}"
-        lab_name: "{{ lab_name }}"
-        topology_file: "{{ topology_file }}"
-        containerlab_mode: "{{ containerlab_mode }}"
-
 - name: Deploy Containerlab Topology
-  hosts: clab_host
+  hosts: containerlab
+
+  pre_tasks:
+    - name: Validate topology_file is defined
+      ansible.builtin.fail:
+        msg: "topology_file is undefined"
+      when: not topology_file is defined
+
+    - name: Validate containerlab_mode is defined
+      ansible.builtin.fail:
+        msg: "containerlab_mode is undefined or not one of deploy, destroy, or inspect"
+      when:
+        - not containerlab_mode is defined
+        - (containerlab_mode != 'deploy' or containerlab_mode != 'destroy' or containerlab_mode != 'inspect')
 
   tasks:
     - name: Validate Target Host Directory Exists
