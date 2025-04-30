@@ -7,9 +7,6 @@
     ssh_key_file_path: "{{ lookup('ansible.builtin.env', 'SSH_KEY_PATH', default=undef()) }}"
     ssh_key_data: "{{ lookup('ansible.builtin.file', '{{ ssh_key_file_path }}') }}"
     ssh_key_unlock: "{{ lookup('ansible.builtin.env', 'SSH_KEY_PWD', default=undef()) }}"
-    edge_ssh_key_data: "{{ lookup('ansible.builtin.file', '{{ edge_ssh_key_file_path }}') }}"
-    edge_ssh_key_unlock: "{{ lookup('ansible.builtin.env', 'SSH_KEY_PWD', default=undef()) }}"
-    github_token: "{{ lookup('ansible.builtin.env', 'GITHUB_TOKEN', default=undef()) }}"
     netbox_eda_password: "{{ lookup('ansible.builtin.env', 'NETBOX_EDA_PASSWORD', default=undef()) }}"
 
   pre_tasks:
@@ -20,17 +17,17 @@
 
   roles:
     # Configure Gateway
-    # - {role: infra.aap_configuration.gateway_organizations, when: aap_organizations is defined and aap_token is defined}
-    # # Configure Controller
-    # - {role: infra.aap_configuration.controller_credential_types, when: controller_credential_types is defined and aap_token is defined}
-    # - {role: infra.aap_configuration.controller_credentials, when: controller_credentials is defined and aap_token is defined}
-    # - {role: infra.aap_configuration.controller_inventories, when: controller_inventories is defined and aap_token is defined}
-    # - {role: infra.aap_configuration.controller_hosts, when: controller_hosts is defined and aap_token is defined}
-    # - {role: infra.aap_configuration.controller_execution_environments, when: controller_execution_environments is defined and aap_token is defined}
-    # - {role: infra.aap_configuration.controller_projects, when: controller_projects is defined and aap_token is defined}
-    # - {role: infra.aap_configuration.controller_inventory_sources, when: controller_inventory_sources is defined and aap_token is defined}
+    - {role: infra.aap_configuration.gateway_organizations, when: aap_organizations is defined and aap_token is defined}
+    # Configure Controller
+    - {role: infra.aap_configuration.controller_credential_types, when: controller_credential_types is defined and aap_token is defined}
+    - {role: infra.aap_configuration.controller_credentials, when: controller_credentials is defined and aap_token is defined}
+    - {role: infra.aap_configuration.controller_inventories, when: controller_inventories is defined and aap_token is defined}
+    - {role: infra.aap_configuration.controller_hosts, when: controller_hosts is defined and aap_token is defined}
+    - {role: infra.aap_configuration.controller_execution_environments, when: controller_execution_environments is defined and aap_token is defined}
+    - {role: infra.aap_configuration.controller_projects, when: controller_projects is defined and aap_token is defined}
+    - {role: infra.aap_configuration.controller_inventory_sources, when: controller_inventory_sources is defined and aap_token is defined}
     - {role: infra.aap_configuration.controller_job_templates, when: controller_templates is defined and aap_token is defined}
-    # # Configure EDA
-    # - {role: infra.aap_configuration.eda_credentials, when: eda_credentials is defined and eda_token is defined}
-    # - {role: infra.aap_configuration.eda_projects, when: eda_projects is defined and eda_token is defined}
-    # - {role: infra.aap_configuration.eda_event_streams, when: eda_event_streams is defined and eda_token is defined}
+    # Configure EDA
+    - {role: infra.aap_configuration.eda_credentials, when: eda_credentials is defined and eda_token is defined}
+    - {role: infra.aap_configuration.eda_projects, when: eda_projects is defined and eda_token is defined}
+    - {role: infra.aap_configuration.eda_event_streams, when: eda_event_streams is defined and eda_token is defined}

@@ -77,3 +77,29 @@ controller_templates:
       - AAP Credential
     verbosity: 0
     state: present
+  - name: Deploy Containerlab Topology
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: netbox-containerlab-ansible/deploy-clab-topology.yml
+    ask_variables_on_launch: false
+    # survey_enabled: true
+    # survey: "{{ lookup('template', 'template_surveys/deploy_site.json') | regex_replace('\\n', '') }}"
+    credentials:
+      - Containerlab
+    verbosity: 0
+    state: present
+  - name: Build Containerlab Topology
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: netbox-containerlab-ansible/clab-topology-builder.yml
+    ask_variables_on_launch: true
+    credentials:
+      - NetBox API Key
+    verbosity: 0
+    state: present
