@@ -2,7 +2,8 @@
 - name: Query for devices
   ansible.builtin.set_fact:
     site_devices: "{{
-      site_devices | default([]) + query('netbox.netbox.nb_lookup', 'devices', api_filter=site_filter, api_endpoint=netbox_url, token=netbox_token, errors='ignore')
+      site_devices | default([]) +
+      query('netbox.netbox.nb_lookup', 'devices', api_filter=site_filter, api_endpoint=netbox_url, token=netbox_token, errors='ignore')
       }}"
   loop: "{{ site_filters }}"
   loop_control:
