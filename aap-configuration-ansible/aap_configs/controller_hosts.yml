@@ -5,6 +5,6 @@ controller_hosts:
     variables:
       ansible_connection: local
   - name: containerlab
-    inventory: data-driven-automation
+    inventory: containerlab
     variables:
       ansible_host: 10.115.100.21

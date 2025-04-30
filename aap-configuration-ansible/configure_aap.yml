@@ -27,6 +27,7 @@
     - {role: infra.aap_configuration.controller_projects, when: controller_projects is defined and aap_token is defined}
     - {role: infra.aap_configuration.controller_inventory_sources, when: controller_inventory_sources is defined and aap_token is defined}
     - {role: infra.aap_configuration.controller_job_templates, when: controller_templates is defined and aap_token is defined}
+    - {role: infra.aap_configuration.controller_workflow_job_templates, when: controller_workflows is defined and aap_token is defined}
     # Configure EDA
     - {role: infra.aap_configuration.eda_credentials, when: eda_credentials is defined and eda_token is defined}
     - {role: infra.aap_configuration.eda_projects, when: eda_projects is defined and eda_token is defined}

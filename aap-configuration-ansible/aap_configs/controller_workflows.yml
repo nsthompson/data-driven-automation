@@ -1,0 +1,35 @@
+---
+controller_workflows:
+  - name: Build and Deploy Containerlab Topology
+    description: Workflow to generate the containerlab topology from NetBox and deploy it to the host
+    survey_enabled: false
+    allow_simultaneous: false
+    ask_variables_on_launch: false
+    ask_inventory_on_launch: false
+    ask_scm_branch_on_launch: false
+    ask_limit_on_launch: false
+    organization:
+      name: Data-Driven-Automation
+    workflow_nodes:
+      - all_parents_must_converge: false
+        identifier: build_topology
+        unified_job_template:
+          name: Build Containerlab Topology
+          type: job_template
+          organization:
+            name: Data-Driven-Automation
+        related:
+          success_nodes:
+            - unified_job_template:
+                name: Build and Deploy Containerlab Topology
+                type: job_template
+                organization:
+                  name: Data-Driven-Automation
+              identifier: deploy_topology
+      - all_parents_must_converge: false
+        identifier: deploy_topology
+        unified_job_template:
+          name: Deploy Containerlab Topology
+          type: job_template
+          organization:
+            name: Data-Driven-Automation
