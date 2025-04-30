@@ -31,3 +31,11 @@
   roles:
     - { role: query_netbox_sites, when: sites is defined }
     - { role: generate_clab_topology, when: devices_by_site is defined }
+
+  post_tasks:
+    - name: Provide variables for deployment job in workflow
+      ansible.builtin.set_stats:
+        data:
+          topology_file: "{{ topology_name }}.clab.yml"
+          lab_name: "{{ topology_name }}"
+      when: tower_job_id is defined

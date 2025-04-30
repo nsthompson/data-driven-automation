@@ -8,6 +8,11 @@
         msg: "topology_file is undefined"
       when: not topology_file is defined
 
+    - name: Validate lab_name is defined
+      ansible.builtin.fail:
+        msg: "lab_name is undefined"
+      when: not lab_name is defined
+
     - name: Validate containerlab_mode is defined
       ansible.builtin.fail:
         msg: "containerlab_mode is undefined or not one of deploy, destroy, or inspect"
