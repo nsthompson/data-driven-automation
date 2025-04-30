@@ -38,4 +38,5 @@
         data:
           topology_file: "{{ topology_name }}.clab.yml"
           lab_name: "{{ topology_name }}"
+          containerlab_mode: deploy
       when: tower_job_id is defined
