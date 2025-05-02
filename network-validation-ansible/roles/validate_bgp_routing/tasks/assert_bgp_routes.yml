@@ -12,29 +12,26 @@
 
     - name: Update Successful Results
       ansible.builtin.set_fact:
-        bgp_status_results: >-
-          {{ bgp_status_results | combine(
+        bgp_route_results_pass: >-
+          {{ bgp_route_results_pass + [
             {
-              "routes": {
-                route.network: {
-                  "prefix_length": route.prefix_length,
-                  "nexthop_ip": route.nexthop_ip,
-                  "state": "pass"
-                }
-              }
-            }, recursive=true) }}
+              "route": route.network,
+              "prefix_length": route.prefix_length,
+              "nexthop_ip": route.nexthop_ip,
+              "state": "pass"
+            }
+          ] }}
+
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        bgp_status_results: >-
-          {{ bgp_status_results | combine(
+        bgp_route_results_fail: >-
+          {{ bgp_route_results_fail + [
             {
-              "routes": {
-                route.network: {
-                  "prefix_length": route.prefix_length,
-                  "nexthop_ip": route.nexthop_ip,
-                  "state": "fail",
-                  "reason": bgp_route_result.msg
-                }
-              }
-            }, recursive=true) }}
+              "route": route.network,
+              "prefix_length": route.prefix_length,
+              "nexthop_ip": route.nexthop_ip,
+              "state": "fail",
+              "reason": bgp_route_result.msg
+            }
+          ] }}

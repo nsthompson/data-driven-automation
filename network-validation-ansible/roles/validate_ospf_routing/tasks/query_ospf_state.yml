@@ -17,14 +17,13 @@
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        ospf_status_results: >-
-          {{ ospf_status_results | combine(
-            {
-              "ospf_neighbors": {
+        ospf_neighbor_results_fail: >-
+          {{ ospf_neighbor_results_fail + [
+              {
                 "state": "fail",
                 "reason": ospf_neighbor_result.msg
               }
-            }, recursive=true) }}
+          ] }}
 
 - name: Define OSPF neighbor list
   ansible.builtin.set_fact:

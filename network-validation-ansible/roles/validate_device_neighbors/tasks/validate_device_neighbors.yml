@@ -21,23 +21,24 @@
 
     - name: Update Successful Results
       ansible.builtin.set_fact:
-        neighbor_results: >-
-          {{ neighbor_results | combine(
+        neighbor_results_pass: >-
+          {{ neighbor_results_pass + [
             {
-              interface.key: {
-                "neighbor": interface.value.neighbor,
-                "neighbor_interface": interface.value.neighbor_interface,
-                "state": "pass"
-              }
-            }, recursive=true) }}
+              "interface": interface.key,
+              "neighbor": interface.value.neighbor,
+              "neighbor_interface": interface.value.neighbor_interface,
+              "state": "pass"
+            }
+          ] }}
+
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        neighbor_results: >-
-          {{ neighbor_results | combine(
+        neighbor_results_fail: >-
+          {{ neighbor_results_fail + [
             {
-              interface.key: {
-                "state": "fail",
-                "reason": neighbor_result.msg
-              }
-            }, recursive=true) }}
+              "interface": interface.key,
+              "state": "fail",
+              "reason": neighbor_result.msg
+            }
+          ] }}

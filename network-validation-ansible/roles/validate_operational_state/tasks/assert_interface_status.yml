@@ -14,23 +14,24 @@
 
     - name: Update Successful Results
       ansible.builtin.set_fact:
-        interface_results: >-
-          {{ interface_results | combine(
+        interface_results_pass: >-
+          {{ interface_results_pass + [
             {
-              active_interface: {
-                "state": "pass",
-                "link_status": "up",
-                "protocol_status": "up"
-              }
-            }, recursive=true) }}
+              "interface": active_interface,
+              "state": "pass",
+              "link_status": "up",
+              "protocol_status": "up"
+            }
+          ] }}
+
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        interface_results: >-
-          {{ interface_results | combine(
+        interface_results_fail: >-
+          {{ interface_results_fail + [
             {
-              active_interface: {
-                "state": "fail",
-                "reason": status_result.msg
-              }
-            }, recursive=true) }}
+              "interface": active_interface,
+              "state": "fail",
+              "reason": interface_result.msg
+            }
+          ] }}

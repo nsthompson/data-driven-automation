@@ -38,3 +38,8 @@
       ansible.builtin.debug:
         msg: "{{ validation_results }}"
       run_once: true
+
+    - name: Output failed tests  # noqa: run-once[task]
+      ansible.builtin.debug:
+        msg: "{{ validation_results | find_failures }}"
+      run_once: true

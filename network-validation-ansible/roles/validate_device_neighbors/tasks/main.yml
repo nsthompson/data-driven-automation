@@ -14,12 +14,26 @@
 - name: Collect Neighbors from {{ inventory_hostname }}
   ansible.builtin.include_tasks: query_device_neighbors.yml
 
-- name: Define neighbor_results dict for {{ inventory_hostname }}
+- name: Define neighbor_results_pass list for {{ inventory_hostname }}
   ansible.builtin.set_fact:
-    neighbor_results: {}
+    neighbor_results_pass: []
+
+- name: Define neighbor_results_fail list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    neighbor_results_fail: []
 
 - name: Validate Device Neighbors
   ansible.builtin.include_tasks: validate_device_neighbors.yml
   loop: "{{ interface_data | dict2items }}"
   loop_control:
     loop_var: interface
+
+- name: Build topology_results for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    topology_results: >-
+      {
+        "neighbors": {
+          "pass": {{ neighbor_results_pass }},
+          "fail": {{ neighbor_results_fail }}
+        }
+      }

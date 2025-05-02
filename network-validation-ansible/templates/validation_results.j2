@@ -2,16 +2,16 @@
 {%- for device in ansible_play_hosts -%}
   "{{ device }}": {
     {%- if hostvars[device]['interface_results'] is defined -%}
-    "interface_results": {{ hostvars[device]['interface_results'] }},
+    "validate_operational_state": {{ hostvars[device]['interface_results'] }},
     {%- endif -%}
-    {%- if hostvars[device]['neighbor_results'] is defined -%}
-    "neighbor_results": {{ hostvars[device]['neighbor_results'] }},
+    {%- if hostvars[device]['topology_results'] is defined -%}
+    "validate_device_neighbors": {{ hostvars[device]['topology_results'] }},
     {%- endif -%}
-    {%- if hostvars[device]['ospf_status_results'] is defined -%}
-    "ospf_status_results": {{ hostvars[device]['ospf_status_results'] }},
+    {%- if hostvars[device]['ospf_results'] is defined -%}
+    "validate_ospf_routing": {{ hostvars[device]['ospf_results'] }},
     {%- endif -%}
-    {%- if hostvars[device]['bgp_status_results'] is defined -%}
-    "bgp_status_results": {{ hostvars[device]['bgp_status_results'] }},
+    {%- if hostvars[device]['bgp_results'] is defined -%}
+    "validate_bgp_routing": {{ hostvars[device]['bgp_results'] }},
     {%- endif -%}
   }{{ "," if not loop.last }}
 {%- endfor -%}

@@ -13,28 +13,25 @@
 
     - name: Update Successful Results
       ansible.builtin.set_fact:
-        bgp_status_results: >-
-          {{ bgp_status_results | combine(
+        bgp_neighbor_results_pass: >-
+          {{ bgp_neighbor_results_pass + [
             {
-              "bgp_sessions": {
-                session.name: {
-                  "neighbor": neighbor.bgp_neighbor,
-                  "remote_as": neighbor.neighbor_as,
-                  "prefixes": neighbor.state_or_prefixes_received,
-                  "state": "pass"
-                }
-              }
-            }, recursive=true) }}
+              "session": session.name,
+              "neighbor": neighbor.bgp_neighbor,
+              "remote_as": neighbor.neighbor_as,
+              "prefixes": neighbor.state_or_prefixes_received,
+              "state": "pass"
+            }
+          ] }}
+
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
         bgp_status_results: >-
-          {{ bgp_status_results | combine(
+          {{ bgp_neighbor_results_fail + [
             {
-              "bgp_sessions": {
-                session.name: {
-                  "state": "fail",
-                  "reason": bgp_status_result.msg
-                }
-              }
-            }, recursive=true) }}
+              "session": session.name,
+              "state": "fail",
+              "reason": bgp_status_result.msg
+            }
+          ] }}

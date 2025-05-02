@@ -14,12 +14,26 @@
 - name: Collect show interface output from {{ inventory_hostname }}
   ansible.builtin.include_tasks: query_show_interface.yml
 
-- name: Define interface_results dict for {{ inventory_hostname }}
+- name: Define interface_results_pass list for {{ inventory_hostname }}
   ansible.builtin.set_fact:
-    interface_results: {}
+    interface_results_pass: []
+
+- name: Define interface_results_fail list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    interface_results_fail: []
 
 - name: Validate interface status on {{ inventory_hostname }}
   ansible.builtin.include_tasks: validate_interface_status.yml
   loop: "{{ active_interfaces }}"
   loop_control:
     loop_var: active_interface
+
+- name: Build interface_results for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    interface_results: >-
+      {
+        "operational_state": {
+          "pass": {{ interface_results_pass }},
+          "fail": {{ interface_results_fail }}
+        }
+      }

@@ -17,14 +17,13 @@
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        bgp_status_results: >-
-          {{ bgp_status_results | combine(
+        bgp_neighbor_results_fail: >-
+          {{ bgp_neighbor_results_fail + [
             {
-              "bgp_neighbors": {
-                "state": "fail",
-                "reason": bgp_neighbor_result.msg
-              }
-            }, recursive=true) }}
+              "state": "fail",
+              "reason": bgp_neighbor_result.msg
+            }
+          ] }}
 
 - name: Define BGP neighbor list
   ansible.builtin.set_fact:

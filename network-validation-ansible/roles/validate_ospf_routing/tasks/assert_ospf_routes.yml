@@ -12,31 +12,27 @@
 
     - name: Update Successful Results
       ansible.builtin.set_fact:
-        ospf_status_results: >-
-          {{ ospf_status_results | combine(
-            {
-              "routes": {
-                route.network: {
-                  "prefix_length": route.prefix_length,
-                  "nexthop_ip": route.nexthop_ip,
-                  "nexthop_if": route.nexthop_if,
-                  "state": "pass"
-                }
+        ospf_route_results_pass: >-
+          {{ ospf_route_results_pass + [
+              {
+                "route": route.network,
+                "prefix_length": route.prefix_length,
+                "nexthop_ip": route.nexthop_ip,
+                "nexthop_if": route.nexthop_if,
+                "state": "pass"
               }
-            }, recursive=true) }}
+            ] }}
   rescue:
     - name: Update Failure Results
       ansible.builtin.set_fact:
-        ospf_status_results: >-
-          {{ ospf_status_results | combine(
-            {
-              "routes": {
-                route.network: {
-                  "prefix_length": route.prefix_length,
-                  "nexthop_ip": route.nexthop_ip,
-                  "nexthop_if": route.nexthop_if,
-                  "state": "fail",
-                  "reason": ospf_route_result.msg
-                }
+        ospf_route_results_fail: >-
+          {{ ospf_route_results_fail + [
+              {
+                "route": route.network,
+                "prefix_length": route.prefix_length,
+                "nexthop_ip": route.nexthop_ip,
+                "nexthop_if": route.nexthop_if,
+                "state": "fail",
+                "reason": ospf_route_result.msg
               }
-            }, recursive=true) }}
+          ] }}

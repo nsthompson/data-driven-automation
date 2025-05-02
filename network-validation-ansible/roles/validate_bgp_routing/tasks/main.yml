@@ -12,9 +12,16 @@
   ansible.builtin.include_tasks: query_bgp_sessions.yml
   when: '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
 
-- name: Define bgp_status_results dict for {{ inventory_hostname }}
+- name: Define bgp_neighbor_results_pass list for {{ inventory_hostname }}
   ansible.builtin.set_fact:
-    bgp_status_results: {}
+    bgp_neighbor_results_pass: []
+  when:
+    - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+    - bgp_session_data | length > 0
+
+- name: Define bgp_neighbor_results_fail list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    bgp_neighbor_results_fail: []
   when:
     - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
     - bgp_session_data | length > 0
@@ -34,8 +41,37 @@
   loop_control:
     loop_var: session
 
+- name: Define bgp_route_results_pass list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    bgp_route_results_pass: []
+  when:
+    - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+    - bgp_session_data | length > 0
+
+- name: Define bgp_route_results_fail list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    bgp_route_results_fail: []
+  when:
+    - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
+    - bgp_session_data | length > 0
+
 - name: Validate BGP Routes on {{ inventory_hostname }}
   ansible.builtin.include_tasks: validate_bgp_routes.yml
   when:
     - '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'
     - parsed_bgp_routes | length > 0
+
+- name: Build bgp_results for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    bgp_results: >-
+      {
+        "neighbors": {
+          "pass": {{ bgp_neighbor_results_pass }},
+          "fail": {{ bgp_neighbor_results_fail }}
+        },
+        "routes": {
+          "pass": {{ bgp_route_results_pass }},
+          "fail": {{ bgp_route_results_fail }}
+        }
+      }
+  when: '"ios" in platforms and custom_fields.enable_bgp is defined and custom_fields.enable_bgp'

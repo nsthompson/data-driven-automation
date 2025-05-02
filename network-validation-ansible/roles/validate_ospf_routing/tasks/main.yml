@@ -12,9 +12,14 @@
   ansible.builtin.include_tasks: query_device_interfaces.yml
   when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
 
-- name: Define ospf_status_results dict for {{ inventory_hostname }}
+- name: Define ospf_neighbor_results_pass list for {{ inventory_hostname }}
   ansible.builtin.set_fact:
-    ospf_status_results: {}
+    ospf_neighbor_results_pass: []
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+
+- name: Define ospf_neighbor_results_fail list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    ospf_neighbor_results_fail: []
   when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
 
 - name: Query OSPF State on {{ inventory_hostname }}
@@ -30,8 +35,33 @@
   loop_control:
     loop_var: interface
 
+- name: Define ospf_route_results_pass list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    ospf_route_results_pass: []
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+
+- name: Define ospf_route_results_fail list for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    ospf_route_results_fail: []
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
+
 - name: Validate OSPF Routes on {{ inventory_hostname }}
   ansible.builtin.include_tasks: validate_ospf_routes.yml
   when:
     - '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
     - parsed_ospf_routes | length > 0
+
+- name: Build ospf_results for {{ inventory_hostname }}
+  ansible.builtin.set_fact:
+    ospf_results: >-
+      {
+        "neighbors": {
+          "pass": {{ ospf_neighbor_results_pass }},
+          "fail": {{ ospf_neighbor_results_fail }}
+        },
+        "routes": {
+          "pass": {{ ospf_route_results_pass }},
+          "fail": {{ ospf_route_results_fail }}
+        }
+      }
+  when: '"ios" in platforms and custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2'
