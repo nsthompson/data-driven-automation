@@ -1,18 +1,19 @@
 {# parse bgp process data #}
-{% if custom_fields.enable_bgp and bgp_data is defined %}
+{% if custom_fields.enable_bgp and bgp_sessions is defined and local_asn is defined %}
 global_config:
-  as_number: {{ bgp_data.local_as.asn }}
+  as_number: {{ local_asn }}
   address_family:
     - afi: ipv4
       bgp:
       neighbors:
-{%      set remote_addr = (bgp_data.remote_address.address | ansible.utils.ipaddr('address')) %}
-        - neighbor_address: {{ remote_addr }}
-          description: '{{ bgp_data.remote_address.description }}'
-          remote_as: {{ bgp_data.remote_as.asn }}
+{%      for session in bgp_sessions %}
+        - neighbor_address: {{ (session.remote_address.address | ansible.utils.ipaddr('address')) }}
+          description: '{{ session.remote_address.description }}'
+          remote_as: {{ session.remote_as.asn }}
           soft_reconfiguration: true
           log_neighbor_changes:
             set: true
+{%      endfor %}
       redistribute:
         - connected:
             set: true

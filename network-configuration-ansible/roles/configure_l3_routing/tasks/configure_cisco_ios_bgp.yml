@@ -10,11 +10,20 @@
 
 - name: Populate BGP Session Data
   ansible.builtin.set_fact:
-    bgp_data: "{{ session_response.json.results[0] }}"
+    bgp_sessions: "{{ session_response.json.results }}"
 
 - name: Query Netbox Site Prefix Data
   ansible.builtin.set_fact:
-    prefix_data: "{{ lookup('netbox.netbox.nb_lookup', 'prefixes', api_filter='site=' + bgp_data.site.slug) }}"
+    prefix_data: >-
+      {{ prefix_data | default([]) + lookup('netbox.netbox.nb_lookup', 'prefixes', api_filter='site=' + session.site.slug) }}
+  loop: "{{ bgp_sessions }}"
+  loop_control:
+    loop_var: session
+
+- name: Parse bgp_sessions for local AS number
+  ansible.builtin.set_fact:
+    local_asn: "{{ bgp_sessions | community.general.json_query('[*].local_as.asn') | unique | first }}"
+  when: (bgp_sessions | community.general.json_query('[*].local_as.asn') | unique ) | length == 1
 
 - name: Parse BGP Configuration Data
   ansible.builtin.set_fact:
@@ -30,6 +39,6 @@
 - name: Configure BGP Route Redistribution into OSPF
   cisco.ios.ios_config:
     lines:
-      - "{{ 'redistribute bgp ' + (bgp_data.local_as.asn | string) }}"
+      - "{{ 'redistribute bgp ' + local_asn }}"
     parents: "{{ 'router ospf ' + (custom_fields.ospfv2_process_id | string) }}"
   when: custom_fields.enable_ospfv2 is defined and custom_fields.enable_ospfv2 and custom_fields.ospfv2_process_id is not none
