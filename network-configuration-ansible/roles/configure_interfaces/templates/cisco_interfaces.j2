@@ -15,7 +15,7 @@ l2_config:
   trunk:
     allowed_vlans:
 {%      for vlan in interface.tagged_vlans %}
-    - {{ vlan.vid }}
+    - '{{ vlan.vid }}'
 {%      endfor %}
     encapsulation: dot1q
 {%    elif interface.untagged_vlan %}
