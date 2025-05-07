@@ -30,8 +30,10 @@
       {{ l2_trunk_configuration | default([]) +
         [{
           'name': interface.l2_config.name,
+          'mode': interface.l2_config.mode,
           'trunk': {
-            'encapsulation': interface.l2_config.trunk.encapsulation
+            'encapsulation': interface.l2_config.trunk.encapsulation,
+            'allowed_vlans': interface.l2_config.trunk.allowed_vlans
             }
         }]
       }}

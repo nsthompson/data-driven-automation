@@ -15,7 +15,7 @@ l2_config:
   trunk:
     allowed_vlans:
 {%      for vlan in interface.tagged_vlans %}
-    - {{ vlan.vid }}
+    - '{{ vlan.vid }}'
 {%      endfor %}
     encapsulation: dot1q
 {%    elif interface.untagged_vlan %}
@@ -47,7 +47,7 @@ interface_config:
   enabled: {{ interface.enabled }}
 {% if (interface.ip_addresses | length >= 1 and "Ethernet" in interface.name) and ("edge-router" not in device_roles and "wan-router" not in device_roles) %}
   mode: layer3
-{% elif (interface.ip_addresses | length < 1 and "Ethernet" in interface.name) and ("edge-router" not in device_roles and "wan-router" not in device_roles) %}
+{% elif (interface.ip_addresses | length < 1 and "Ethernet" in interface.name) and ("edge-router" not in device_roles and "wan-router" not in device_roles) and ("cisco-iol-l2" not in device_types) %}
   mode: layer2
 {% endif %}
 {% if interface.description != "" %}
