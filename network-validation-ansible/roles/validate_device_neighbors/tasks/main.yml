@@ -13,6 +13,7 @@
 
 - name: Collect Neighbors from {{ inventory_hostname }}
   ansible.builtin.include_tasks: query_device_neighbors.yml
+  when: '"ios" in platforms'
 
 - name: Define neighbor_results_pass list for {{ inventory_hostname }}
   ansible.builtin.set_fact:
