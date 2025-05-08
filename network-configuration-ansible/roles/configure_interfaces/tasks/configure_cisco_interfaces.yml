@@ -30,10 +30,8 @@
       {{ l2_trunk_configuration | default([]) +
         [{
           'name': interface.l2_config.name,
-          'mode': interface.l2_config.mode,
           'trunk': {
-            'encapsulation': interface.l2_config.trunk.encapsulation,
-            'allowed_vlans': interface.l2_config.trunk.allowed_vlans
+            'encapsulation': interface.l2_config.trunk.encapsulation
             }
         }]
       }}
@@ -80,7 +78,7 @@
 - name: Configure L2 Interface Trunk Modes
   cisco.ios.ios_l2_interfaces:
     config: "{{ l2_trunk_configuration }}"
-    state: replaced
+    state: merged
   when: l2_trunk_configuration is defined
   notify: Save IOS Running Configurations
 
