@@ -4,10 +4,10 @@
       ansible.builtin.assert:
         that:
           - parsed_interface.link_status == "up"
-          - parsed_interface.link_status == "up"
+          - '"up" in parsed_interface.protocol_status'
         fail_msg: >-
           Interface {{ active_interface }} has link status {{ parsed_interface.link_status }}
-          and protocol status {{ parsed_interface.link_status }}.
+          and protocol status {{ parsed_interface.protocol_status }}.
         success_msg: "Interface {{ active_interface }} is up/up"
         quiet: true
       register: interface_result
