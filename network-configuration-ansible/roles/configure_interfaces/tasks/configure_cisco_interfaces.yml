@@ -78,7 +78,7 @@
 - name: Configure L2 Interface Trunk Modes
   cisco.ios.ios_l2_interfaces:
     config: "{{ l2_trunk_configuration }}"
-    state: replaced
+    state: merged
   when: l2_trunk_configuration is defined
   notify: Save IOS Running Configurations
 
