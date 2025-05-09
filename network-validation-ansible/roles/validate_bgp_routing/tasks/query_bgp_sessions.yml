@@ -1,34 +1,41 @@
 - name: Query for active BGP sessions
   block:
+    - name: Construct API filter for {{ inventory_hostname }}
+      ansible.builtin.set_fact:
+        bgp_filter: "{{ 'status=active device=' + inventory_hostname }}"
+
     - name: Querying active BGP session for {{ inventory_hostname }}
-      ansible.builtin.uri:
-        url: "{{ netbox_url }}/api/plugins/bgp/session/?device={{ inventory_hostname }}&status=active"
-        headers:
-          Authorization: "Token {{ netbox_token }}"
-        return_content: true
-        status_code: 200
-      register: bgp_session_response
+      ansible.builtin.set_fact:
+        bgp_session_response: >-
+          {{ query(
+            'netbox.netbox.nb_lookup',
+            'session',
+            plugin='bgp',
+            api_filter=bgp_filter,
+            api_endpoint=netbox_url,
+            token=netbox_token)
+          }}
 
     - name: Parse BGP session data
       ansible.builtin.set_fact:
         bgp_session_data: >-
           {{ bgp_session_data | default([]) +
             [{
-              "name": session.name,
-              "description": session.description,
-              "device": session.device.display,
-              "site": session.site.name,
-              "local_as": session.local_as.asn,
-              "local_ip": session.local_address.address,
-              "remote_as": session.remote_as.asn,
-              "remote_ip": session.remote_address.address,
-              "prefix_list_in": session.prefix_list_in,
-              "prefix_list_out": session.prefix_list_out,
-              "peer_group": session.peer_group,
-              "tenant": session.tenant
+              "name": session.value.name,
+              "description": session.value.description,
+              "device": session.value.device.display,
+              "site": session.value.site.name,
+              "local_as": session.value.local_as.asn,
+              "local_ip": session.value.local_address.address,
+              "remote_as": session.value.remote_as.asn,
+              "remote_ip": session.value.remote_address.address,
+              "prefix_list_in": session.value.prefix_list_in,
+              "prefix_list_out": session.value.prefix_list_out,
+              "peer_group": session.value.peer_group,
+              "tenant": session.value.tenant
             }]
           }}
-      loop: "{{ bgp_session_response.json.results }}"
+      loop: "{{ bgp_session_response }}"
       loop_control:
         loop_var: session
   rescue:
