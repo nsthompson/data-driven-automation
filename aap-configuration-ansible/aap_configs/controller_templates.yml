@@ -46,6 +46,7 @@ controller_templates:
     project: data-driven-automation
     playbook: network-validation-ansible/validate-network.yml
     ask_variables_on_launch: true
+    ask_tags_on_launch: true
     credentials:
       - NetBox API Key
     verbosity: 0

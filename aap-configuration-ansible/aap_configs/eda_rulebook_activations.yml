@@ -1,0 +1,15 @@
+---
+eda_rulebook_activations:
+  - name: NetBox Webhook
+    description: NetBox Webhook EDA Rulebook
+    project: data-driven-automation
+    rulebook: "netbox-webhook-rulebook.yml"
+    decision_environment: "Automation Hub Default Decision Environment"
+    organization: "Data-Driven-Automation"
+    eda_credentials: "AAP Credential"
+    enabled: true
+    restart_policy: always
+    log_level: debug
+    event_streams:
+      - event_stream: "NetBox Event Stream"
+        source_name: "Listen for events from NetBox"

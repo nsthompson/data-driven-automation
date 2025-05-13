@@ -29,6 +29,7 @@
     - {role: infra.aap_configuration.controller_job_templates, when: controller_templates is defined and aap_token is defined}
     - {role: infra.aap_configuration.controller_workflow_job_templates, when: controller_workflows is defined and aap_token is defined}
     # Configure EDA
-    - {role: infra.aap_configuration.eda_credentials, when: eda_credentials is defined and eda_token is defined}
-    - {role: infra.aap_configuration.eda_projects, when: eda_projects is defined and eda_token is defined}
-    - {role: infra.aap_configuration.eda_event_streams, when: eda_event_streams is defined and eda_token is defined}
+    - {role: infra.aap_configuration.eda_credentials, when: eda_credentials is defined}
+    - {role: infra.aap_configuration.eda_projects, when: eda_projects is defined}
+    - {role: infra.aap_configuration.eda_event_streams, when: eda_event_streams is defined}
+    - {role: infra.aap_configuration.eda_rulebook_activations, when: eda_rulebook_activations is defined}

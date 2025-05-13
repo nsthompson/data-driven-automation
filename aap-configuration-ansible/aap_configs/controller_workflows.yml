@@ -33,3 +33,38 @@ controller_workflows:
           type: job_template
           organization:
             name: Data-Driven-Automation
+  - name: Configure and Validate Network from NetBox
+    description: Workflow to deploy configuration changes and validate operational state of network after receiving webhook from NetBox
+    survey_enabled: false
+    allow_simultaneous: false
+    ask_variables_on_launch: false
+    ask_inventory_on_launch: false
+    ask_scm_branch_on_launch: false
+    ask_limit_on_launch: false
+    organization:
+      name: Data-Driven-Automation
+    inventory:
+      name: data-driven-automation
+    workflow_nodes:
+      - all_parents_must_converge: false
+        identifier: configure_network
+        unified_job_template:
+          name: Configure Network from NetBox
+          type: job_template
+          organization:
+            name: Data-Driven-Automation
+        related:
+          success_nodes:
+            - unified_job_template:
+                name: Configure and Validate Network from Netbox
+                type: job_template
+                organization:
+                  name: Data-Driven-Automation
+              identifier: validate_network
+      - all_parents_must_converge: false
+        identifier: validate_network
+        unified_job_template:
+          name: Validate Network
+          type: job_template
+          organization:
+            name: Data-Driven-Automation

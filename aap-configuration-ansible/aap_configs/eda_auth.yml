@@ -1,2 +1,3 @@
-eda_token: "{{ lookup('ansible.builtin.env', 'CONTROLLER_TOKEN', default=undef()) }}"
+aap_username: "{{ lookup('ansible.builtin.env', 'AAP_USERNAME', default=undef()) }}"
+aap_password: "{{ lookup('ansible.builtin.env', 'AAP_PASSWORD', default=undef()) }}"
 eda_validate_certs: false
