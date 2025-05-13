@@ -36,11 +36,12 @@ controller_workflows:
   - name: Configure and Validate Network from NetBox
     description: Workflow to deploy configuration changes and validate operational state of network after receiving webhook from NetBox
     survey_enabled: false
-    allow_simultaneous: false
-    ask_variables_on_launch: false
+    allow_simultaneous: true
+    ask_variables_on_launch: true
     ask_inventory_on_launch: false
     ask_scm_branch_on_launch: false
-    ask_limit_on_launch: false
+    ask_limit_on_launch: true
+    ask_tags_on_launch: true
     organization:
       name: Data-Driven-Automation
     inventory:

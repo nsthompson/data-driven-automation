@@ -15,8 +15,8 @@
           (event.payload.event == "updated" and event.payload.model == "device") or
           (event.payload.event == "updated" and event.payload.model == "interface")
       action:
-        run_job_template:
-          name: Configure Network from NetBox
+        run_workflow_template:
+          name: Configure and Validate Network from NetBox
           organization: Data-Driven-Automation
           job_args:
             limit: "{{ event.payload.data.device.name }}"

@@ -64,11 +64,11 @@
       when: target_tags is defined
 
     - name: Launch playbook to configure target hosts
-      ansible.controller.job_launch:
+      ansible.controller.workflow_launch:
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauth_token }}"
-        job_template: Configure Demo Network from NetBox
-        organization: Data-Driven-Demo
+        workflow_template: Configure and Validate Network from NetBox
+        organization: Data-Driven-Automation
         limit: "{{ target_hosts }}"
         tags: "{{ target_tags | default(omit) }}"
         validate_certs: "{{ controller_verify_ssl | default(omit) }}"
