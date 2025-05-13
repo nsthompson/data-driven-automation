@@ -23,10 +23,10 @@
       when: not netbox_token is defined
 
   roles:
-    - {role: validate_operational_state}
-    - {role: validate_device_neighbors}
-    - {role: validate_ospf_routing}
-    - {role: validate_bgp_routing}
+    - {role: validate_operational_state, tags: ['device', 'interface']}
+    - {role: validate_device_neighbors, tags: ['device', 'interface']}
+    - {role: validate_ospf_routing, tags: ['routing', 'interface']}
+    - {role: validate_bgp_routing, tags: ['routing', 'interface']}
 
   post_tasks:
     - name: Aggregate results  # noqa: run-once[task]

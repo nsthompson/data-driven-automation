@@ -1,4 +1,5 @@
 {
     "ansible.python.interpreterPath": "/usr/local/bin/python",
-    "terminal.integrated.scrollback": 10000
+    "terminal.integrated.scrollback": 10000,
+    "codesnap-plus.transparentBackground": true
 }
