@@ -33,13 +33,16 @@
       run_once: true
       ansible.builtin.set_fact:
         validation_results: "{{ lookup('template', './templates/validation_results.j2') }}"
+      tags: always
 
     - name: Debug aggregate results  # noqa: run-once[task]
       run_once: true
       ansible.builtin.debug:
         msg: "{{ validation_results }}"
+      tags: always
 
     - name: Debug failed tests  # noqa: run-once[task]
       run_once: true
       ansible.builtin.debug:
         msg: "{{ validation_results | find_failures }}"
+      tags: always
