@@ -125,3 +125,8 @@
         tags: "{{ target_tags | default(omit) }}"
         validate_certs: "{{ controller_verify_ssl | default(omit) }}"
       when: run_automation and target_hosts != ""
+
+    - name: Not running automation because run_automation is false
+      ansible.builtin.debug:
+        msg: "Not running automation due to change in NetBox being in non-main branch"
+      when: not run_automation
