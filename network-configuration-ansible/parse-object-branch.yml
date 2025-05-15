@@ -65,8 +65,9 @@
       loop_control:
         loop_var: change
 
-    - name: End play due to change in NetBox being in non-main branch
-      ansible.builtin.meta: end_play
+    - name: Fail play due to change in NetBox being in non-main branch
+      ansible.builtin.fail:
+        msg: "Not running automation due to change in NetBox being in non-main branch"
       when: changed_branches | length > 0
 
     - name: Change happened in main branch continue to next step in workflow.
