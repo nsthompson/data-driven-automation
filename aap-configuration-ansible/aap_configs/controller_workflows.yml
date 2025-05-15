@@ -69,3 +69,54 @@ controller_workflows:
           type: job_template
           organization:
             name: Data-Driven-Automation
+  - name: Parse Branch then Configure and Validate Network from NetBox
+    description: Workflow to deploy configuration changes and validate operational state of network after receiving webhook from NetBox
+    survey_enabled: false
+    allow_simultaneous: true
+    ask_variables_on_launch: true
+    ask_inventory_on_launch: false
+    ask_scm_branch_on_launch: false
+    ask_limit_on_launch: true
+    ask_tags_on_launch: true
+    organization:
+      name: Data-Driven-Automation
+    inventory:
+      name: data-driven-automation
+    workflow_nodes:
+      - all_parents_must_converge: false
+        identifier: parse_branch
+        unified_job_template:
+          name: Parse NetBox Object Branch
+          type: job_template
+          organization:
+            name: Data-Driven-Automation
+        related:
+          success_nodes:
+            - unified_job_template:
+                name: Parse Branch then Configure and Validate Network from NetBox
+                type: job_template
+                organization:
+                  name: Data-Driven-Automation
+              identifier: configure_network
+      - all_parents_must_converge: false
+        identifier: configure_network
+        unified_job_template:
+          name: Configure Network from NetBox
+          type: job_template
+          organization:
+            name: Data-Driven-Automation
+        related:
+          success_nodes:
+            - unified_job_template:
+                name: Parse Branch then Configure and Validate Network from NetBox
+                type: job_template
+                organization:
+                  name: Data-Driven-Automation
+              identifier: validate_network
+      - all_parents_must_converge: false
+        identifier: validate_network
+        unified_job_template:
+          name: Validate Network
+          type: job_template
+          organization:
+            name: Data-Driven-Automation

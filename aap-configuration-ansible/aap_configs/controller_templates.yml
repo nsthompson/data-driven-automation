@@ -104,3 +104,15 @@ controller_templates:
       - NetBox API Key
     verbosity: 0
     state: present
+  - name: Parse NetBox Object Branch
+    organization: Data-Driven-Automation
+    job_type: run
+    inventory: data-driven-automation
+    execution_environment: network-ee
+    project: data-driven-automation
+    playbook: network-configuration-ansible/parse-object-branch.yml
+    ask_variables_on_launch: true
+    credentials:
+      - NetBox API Key
+    verbosity: 0
+    state: present
