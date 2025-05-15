@@ -21,27 +21,27 @@ We explored this data-centric automation approach with a live demonstration wher
 
 ## Projects
 
-### aap-configuration-ansible
+### `aap-configuration-ansible`
 
 This directory contains the Ansible playbooks and data to populate `AAP-as-code` with the necessary configuration to run the demos from this repository.
 
-### netbox-ansible
+### `netbox-ansible`
 
 This directory contains the Ansible roles, playbooks, and data to populate a NetBox instance with the data required to run the demonstration.  This automation has been tested against both NetBox Cloud and NetBox Community.
 
-### netbox-containerlab-ansible
+### `netbox-containerlab-ansible`
 
 This directory contains the Ansible roles and playbooks to generate and deploy Containerlab topology files from the topology data in NetBox.
 
-### network-configuration-ansible
+### `network-configuration-ansible`
 
 This directory contains the Ansible roles and playbooks to manage the configuration of the network using the data in NetBox.
 
-### network-validation-ansible
+### `network-validation-ansible`
 
 This directory contains the Ansible roles and playbooks to validate the current network state against intended state data in NetBox.
 
-### rulebooks
+### `rulebooks`
 
 This directory contains the Event-Driven Ansible Rulebooks used to trigger automation when NetBox data is updated through the NetBox UI.
 
