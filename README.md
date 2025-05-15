@@ -4,7 +4,7 @@
 
 This repository contains the Ansible Roles, Playbooks, and Rulebooks to support the demonstrations shown during Red Hat Summit in Boston, MA on May 21st, 2025.
 
-![Presentation Title Slide](assets/Data-Driven-Automation-Title-Slide.png)
+![Presentation Title Slide](assets/images/Data-Driven-Automation-Title-Slide.png)
 
 ### Session Abstract
 
