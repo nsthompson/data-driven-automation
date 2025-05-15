@@ -1,0 +1,75 @@
+---
+- name: Playbook to validate if a changed object exists in a NetBox branch other than main
+  hosts: all
+  gather_facts: false
+  vars:
+    netbox_url: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
+    netbox_token: "{{ lookup('ansible.builtin.env', 'NETBOX_TOKEN', default=undef()) }}"
+
+  module_defaults:
+    group/netbox.netbox.netbox:
+      netbox_url: "{{ netbox_url }}"
+      netbox_token: "{{ netbox_token }}"
+
+  pre_tasks:
+    - name: Check for Netbox URL
+      ansible.builtin.fail:
+        msg: "netbox_url is undefined"
+      when: not netbox_url is defined
+
+    - name: Check for Netbox Token
+      ansible.builtin.fail:
+        msg: "netbox_token is undefined"
+      when: not netbox_token is defined
+
+    - name: Set object_id from EDA payload
+      ansible.builtin.set_fact:
+        object_id: "{{ ansible_eda.event.payload.data.id }}"
+
+    - name: Set model from EDA payload
+      ansible.builtin.set_fact:
+        model: "{{ ansible_eda.event.payload.model }}"
+
+  tasks:
+    - name: Construct API filter for {{ "model " + model + " and object_id " + object_id }}
+      ansible.builtin.set_fact:
+        object_filter: "{{ 'object_id=' + object_id + ' model=' + model }}"
+      when: object_id is defined and model is defined
+
+    - name: Querying Branching Plugin for changed object
+      ansible.builtin.set_fact:
+        branch_change_response: >-
+          {{ query(
+            'netbox.netbox.nb_lookup',
+            'changes',
+            plugin='branching',
+            apifilter=object_filter,
+            api_endpoint=netbox_url,
+            token=netbox_token)
+          }}
+      when: object_filter is defined
+
+    - name: Create Empty list changed_branches
+      ansible.builtin.set_fact:
+        changed_branches: []
+      when: branch_change_response is defined
+
+    - name: Parse changed branch names
+      ansible.builtin.set_fact:
+        changed_branches: "{{ changed_branches + [change.value.branch.name] }}"
+      when:
+        - branch_change_response is defined
+        - branch_change_response | length > 0
+        - change.value.branch.status.value == "ready"
+      loop: "{{ branch_change_response }}"
+      loop_control:
+        loop_var: change
+
+    - name: End play due to change in NetBox being in non-main branch
+      ansible.builtin.meta: end_play
+      when: changed_branches | length > 0
+
+    - name: Change happened in main branch continue to next step in workflow.
+      ansible.builtin.debug:
+        msg: "Change in NetBox happened in main branch.  Moving on..."
+      when: changed_branches | length == 0
