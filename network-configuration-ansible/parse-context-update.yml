@@ -35,33 +35,85 @@
         msg: "controller_oauth_token is undefined"
       when: not controller_oauth_token is defined
 
+    - name: Set object_id from EDA payload
+      ansible.builtin.set_fact:
+        object_id: "{{ ansible_eda.event.payload.data.id }}"
+
+    - name: Set model from EDA payload
+      ansible.builtin.set_fact:
+        model: "{{ ansible_eda.event.payload.model }}"
+
   tasks:
+    - name: Construct API filter for {{ "model " + model + " and object_id " + object_id }}
+      ansible.builtin.set_fact:
+        object_filter: "{{ 'object_id=' + object_id + ' model=' + model }}"
+      when: object_id is defined and model is defined
+
+    - name: Querying Branching Plugin for changed object
+      ansible.builtin.set_fact:
+        branch_change_response: >-
+          {{ query(
+            'netbox.netbox.nb_lookup',
+            'changes',
+            plugin='branching',
+            apifilter=object_filter,
+            api_endpoint=netbox_url,
+            token=netbox_token)
+          }}
+      when: object_filter is defined
+
+    - name: Create Empty list changed_branches
+      ansible.builtin.set_fact:
+        changed_branches: []
+      when: branch_change_response is defined
+
+    - name: Parse changed branch names
+      ansible.builtin.set_fact:
+        changed_branches: "{{ changed_branches + [change.value.branch.name] }}"
+      when:
+        - branch_change_response is defined
+        - branch_change_response | length > 0
+        - change.value.branch.status.value == "ready"
+      loop: "{{ branch_change_response }}"
+      loop_control:
+        loop_var: change
+
+    - name: Confirm changed_branches is not empty and set run_automation boolean to false
+      ansible.builtin.set_fact:
+        run_automation: false
+      when: changed_branches | length > 0
+
+    - name: Change happened in main branch, set run_automation to true
+      ansible.builtin.set_fact:
+        run_automation: true
+      when: changed_branches | length == 0
+
     - name: Parse received event to build API filter
       ansible.builtin.set_fact:
         parsed_api_filter: "{{ lookup('template', 'templates/config_context_webhook.j2') }}"
-      when: ansible_eda.event.payload.data.is_active
+      when: run_automation and ansible_eda.event.payload.data.is_active
 
     - name: Look up hosts using the updated config context in NetBox
       ansible.builtin.set_fact:
         target_hosts: "{{
           lookup('netbox.netbox.nb_lookup', 'devices', api_filter=parsed_api_filter) | community.general.json_query('[*].value.name') | join(',')
           }}"
-      when: parsed_api_filter is defined
+      when: run_automation and parsed_api_filter is defined
 
     - name: Debug target hosts
       ansible.builtin.debug:
         msg: "{{ target_hosts }}"
-      when: target_hosts is defined
+      when: run_automation and target_hosts is defined
 
     - name: Parse tags
       ansible.builtin.set_fact:
         target_tags: "{{ ansible_eda.event.payload.data.data.controller_tags | join(',') }}"
-      when: ansible_eda.event.payload.data.data.controller_tags | length > 0
+      when: run_automation and ansible_eda.event.payload.data.data.controller_tags | length > 0
 
     - name: Debug target tags
       ansible.builtin.debug:
         msg: "{{ target_tags }}"
-      when: target_tags is defined
+      when: run_automation and target_tags is defined
 
     - name: Launch playbook to configure target hosts
       ansible.controller.workflow_launch:
@@ -72,4 +124,4 @@
         limit: "{{ target_hosts }}"
         tags: "{{ target_tags | default(omit) }}"
         validate_certs: "{{ controller_verify_ssl | default(omit) }}"
-      when: target_hosts != ""
+      when: run_automation and target_hosts != ""
