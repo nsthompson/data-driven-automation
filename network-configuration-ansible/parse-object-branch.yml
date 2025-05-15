@@ -1,6 +1,6 @@
 ---
 - name: Playbook to validate if a changed object exists in a NetBox branch other than main
-  hosts: all
+  hosts: localhost
   gather_facts: false
   vars:
     netbox_url: "{{ lookup('ansible.builtin.env', 'NETBOX_API', default=undef()) }}"
