@@ -48,6 +48,7 @@ RUN chmod 644 /etc/apt/sources.list.d/kubernetes.list
 
 RUN apt update
 RUN apt install -y kubectl kubectx
+RUN apt install -y git-lfs
 
 # Install Ansible Dependencies
 USER vscode
