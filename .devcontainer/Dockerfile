@@ -15,7 +15,8 @@ RUN apt -y install \
     curl \
     gnupg \
     libonig-dev \
-    libssh-dev
+    libssh-dev \
+    sshpass
 
 RUN apt update
 
